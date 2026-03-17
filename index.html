@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Precision Built in Mexicali</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:    #E8B800;
+      --red:     #B52200;
+      --gray-dk: #4A4744;
+      --gray-md: #737870;
+      --black:   #141312;
+      --black-s: #1C1B19;
+      --black-c: #232120;
+      --black-d: #0D0C0B;
+      --white:   #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--black);
+      color:var(--white);
+      font-family:'Barlow',sans-serif;
+      overflow-x:hidden;
+      cursor:none;
+    }
+
+    /* ── Cursor ── */
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 60px;height:68px;
+      background:rgba(20,19,18,.96);
+      backdrop-filter:blur(16px);
+      border-bottom:2px solid var(--gold);
+    }
+    .nav-logo {
+      font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;
+      letter-spacing:.18em;color:var(--white);text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;text-decoration:none;
+    }
+    .nav-logo span { color:var(--gold); }
+    .nav-shield {
+      width:28px;height:32px;background:var(--gold);
+      clip-path:polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%);
+      display:flex;align-items:center;justify-content:center;font-size:12px;
+    }
+    .nav-links { display:flex;gap:32px;list-style:none; }
+    .nav-links a {
+      color:var(--gray-md);text-decoration:none;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+      transition:color .3s;position:relative;padding-bottom:3px;
+    }
+    .nav-links a::after {
+      content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+      background:var(--gold);transition:width .3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-cta {
+      background:var(--red);color:var(--white);border:none;
+      padding:10px 26px;font-family:'Barlow Condensed',sans-serif;
+      font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      cursor:none;transition:background .3s;
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    }
+    .nav-cta:hover { background:#D42800; }
+
+    /* ── HERO SLIDER ── */
+    .hero {
+      position:relative;height:100vh;min-height:620px;overflow:hidden;
+    }
+    .hero-slides { position:absolute;inset:0; }
+    .hero-slide {
+      position:absolute;inset:0;opacity:0;
+      transition:opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity:1; }
+    .hero-slide img {
+      width:100%;height:100%;object-fit:cover;
+      transform:scale(1.05);transition:transform 8s ease;
+    }
+    .hero-slide.active img { transform:scale(1); }
+    .hero-slide::after {
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(105deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.4) 55%,rgba(0,0,0,.15) 100%);
+    }
+
+    .hero-content {
+      position:absolute;inset:0;z-index:2;
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:0 60px 80px;
+    }
+    .hero-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-weight:400;
+      font-size:11px;letter-spacing:.55em;color:var(--gold);
+      text-transform:uppercase;margin-bottom:14px;
+      display:flex;align-items:center;gap:14px;
+      opacity:0;transform:translateY(20px);
+      animation:fadeUp .8s .3s ease forwards;
+    }
+    .hero-eyebrow::before { content:'';width:28px;height:1px;background:var(--gold); }
+    .hero h1 {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(56px,8vw,110px);line-height:.9;
+      letter-spacing:.01em;text-transform:uppercase;
+      color:var(--white);margin-bottom:20px;
+      opacity:0;transform:translateY(24px);
+      animation:fadeUp .8s .5s ease forwards;
+    }
+    .hero h1 em { font-style:normal;color:var(--gold); }
+    .hero-desc {
+      font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;
+      max-width:460px;font-weight:300;margin-bottom:36px;
+      opacity:0;transform:translateY(20px);
+      animation:fadeUp .8s .7s ease forwards;
+    }
+    .hero-actions {
+      display:flex;gap:16px;align-items:center;
+      opacity:0;transform:translateY(20px);
+      animation:fadeUp .8s .9s ease forwards;
+    }
+    .hero-btn-primary {
+      background:var(--gold);color:var(--black);border:none;
+      padding:14px 36px;font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+      cursor:none;transition:background .3s;text-decoration:none;display:inline-block;
+      clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+    }
+    .hero-btn-primary:hover { background:#FFD000; }
+    .hero-btn-ghost {
+      color:rgba(255,255,255,.7);font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+      text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+      transition:color .3s;
+    }
+    .hero-btn-ghost:hover { color:var(--gold); }
+    .hero-btn-ghost::after { content:'→'; }
+
+    .hero-arrow {
+      position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+      width:48px;height:48px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.35);backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;color:var(--white);cursor:none;
+      transition:border-color .3s,background .3s,color .3s;
+    }
+    .hero-arrow:hover { border-color:var(--gold);color:var(--gold);background:rgba(0,0,0,.6); }
+    .hero-arrow.prev { left:28px; }
+    .hero-arrow.next { right:28px; }
+
+    .hero-dots {
+      position:absolute;bottom:32px;right:60px;z-index:3;
+      display:flex;gap:8px;align-items:center;
+    }
+    .hero-dot {
+      width:28px;height:2px;background:rgba(255,255,255,.25);
+      cursor:none;transition:background .4s,width .4s;
+    }
+    .hero-dot.active { background:var(--gold);width:44px; }
+
+    @keyframes fadeUp { to { opacity:1;transform:translateY(0); } }
+
+    /* ── MODELS BAR ── */
+    .models-bar {
+      background:var(--black-s);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      position:relative;z-index:10;
+    }
+    .models-bar-header {
+      text-align:center;padding:24px 60px 0;position:relative;
+    }
+    .models-bar-header::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.4;
+    }
+    .models-bar-title {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:11px;letter-spacing:.4em;color:var(--gray-md);text-transform:uppercase;
+    }
+    .models-bar-grid {
+      display:grid;grid-template-columns:repeat(4,1fr);
+    }
+    .model-tab {
+      display:flex;flex-direction:column;align-items:center;
+      padding:24px 16px 28px;
+      border:none;border-right:1px solid rgba(255,255,255,.05);
+      cursor:none;transition:background .3s;
+      position:relative;background:transparent;text-decoration:none;
+    }
+    .model-tab:last-child { border-right:none; }
+    .model-tab::after {
+      content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+      background:var(--gold);transform:scaleX(0);transform-origin:center;transition:transform .35s;
+    }
+    .model-tab:hover { background:rgba(255,255,255,.02); }
+    .model-tab:hover::after, .model-tab.active::after { transform:scaleX(1); }
+    .model-tab.active { background:rgba(232,184,0,.05); }
+    #tab-apollo::after { background:#5BB8F5; }
+    #tab-apollo.active .model-tab-name,
+    #tab-apollo:hover .model-tab-name { color:#5BB8F5; }
+    .model-tab-img {
+      width:100%;height:150px;object-fit:cover;
+      filter:brightness(.75) saturate(.8);
+      transition:filter .35s,transform .35s;margin-bottom:14px;
+    }
+    .model-tab:hover .model-tab-img,
+    .model-tab.active .model-tab-img { filter:brightness(1) saturate(1);transform:translateY(-3px); }
+    .model-tab-name {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:17px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--gray-md);transition:color .3s;margin-bottom:4px;
+    }
+    .model-tab:hover .model-tab-name,
+    .model-tab.active .model-tab-name { color:var(--white); }
+    .model-tab-tier {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;
+      font-size:9px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;
+    }
+    .model-tab-msrp {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:14px;color:var(--gold);margin-top:6px;
+    }
+
+    /* ── WHY CHOOSE US ── */
+    .why-section {
+      padding:96px 60px;background:var(--black);
+      border-top:1px solid rgba(255,255,255,.05);
+      position:relative;overflow:hidden;
+    }
+    .why-section::before {
+      content:'SG';position:absolute;right:-20px;top:50%;
+      transform:translateY(-50%);
+      font-family:'Oswald',sans-serif;font-size:300px;font-weight:700;
+      color:rgba(232,184,0,.025);pointer-events:none;
+    }
+    .why-header { text-align:center;margin-bottom:64px; }
+    .why-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;
+      font-size:10px;letter-spacing:.55em;color:var(--gold);
+      text-transform:uppercase;margin-bottom:14px;
+      display:flex;align-items:center;justify-content:center;gap:16px;
+    }
+    .why-eyebrow::before, .why-eyebrow::after { content:'';width:28px;height:1px;background:var(--gold);opacity:.5; }
+    .why-title {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(36px,4vw,54px);text-transform:uppercase;letter-spacing:.04em;
+    }
+    .why-title em { font-style:normal;color:var(--gold); }
+    .why-grid {
+      display:grid;grid-template-columns:repeat(5,1fr);gap:2px;
+    }
+    .why-card {
+      padding:40px 28px;text-align:center;
+      background:var(--black-c);position:relative;overflow:hidden;cursor:none;
+      transition:background .3s;
+    }
+    .why-card:hover { background:#2a2826; }
+    .why-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:2px;
+      background:var(--gold);transform:scaleX(0);transition:transform .4s;
+    }
+    .why-card:hover::before { transform:scaleX(1); }
+    .why-icon { font-size:44px;margin-bottom:20px;display:block;transition:transform .3s; }
+    .why-card:hover .why-icon { transform:scale(1.1); }
+    .why-card-title {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:15px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--white);margin-bottom:10px;transition:color .3s;
+    }
+    .why-card:hover .why-card-title { color:var(--gold); }
+    .why-card-desc { font-size:13px;color:var(--gray-md);line-height:1.7;font-weight:300; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--black-d);
+      border-top:2px solid var(--gold);
+      padding:56px 60px 32px;
+    }
+    .footer-top {
+      display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:48px;margin-bottom:48px;
+    }
+    .footer-brand {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:26px;letter-spacing:.15em;text-transform:uppercase;
+      margin-bottom:14px;display:flex;align-items:center;gap:10px;
+    }
+    .footer-brand span { color:var(--gold); }
+    .footer-brand-shield {
+      width:28px;height:32px;background:var(--gold);
+      clip-path:polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%);
+      display:flex;align-items:center;justify-content:center;font-size:12px;
+    }
+    .footer-tagline {
+      font-size:13px;color:var(--gray-md);line-height:1.7;
+      max-width:260px;font-weight:300;margin-bottom:24px;
+    }
+    .footer-social { display:flex;gap:12px; }
+    .footer-social a {
+      width:36px;height:36px;border:1px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--gray-md);text-decoration:none;font-size:13px;font-weight:600;
+      font-family:'Barlow Condensed',sans-serif;letter-spacing:0;
+      transition:border-color .3s,color .3s;
+    }
+    .footer-social a:hover { border-color:var(--gold);color:var(--gold); }
+    .footer-col-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:10px;letter-spacing:.45em;color:var(--gold);
+      text-transform:uppercase;margin-bottom:18px;
+    }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a {
+      color:var(--gray-md);text-decoration:none;font-size:13px;
+      font-weight:300;transition:color .3s;
+    }
+    .footer-links a:hover { color:var(--white); }
+    .footer-divider { height:1px;background:rgba(255,255,255,.05);margin-bottom:24px; }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+    .footer-copy {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:11px;color:var(--gray-dk);letter-spacing:.1em;
+    }
+    .footer-made { font-size:11px;color:var(--gray-dk);font-weight:300; }
+
+    .reveal { opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+<img src="img/logo.png" alt="SG Trailers" style="height:80px;width:auto;"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="catalog.html#financing">Financing</a></li>
+      <li><a href="catalog.html#guide">Owner's Guide</a></li>
+      <li><a href="catalog.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="window.location='catalog.html#contact'">Get a Quote</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide active">
+        <img src="img/hero-1.png" alt="SG Trailers"/>
+      </div>
+      <div class="hero-slide">
+        <img src="img/hero-2.png" alt="SG Trailers"/>
+      </div>
+    </div>
+
+    <button class="hero-arrow prev" onclick="moveSlide(-1)">&#8249;</button>
+    <button class="hero-arrow next" onclick="moveSlide(1)">&#8250;</button>
+
+    <div class="hero-dots">
+      <div class="hero-dot active" onclick="goSlide(0)"></div>
+      <div class="hero-dot" onclick="goSlide(1)"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Proudly manufactured in Yuma, Arizona</div>
+      <h1>Built to <em>Haul.</em><br>Built to Last.</h1>
+      <p class="hero-desc">Premium trailers engineered for real work. Direct from the manufacturer — no middlemen, no markups, no compromises.</p>
+      <div class="hero-actions">
+        <a href="#models" class="hero-btn-primary">Explore Models</a>
+        <a href="catalog.html#contact" class="hero-btn-ghost">Get a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELS BAR -->
+  <div class="models-bar" id="models">
+    <div class="models-bar-header">
+      <div class="models-bar-title">Trailer Models</div>
+    </div>
+    <div class="models-bar-grid">
+      <a href="catalog.html?model=apollo" class="model-tab active reveal" id="tab-apollo">
+        <img src="img/apollo-1.png" alt="Apollo" class="model-tab-img"/>
+        <div class="model-tab-name">Apollo</div>
+        <div class="model-tab-tier">Entry Level</div>
+      </a>
+      <a href="catalog.html?model=anubis" class="model-tab reveal" id="tab-anubis">
+        <img src="img/anubis-1.png" alt="Anubis" class="model-tab-img"/>
+        <div class="model-tab-name">Anubis</div>
+        <div class="model-tab-tier">Mid Range</div>
+      </a>
+      <a href="catalog.html?model=nemesis" class="model-tab reveal" id="tab-nemesis">
+        <img src="img/nemesis-1.png" alt="Nemesis" class="model-tab-img"/>
+        <div class="model-tab-name">Nemesis</div>
+        <div class="model-tab-tier">Upper Mid</div>
+      </a>
+      <a href="catalog.html?model=apocalypse" class="model-tab reveal" id="tab-apocalypse">
+        <img src="img/apocalypse-1.png" alt="Apocalypse" class="model-tab-img"/>
+        <div class="model-tab-name">Apocalypse</div>
+        <div class="model-tab-tier">Top of Line</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section">
+    <div class="why-header reveal">
+      <div class="why-eyebrow">Our Promise</div>
+      <h2 class="why-title">Why Choose <em>SG</em></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="why-icon">🏭</span>
+        <div class="why-card-title">Direct from Factory</div>
+        <div class="why-card-desc">No dealers, no middlemen. Buy directly from the manufacturer and get the best possible price.</div>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-icon">🔩</span>
+        <div class="why-card-title">Premium Materials</div>
+        <div class="why-card-desc">HD reinforced axles and top-brand components. Built to handle the toughest jobs without compromise.</div>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-icon">📐</span>
+        <div class="why-card-title">Built to Spec</div>
+        <div class="why-card-desc">Custom measurements available. We build from your design or work with you to find the right solution.</div>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-icon">🤝</span>
+        <div class="why-card-title">Dealer Program</div>
+        <div class="why-card-desc">Special pricing for distributors starting at 5 units. Direct factory relationship with dedicated support.</div>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-icon">🇺🇸</span>
+        <div class="why-card-title">Made in USA</div>
+        <div class="why-card-desc">Proudly manufactured in Yuma, Arizona. American quality built to work hard every day.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-shield">⚡</div>
+          SG <span>Trailers</span>
+        </div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Mexicali, Baja California. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social">
+          <a href="#">FB</a>
+          <a href="#">IG</a>
+          <a href="#">YT</a>
+          <a href="#">TK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apollo">Apollo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="catalog.html#financing">Financing</a></li>
+          <li><a href="catalog.html#guide">Owner's Guide</a></li>
+          <li><a href="#">Dealer Program</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html#contact">Get a Quote</a></li>
+          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+          <li><a href="#">Find a Dealer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers — Mexicali, B.C. México. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+
+    // Hero Slider
+    let cur2=0;
+    const slides=document.querySelectorAll('.hero-slide');
+    const dots=document.querySelectorAll('.hero-dot');
+    function goSlide(n){
+      slides[cur2].classList.remove('active');
+      dots[cur2].classList.remove('active');
+      cur2=(n+slides.length)%slides.length;
+      slides[cur2].classList.add('active');
+      dots[cur2].classList.add('active');
+    }
+    function moveSlide(dir){ goSlide(cur2+dir); }
+    setInterval(()=>moveSlide(1),6000);
+
+    // Model tab hover
+    document.querySelectorAll('.model-tab').forEach(tab=>{
+      tab.addEventListener('mouseenter',()=>{
+        document.querySelectorAll('.model-tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Reveal
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
