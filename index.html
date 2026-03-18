@@ -336,6 +336,68 @@
 
     .reveal { opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s; }
     .reveal.visible { opacity:1;transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet (max 1024px) */
+    @media (max-width:1024px) {
+      nav { padding:0 30px; }
+      .nav-links { gap:20px; }
+      .why-grid { grid-template-columns:repeat(3,1fr); }
+      .footer-top { grid-template-columns:1fr 1fr;gap:32px; }
+    }
+
+    /* Mobile (max 768px) */
+    @media (max-width:768px) {
+
+      /* NAV */
+      nav { padding:0 20px;height:60px; }
+      .nav-links { display:none; }
+      .nav-cta { padding:8px 16px;font-size:11px; }
+      .nav-logo img { height:32px; }
+
+      /* HERO */
+      .hero { min-height:100svh; }
+      .hero-content { padding:0 24px 120px; }
+      .hero h1 { font-size:clamp(40px,12vw,64px); }
+      .hero-desc { font-size:14px;max-width:100%; }
+      .hero-actions { flex-direction:column;align-items:flex-start;gap:12px; }
+      .hero-btn-primary { width:100%;text-align:center; }
+      .hero-arrow { width:36px;height:36px;font-size:18px; }
+      .hero-arrow.prev { left:12px; }
+      .hero-arrow.next { right:12px; }
+      .hero-dots { bottom:88px;right:24px; }
+
+      /* MODELS BAR */
+      .models-bar-grid { grid-template-columns:1fr; }
+      .model-tab { padding:16px 8px 20px; }
+      .model-tab-img { width:120px;height:60px; }
+      .model-tab-name { font-size:14px; }
+      .model-tab-msrp { font-size:12px; }
+
+      /* WHY */
+      .why-section { padding:60px 24px; }
+      .why-grid { grid-template-columns:1fr 1fr;gap:2px; }
+      .why-card { padding:28px 20px; }
+      .why-icon { font-size:32px;margin-bottom:14px; }
+      .why-card-title { font-size:13px; }
+      .why-card-desc { font-size:12px; }
+
+      /* FOOTER */
+      footer { padding:40px 24px 24px; }
+      .footer-top { grid-template-columns:1fr;gap:32px; }
+      .footer-brand { font-size:20px; }
+      .footer-tagline { max-width:100%; }
+      .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+    }
+
+      /* Small mobile (max 480px) */
+      @media (max-width:480px) {
+      .models-bar-grid { grid-template-columns:1fr; }
+      .model-tab-img { width:100px;height:50px; }
+      .why-grid { grid-template-columns:1fr; }
+      .hero h1 { font-size:clamp(36px,11vw,52px); }
+    }
   </style>
 </head>
 <body>

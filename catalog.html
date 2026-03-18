@@ -190,6 +190,63 @@
     .footer-made{font-size:11px;color:var(--gray-dk);font-weight:300;}
     .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:1024px){
+      nav{padding:0 30px;}
+      .nav-links{gap:18px;}
+      .page-hero{padding:100px 40px 48px;}
+      .card-inner{grid-template-columns:260px 1fr auto;}
+      .card-img{width:260px;height:200px;}
+      .expand-inner{padding:36px 40px;gap:28px;}
+      .fin-grid{gap:48px;}
+      .contact-grid{gap:48px;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+      .guide-grid{grid-template-columns:1fr 1fr;}
+      .section{padding:70px 40px;}
+      .expand-row.open{max-height:2000px;}
+    }
+    @media (max-width:768px){
+      nav{padding:0 20px;height:60px;}
+      .nav-links{display:none;}
+      .nav-cta{padding:8px 16px;font-size:11px;}
+      .nav-logo img{height:30px;}
+      .page-hero{padding:88px 20px 36px;}
+      .page-hero h1{font-size:clamp(38px,10vw,60px);}
+      .page-hero p{font-size:14px;max-width:100%;}
+      .card-inner{display:flex;flex-direction:column;min-height:auto;}
+      .card-img{width:100%;height:200px;}
+      .card-info{padding:18px 20px 0;}
+      .card-name{font-size:28px;}
+      .card-tagline{font-size:12px;margin-bottom:12px;}
+      .card-specs-bar{flex-wrap:wrap;gap:10px 20px;padding-top:12px;}
+      .card-spec{padding-right:0;margin-right:0;border-right:none;}
+      .card-cta-col{padding:14px 20px 18px;flex-direction:row;justify-content:space-between;align-items:center;}
+      .card-msrp{font-size:22px;}
+      .card-msrp-label{text-align:left;}
+      .expand-row.open{max-height:3000px;}
+      .expand-inner{padding:20px;grid-template-columns:1fr;gap:20px;}
+      .exp-model-name{font-size:26px;}
+      .exp-price-val{font-size:30px;}
+      .exp-btns{flex-direction:column;gap:8px;}
+      .btn-primary,.btn-outline{width:100%;text-align:center;display:block;}
+      .section{padding:56px 20px;}
+      .fin-grid{grid-template-columns:1fr;}
+      .guide-grid{grid-template-columns:1fr;}
+      .contact-grid{grid-template-columns:1fr;}
+      .form-row{grid-template-columns:1fr;}
+      footer{padding:36px 20px 20px;}
+      .footer-top{grid-template-columns:1fr;gap:28px;}
+      .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+    }
+    @media (max-width:480px){
+      .card-img{height:170px;}
+      .card-name{font-size:24px;}
+      .exp-sizes{gap:4px;}
+      .size-btn{padding:7px 12px;font-size:12px;}
+      .specs-table td{font-size:12px;padding:8px 4px;}
+      .fin-rate-val{font-size:22px;}
+    }
   </style>
 </head>
 <body>
@@ -202,7 +259,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="catalogo.html" class="active">Catalog</a></li>
+      <li><a href="catalog.html" class="active">Catalog</a></li>
       <li><a href="#financing">Financing</a></li>
       <li><a href="#guide">Owner's Guide</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -358,7 +415,7 @@
         <div>
           <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val">Yuma, Arizona, USA</div></div></div>
           <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val"><a href="tel:+17600000000">US: (760) 000-0000</a><br><a href="tel:+526860000000">MX: +52 (686) 000-0000</a></div></div></div>
-          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:sales@sgtrailers.com">sales@sgtrailers.com</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection#b5c6d4d9d0c6f5c6d2c1c7d4dcd9d0c7c69bd6dad8"><span class="__cf_email__" data-cfemail="a0d3c1ccc5d3e0d3c7d4d2c1c9ccc5d2d38ec3cfcd">[email&#160;protected]</span></a></div></div></div>
           <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">WhatsApp</div><div class="contact-val"><a href="#">Chat with us directly</a></div></div></div>
         </div>
       </div>
@@ -417,7 +474,7 @@
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
@@ -491,7 +548,9 @@
     function updateTotal(key){const t=state.prices[key]+state.accTotals[key];const pe=document.getElementById('eprice-'+key),te=document.getElementById('etotal-'+key);if(pe)pe.textContent=fmt(state.prices[key]);if(te)te.textContent=fmt(t);}
     function switchPhoto(e,key,src,thumb){e.stopPropagation();const main=document.getElementById('exp-main-'+key);if(main){const img=main.querySelector('img');if(img)img.src=src;}document.querySelectorAll('#expand-inner-'+key+' .exp-thumb').forEach(t=>t.classList.remove('active'));thumb.classList.add('active');}
 
-    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   </script>
 </body>
