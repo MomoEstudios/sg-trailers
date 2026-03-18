@@ -264,6 +264,47 @@
     }
     .mobile-menu-cta:hover { background:#D42800; }
 
+
+    /* ── DROPDOWN MENU ── */
+    .nav-links li { position:relative; }
+
+    .nav-links li .dropdown {
+      position:absolute;top:100%;left:0;
+      background:var(--black-d);
+      border:1px solid rgba(232,184,0,.15);
+      border-top:2px solid var(--gold);
+      min-width:200px;
+      opacity:0;visibility:hidden;
+      transform:translateY(8px);
+      transition:opacity .25s,transform .25s,visibility .25s;
+      z-index:300;
+    }
+    .nav-links li:hover .dropdown {
+      opacity:1;visibility:visible;transform:translateY(0);
+    }
+    .nav-links li .dropdown a {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:13px 20px;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      transition:color .25s,background .25s;
+      width:100%;
+    }
+    .nav-links li .dropdown a:last-child { border-bottom:none; }
+    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .nav-links li .dropdown a::after { content:'›';font-size:16px;color:var(--gray-dk); }
+    .nav-links li .dropdown a:hover::after { color:var(--gold); }
+
+    /* Arrow indicator on parent link */
+    .nav-links li.has-dropdown > a::after {
+      content:' ▾';font-size:9px;
+      position:static;width:auto;height:auto;
+      background:none;display:inline;
+    }
+    .nav-links li.has-dropdown > a:hover::after { color:var(--gold); }
+
     /* ── RESPONSIVE ── */
     @media (max-width:1024px){
       nav{padding:0 30px;}
@@ -332,10 +373,31 @@
     <a href="index.html" class="nav-logo">
       <img src="img/logo.webp" alt="SG Trailers"/>
     </a>
-    <ul class="nav-links">
+        <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="catalog.html" class="active">Catalog</a></li>
-      <li><a href="#financing">Financing</a></li>
+      <li class="has-dropdown">
+        <a href="catalog.html" class="active">Trailers</a>
+        <div class="dropdown">
+          <a href="#card-apollo">Apollo</a>
+          <a href="#card-anubis">Anubis</a>
+          <a href="#card-nemesis">Nemesis</a>
+          <a href="#card-apocalypse">Apocalypse</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Company</a>
+        <div class="dropdown">
+          <a href="#">About Us</a>
+          <a href="#">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown">
+          <a href="#financing">Financing</a>
+          <a href="#">Parts & Accessories</a>
+        </div>
+      </li>
       <li><a href="#guide">Owner's Guide</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -539,7 +601,7 @@
       <div>
         <div class="footer-col-title">Trailers</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="toggleModel('apolo')">apolo</a></li>
+          <li><a href="#" onclick="toggleModel('apolo')">Apolo</a></li>
           <li><a href="#" onclick="toggleModel('anubis')">Anubis</a></li>
           <li><a href="#" onclick="toggleModel('nemesis')">Nemesis</a></li>
           <li><a href="#" onclick="toggleModel('apocalypse')">Apocalypse</a></li>
@@ -566,7 +628,7 @@
     </div>
     <div class="footer-divider"></div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 SG Trailers — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
       <div class="footer-made">Proudly made in the USA 🇺🇸</div>
     </div>
   </footer>
