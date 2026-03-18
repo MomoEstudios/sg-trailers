@@ -336,6 +336,79 @@
 
     .reveal { opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s; }
     .reveal.visible { opacity:1;transform:translateY(0); }
+    /* ── HAMBURGER MENU ── */
+    .nav-hamburger {
+      display:none;
+      flex-direction:column;gap:5px;
+      background:transparent;border:1px solid rgba(255,255,255,.2);
+      padding:10px 12px;cursor:none;transition:border-color .3s;
+    }
+    .nav-hamburger:hover { border-color:var(--gold); }
+    .nav-hamburger span {
+      display:block;width:22px;height:2px;
+      background:var(--white);transition:background .3s;
+    }
+    .nav-hamburger:hover span { background:var(--gold); }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      position:fixed;inset:0;z-index:9997;
+      background:var(--black-d);
+      display:flex;flex-direction:column;
+      transform:translateX(100%);
+      transition:transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .mobile-menu.open { transform:translateX(0); }
+
+    .mobile-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 24px;height:68px;
+      border-bottom:2px solid var(--gold);
+      flex-shrink:0;
+    }
+    .mobile-menu-logo {
+      font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;
+      letter-spacing:.15em;color:var(--white);text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;text-decoration:none;
+    }
+    .mobile-menu-logo img { height:36px;width:auto; }
+    .mobile-menu-close {
+      width:44px;height:44px;border:1px solid rgba(255,255,255,.2);
+      background:transparent;color:var(--white);font-size:20px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:none;transition:border-color .3s,color .3s;
+    }
+    .mobile-menu-close:hover { border-color:var(--gold);color:var(--gold); }
+
+    .mobile-menu-links {
+      flex:1;overflow-y:auto;
+      display:flex;flex-direction:column;
+    }
+    .mobile-menu-links a {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 24px;
+      font-family:'Oswald',sans-serif;font-weight:500;
+      font-size:18px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--white);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      transition:color .3s,background .3s;
+    }
+    .mobile-menu-links a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mobile-menu-links a::after { content:'›';font-size:20px;color:var(--gray-dk); }
+    .mobile-menu-links a:hover::after { color:var(--gold); }
+
+    .mobile-menu-footer {
+      padding:24px;border-top:1px solid rgba(255,255,255,.06);
+    }
+    .mobile-menu-cta {
+      display:block;width:100%;text-align:center;
+      background:var(--red);color:var(--white);
+      padding:16px;font-family:'Barlow Condensed',sans-serif;
+      font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      text-decoration:none;transition:background .3s;
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    }
+    .mobile-menu-cta:hover { background:#D42800; }
 
     /* ── RESPONSIVE ── */
 
@@ -353,8 +426,9 @@
       /* NAV */
       nav { padding:0 20px;height:60px; }
       .nav-links { display:none; }
-      .nav-cta { padding:8px 16px;font-size:11px; }
+      .nav-cta { display:none; }
       .nav-logo img { height:32px; }
+      .nav-hamburger { display:flex; }
 
       /* HERO */
       .hero { min-height:100svh; }
@@ -418,7 +492,29 @@
       <li><a href="catalog.html#contact">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="window.location='catalog.html#contact'">Get a Quote</button>
+    <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo">
+        <img src="img/logo.webp" alt="SG Trailers"/>
+      </a>
+      <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="catalog.html" onclick="closeMenu()">Catalog</a>
+      <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+      <a href="catalog.html#guide">Owner's Guide</a>
+      <a href="catalog.html#contact" onclick="closeMenu()">Contact</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="catalog.html#contact" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -599,6 +695,15 @@
       if(e.isIntersecting) e.target.classList.add('visible');
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    function openMenu(){
+      document.getElementById('mobileMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMenu(){
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow='';
+    }
   </script>
 </body>
 </html>
