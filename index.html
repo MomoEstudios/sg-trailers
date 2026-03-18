@@ -205,11 +205,22 @@
     .model-tab:hover { background:rgba(255,255,255,.02); }
     .model-tab:hover::after, .model-tab.active::after { transform:scaleX(1); }
     .model-tab.active { background:rgba(232,184,0,.05); }
+
+    /* Dim inactive tabs when one is active */
+    .models-bar-grid.has-active .model-tab:not(.active) {
+      opacity:.35;
+      filter:grayscale(80%);
+      transition:opacity .4s,filter .4s;
+    }
+    .models-bar-grid.has-active .model-tab.active {
+      opacity:1;
+      filter:none;
+    }
     #tab-apolo::after { background:#5BB8F5; }
     #tab-apolo.active .model-tab-name,
     #tab-apolo:hover .model-tab-name { color:#5BB8F5; }
     .model-tab-img {
-      width:100%;height:150px;object-fit:cover;
+      width:100%;height:150px;object-fit:contain;
       filter:brightness(.75) saturate(.8);
       transition:filter .35s,transform .35s;margin-bottom:14px;
     }
@@ -444,8 +455,8 @@
 
       /* MODELS BAR */
       .models-bar-grid { grid-template-columns:1fr; }
-      .model-tab { padding:16px 8px 20px; }
-      .model-tab-img { width:120px;height:60px; }
+      .model-tab { padding:12px 8px 16px; }
+      .model-tab-img { width:100%;height:140px;object-fit:cover; }
       .model-tab-name { font-size:14px; }
       .model-tab-msrp { font-size:12px; }
 
@@ -468,7 +479,7 @@
       /* Small mobile (max 480px) */
       @media (max-width:480px) {
       .models-bar-grid { grid-template-columns:1fr; }
-      .model-tab-img { width:100px;height:50px; }
+      .model-tab-img { width:100%;height:120px;object-fit:cover; }
       .why-grid { grid-template-columns:1fr; }
       .hero h1 { font-size:clamp(36px,11vw,52px); }
     }
@@ -687,7 +698,13 @@
       tab.addEventListener('mouseenter',()=>{
         document.querySelectorAll('.model-tab').forEach(t=>t.classList.remove('active'));
         tab.classList.add('active');
+        document.querySelector('.models-bar-grid').classList.add('has-active');
       });
+    });
+    // Remove dim effect when mouse leaves the entire bar
+    document.querySelector('.models-bar-grid').addEventListener('mouseleave',()=>{
+      document.querySelector('.models-bar-grid').classList.remove('has-active');
+      document.querySelectorAll('.model-tab').forEach(t=>t.classList.remove('active'));
     });
 
     // Reveal
