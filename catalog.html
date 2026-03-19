@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SG-Trailers | Car Hauler</title>
+  <title>SG Trailers — 2026 Trailer Catalog | Yuma, AZ</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -441,7 +441,7 @@
         <a href="#">Company</a>
         <div class="dropdown">
           <a href="#">About Us</a>
-          <a href="#">Dealer Program</a>
+          <a  href="dealers.html">Dealer Program</a>
         </div>
       </li>
       <li class="has-dropdown">
@@ -717,7 +717,7 @@
         <ul class="footer-links">
           <li><a href="#financing">Financing</a></li>
           <li><a href="#guide">Owner's Guide</a></li>
-          <li><a href="#">Dealer Program</a></li>
+          <li><a  href="dealers.html">Dealer Program</a></li>
         </ul>
       </div>
       <div>
@@ -820,31 +820,28 @@
     const urlParams = new URLSearchParams(window.location.search);
     const modelParam = urlParams.get('model');
     if(modelParam && models[modelParam]){
-      // Step 1: force all cards visible immediately
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-
-      const card = document.getElementById('card-'+modelParam);
-      const rowEl = document.getElementById('expand-row-'+modelParam);
-      const innerEl = document.getElementById('expand-inner-'+modelParam);
-
-      if(card && rowEl && innerEl){
-        innerEl.innerHTML = buildHTML(modelParam);
-        card.classList.add('active');
-        rowEl.classList.add('open');
-        state.active = modelParam;
-        // Disable transition for first open
-        innerEl.style.transition = 'none';
-        innerEl.style.opacity = '1';
-        innerEl.style.transform = 'translateY(0)';
-        // Restore transition and scroll after panel fully opens
-        setTimeout(()=>{
-          innerEl.style.transition = '';
-        }, 100);
-        setTimeout(()=>{
-          const offset=rowEl.getBoundingClientRect().top+window.scrollY-280;
-          window.scrollTo({top:offset,behavior:'smooth'});
-        }, 800);
-      }
+      // Wait for full page load before opening
+      window.addEventListener('load', ()=>{
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        const card = document.getElementById('card-'+modelParam);
+        const rowEl = document.getElementById('expand-row-'+modelParam);
+        const innerEl = document.getElementById('expand-inner-'+modelParam);
+        if(card && rowEl && innerEl){
+          innerEl.innerHTML = buildHTML(modelParam);
+          card.classList.add('active');
+          rowEl.classList.add('open');
+          state.active = modelParam;
+          innerEl.style.transition = 'none';
+          innerEl.style.opacity = '1';
+          innerEl.style.transform = 'translateY(0)';
+          setTimeout(()=>{ innerEl.style.transition = ''; }, 100);
+          setTimeout(()=>{
+            const navOffset = window.innerWidth <= 768 ? 75 : 350;
+            const offset = rowEl.getBoundingClientRect().top + window.scrollY - navOffset;
+            window.scrollTo({top:offset, behavior:'smooth'});
+          }, 800);
+        }
+      });
     }
     function openMenu(){
       document.getElementById('mobileMenu').classList.add('open');
@@ -889,7 +886,8 @@
         setTimeout(()=>{ innerEl.style.transition = ''; }, 100);
         // Scroll after panel fully opens
         setTimeout(()=>{
-          const offset=rowEl.getBoundingClientRect().top+window.scrollY-90;
+          const navOffset = window.innerWidth <= 768 ? 75 : 350;
+          const offset=rowEl.getBoundingClientRect().top+window.scrollY-navOffset;
           window.scrollTo({top:offset,behavior:'smooth'});
         }, 800);
       }
