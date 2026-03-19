@@ -15,7 +15,7 @@
     body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
     #cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
     #ring{width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
-    nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:68px;background:rgba(20,19,18,.96);backdrop-filter:blur(16px);border-bottom:2px solid var(--gold);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:9997;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:68px;background:rgba(20,19,18,.96);backdrop-filter:blur(16px);border-bottom:2px solid var(--gold);}
     .nav-logo{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:.18em;color:var(--white);text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none;}
     .nav-logo img{height:80px;width:auto;}
     .nav-logo span{color:var(--gold);}
@@ -140,16 +140,15 @@
     .fin-rate-val{font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;color:var(--gold);}
     .fin-rate-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.3em;color:var(--gray-md);text-transform:uppercase;margin-top:4px;}
     .guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-    .guide-card{background:var(--black-c);padding:36px 30px;cursor:none;transition:background .3s;position:relative;overflow:hidden;}
+    .guide-card{background:var(--black-c);padding:48px 60px;cursor:none;transition:background .3s;position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:12px;}
     .guide-card:hover{background:#272523;}
     .guide-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .4s;}
     .guide-card:hover::after{transform:scaleX(1);}
-    .guide-num{font-family:'Oswald',sans-serif;font-weight:700;font-size:54px;color:rgba(232,184,0,.07);line-height:1;margin-bottom:16px;transition:color .3s;}
-    .guide-card:hover .guide-num{color:rgba(232,184,0,.14);}
-    .guide-icon{font-size:28px;margin-bottom:12px;}
-    .guide-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;transition:color .3s;}
+    .guide-num{display:none;}
+    .guide-icon{font-size:20px;flex-shrink:0;margin-top:2px;margin-bottom:0;}
+    .guide-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;transition:color .3s;}
     .guide-card:hover .guide-title{color:var(--gold);}
-    .guide-desc{font-size:13px;color:var(--gray-md);line-height:1.7;font-weight:300;margin-bottom:20px;}
+    .guide-desc{font-size:12px;color:var(--gray-md);line-height:1.6;font-weight:300;margin-bottom:8px;}
     .guide-link{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--gray-dk);text-transform:uppercase;text-decoration:none;transition:color .3s;}
     .guide-card:hover .guide-link{color:var(--gold);}
     .guide-link::after{content:'→';}
@@ -292,18 +291,72 @@
       transition:color .25s,background .25s;
       width:100%;
     }
-    .nav-links li .dropdown a:last-child { border-bottom:none; }
-    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
-    .nav-links li .dropdown a::after { content:'›';font-size:16px;color:var(--gray-dk); }
-    .nav-links li .dropdown a:hover::after { color:var(--gold); }
-
-    /* Arrow indicator on parent link */
-    .nav-links li.has-dropdown > a::after {
-      content:' ▾';font-size:9px;
-      position:static;width:auto;height:auto;
-      background:none;display:inline;
+   
+    /* ── MEGA MENU ── */
+    .has-mega { position:static !important; }
+    .mega-menu {
+      position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;
+      background:var(--black-d);
+      border-top:3px solid var(--gold);
+      opacity:0;visibility:hidden;
+      transform:translateY(-12px);
+      transition:opacity .35s,transform .35s,visibility .35s;
+      pointer-events:none;
+      overflow-y:auto;
     }
-    .nav-links li.has-dropdown > a:hover::after { color:var(--gold); }
+    .mega-menu.open {
+      opacity:1;visibility:visible;
+      transform:translateY(0);
+      pointer-events:all;
+    }
+    .mega-menu-inner { max-width:1200px;margin:0 auto;padding:96px 60px 60px; }
+    .mega-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:40px;padding-bottom:20px;
+      border-bottom:1px solid rgba(232,184,0,.2);
+    }
+    .mega-menu-header span:first-child {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:14px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;
+    }
+    .mega-close {
+      display:flex;align-items:center;gap:10px;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.2em;color:var(--gray-md);
+      text-transform:uppercase;cursor:none;transition:color .3s,border-color .3s;
+      background:transparent;border:1px solid rgba(255,255,255,.15);padding:8px 16px;
+    }
+    .mega-close:hover { color:var(--gold);border-color:var(--gold); }
+    .mega-grid {
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    }
+    .mega-card {
+      display:flex;flex-direction:column;
+      background:var(--black-c);
+      border:1px solid rgba(255,255,255,.05);
+      text-decoration:none;overflow:hidden;
+      transition:border-color .3s,background .3s;
+    }
+    .mega-card:hover { border-color:var(--gold);background:#272523; }
+    .mega-card-img {
+      width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s);
+    }
+    .mega-card-img img {
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .4s;filter:brightness(.85);
+    }
+    .mega-card:hover .mega-card-img img { transform:scale(1.04);filter:brightness(1); }
+    .mega-card-name {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:18px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);padding:14px 16px 4px;transition:color .3s;
+    }
+    .mega-card:hover .mega-card-name { color:var(--gold); }
+    .mega-card-tier {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;
+      font-size:10px;letter-spacing:.35em;color:var(--gray-dk);
+      text-transform:uppercase;padding:0 16px 16px;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width:1024px){
@@ -374,15 +427,8 @@
       <img src="img/logo.webp" alt="SG Trailers"/>
     </a>
         <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li class="has-dropdown">
-        <a href="catalog.html" class="active">Trailers</a>
-        <div class="dropdown">
-          <a href="#card-apollo">Apollo</a>
-          <a href="#card-anubis">Anubis</a>
-          <a href="#card-nemesis">Nemesis</a>
-          <a href="#card-apocalypse">Apocalypse</a>
-        </div>
+      <li class="has-mega">
+        <a href="#" onclick="openMega(event)" class="active">Trailers</a>
       </li>
       <li class="has-dropdown">
         <a href="#">Company</a>
@@ -396,9 +442,25 @@
         <div class="dropdown">
           <a href="#financing">Financing</a>
           <a href="#">Parts & Accessories</a>
+          <a href="#">Dealers</a>
         </div>
       </li>
-      <li><a href="#guide">Owner's Guide</a></li>
+      <li class="has-dropdown">
+        <a href="#">Community</a>
+        <div class="dropdown">
+          <a href="#">Success Stories</a>
+          <a href="#">Partners & Finance</a>
+          <a href="#">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="#">Tutorials</a>
+          <a href="#">Safety</a>
+          <a href="#">Maintenance</a>
+        </div>
+      </li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
@@ -406,6 +468,39 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Trailer Models</span>
+        <button class="mega-close" onclick="closeMega()">✕ Close</button>
+      </div>
+      <div class="mega-grid">
+        <a href="#card-apolo" class="mega-card" onclick="closeMega()">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apollo"/></div>
+          <div class="mega-card-name">Apollo</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="#card-anubis" class="mega-card" onclick="closeMega()">
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Mid Range</div>
+        </a>
+        <a href="#card-nemesis" class="mega-card" onclick="closeMega()">
+          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
+          <div class="mega-card-name">Nemesis</div>
+          <div class="mega-card-tier">Upper Mid</div>
+        </a>
+        <a href="#card-apocalypse" class="mega-card" onclick="closeMega()">
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-name">Apocalypse</div>
+          <div class="mega-card-tier">Top of Line</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
@@ -416,9 +511,11 @@
     </div>
     <div class="mobile-menu-links">
       <a href="index.html" onclick="closeMenu()">Home</a>
-      <a href="catalog.html" onclick="closeMenu()">Catalog</a>
-      <a href="#financing" onclick="closeMenu()">Financing</a>
-      <a href="#guide" onclick="closeMenu()">Owner's Guide</a>
+      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
+      <a href="#">Company</a>
+      <a href="#">Shop</a>
+      <a href="#">Community</a>
+      <a href="#">Owner's Guide</a>
       <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
@@ -520,36 +617,37 @@
     </div>
   </div>
 
-  <section class="section section-alt" id="financing">
-    <div class="fin-grid">
-      <div class="reveal">
-        <div class="sec-eyebrow">Flexible Options</div>
-        <h2 class="sec-title">Trailer <em>Financing</em></h2>
-        <p class="sec-desc">We know buying a trailer is a major investment. Our plans are designed to get you on the road without breaking the bank.</p>
-        <div class="fin-features">
-          <div class="fin-feat"><div class="fin-feat-icon">📅</div><div><div class="fin-feat-title">Flexible Terms</div><div class="fin-feat-desc">12 to 84 month plans. Choose the term that fits your budget.</div></div></div>
-          <div class="fin-feat"><div class="fin-feat-icon">💳</div><div><div class="fin-feat-title">Competitive Rates</div><div class="fin-feat-desc">Low interest rates for qualified buyers. Pre-approval in 24 hours.</div></div></div>
-          <div class="fin-feat"><div class="fin-feat-icon">🏭</div><div><div class="fin-feat-title">Direct from Factory</div><div class="fin-feat-desc">No dealers, no markups. Work directly with the manufacturer.</div></div></div>
+  <section id="financing" style="background:var(--black-s);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:40px 60px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:24px;">
+        <span style="font-size:36px;">🏦</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.45em;color:var(--gold);text-transform:uppercase;margin-bottom:4px;">Flexible Financing Available</div>
+          <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;color:var(--white);">Take Your Trailer Home Today</div>
+          <div style="font-size:13px;color:var(--gray-md);font-weight:300;margin-top:4px;">Multiple financing options available · Fast pre-approval · Competitive rates</div>
         </div>
       </div>
-      <div class="reveal">
-        <div class="fin-card">
-          <div class="fin-card-icon">🏦</div>
-          <div class="fin-card-title">Get Pre-Approved</div>
-          <div class="fin-card-text">Quick application. Get a decision before choosing your trailer configuration.</div>
-          <div class="fin-rates">
-            <div class="fin-rate"><div class="fin-rate-val">0%</div><div class="fin-rate-label">Down payment options</div></div>
-            <div class="fin-rate"><div class="fin-rate-val">24h</div><div class="fin-rate-label">Pre-approval time</div></div>
-            <div class="fin-rate"><div class="fin-rate-val">84</div><div class="fin-rate-label">Max months term</div></div>
-            <div class="fin-rate"><div class="fin-rate-val">5.9%</div><div class="fin-rate-label">Starting APR</div></div>
+      <div style="display:flex;gap:12px;align-items:center;flex-shrink:0;">
+        <div style="display:flex;gap:24px;margin-right:16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--gold);">0%</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.2em;color:var(--gray-dk);text-transform:uppercase;">Down</div>
           </div>
-          <button class="btn-primary" style="width:100%;">Apply for Financing</button>
+          <div style="text-align:center;">
+            <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--gold);">84</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.2em;color:var(--gray-dk);text-transform:uppercase;">Months</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--gold);">5.9%</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.2em;color:var(--gray-dk);text-transform:uppercase;">APR</div>
+          </div>
         </div>
+        <a href="#contact" style="display:inline-block;background:var(--gold);color:var(--black);padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:background .3s;" onmouseover="this.style.background='#FFD000'" onmouseout="this.style.background='#E8B800'">Learn More →</a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="guide">
+  <section class="section" id="guide" style="padding:48px 60px;">
     <div class="reveal">
       <div class="sec-eyebrow">Support & Documentation</div>
       <h2 class="sec-title">Owner's <em>Guide</em></h2>
@@ -610,7 +708,6 @@
       <div>
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
           <li><a href="#financing">Financing</a></li>
           <li><a href="#guide">Owner's Guide</a></li>
           <li><a href="#">Dealer Program</a></li>
@@ -711,12 +808,56 @@
       if(e.isIntersecting) e.target.classList.add('visible');
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // Auto-open model from URL param e.g. catalog.html?model=apolo
+    const urlParams = new URLSearchParams(window.location.search);
+    const modelParam = urlParams.get('model');
+    if(modelParam && models[modelParam]){
+      // Step 1: force all cards visible immediately
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+      const card = document.getElementById('card-'+modelParam);
+      const rowEl = document.getElementById('expand-row-'+modelParam);
+      const innerEl = document.getElementById('expand-inner-'+modelParam);
+
+      if(card && rowEl && innerEl){
+        // Step 2: build HTML and mark active
+        innerEl.innerHTML = buildHTML(modelParam);
+        card.classList.add('active');
+        state.active = modelParam;
+
+        // Step 3: open row (triggers max-height transition)
+        rowEl.classList.add('open');
+
+        // Step 4: force expand-inner visible after browser renders
+        requestAnimationFrame(()=>{
+          requestAnimationFrame(()=>{
+            innerEl.style.opacity = '1';
+            innerEl.style.transform = 'translateY(0)';
+          });
+        });
+
+        // Step 5: scroll to expanded panel after it opens
+        setTimeout(()=>{
+          rowEl.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 800);
+      }
+    }
     function openMenu(){
       document.getElementById('mobileMenu').classList.add('open');
       document.body.style.overflow='hidden';
     }
     function closeMenu(){
       document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    function openMega(e){
+      e.preventDefault();
+      document.getElementById('megaMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMega(){
+      document.getElementById('megaMenu').classList.remove('open');
       document.body.style.overflow='';
     }
   </script>

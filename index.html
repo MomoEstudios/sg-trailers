@@ -440,23 +440,7 @@
       transition:color .25s,background .25s;
       width:100%;
     }
-    .nav-links li .dropdown a:last-child { border-bottom:none; }
-    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
-    .nav-links li .dropdown a::after { content:'›';font-size:16px;color:var(--gray-dk); }
-    .nav-links li .dropdown a:hover::after { color:var(--gold); }
-
-    /* Arrow indicator on parent link */
-    .nav-links li.has-dropdown > a::after {
-      content:' ▾';font-size:9px;
-      position:static;width:auto;height:auto;
-      background:none;display:inline;
-      transition:color .3s;
-    }
-    .nav-links li.has-dropdown > a:hover::after { color:var(--gold);width:auto; }
-    /* Override underline on has-dropdown - use arrow instead */
-    .nav-links li.has-dropdown > a { padding-bottom:0; }
-
-
+  
     /* ── MEGA MENU ── */
     .has-mega { position:static !important; }
     .mega-menu {
@@ -598,7 +582,6 @@
 <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
       <li class="has-mega">
         <a href="#" onclick="openMega(event)">Trailers</a>
       </li>
@@ -614,9 +597,25 @@
         <div class="dropdown">
           <a href="catalog.html#financing">Financing</a>
           <a href="#">Parts & Accessories</a>
+          <a href="#">Dealers</a>
         </div>
       </li>
-      <li><a href="catalog.html#guide">Owner's Guide</a></li>
+      <li class="has-dropdown">
+        <a href="#">Community</a>
+        <div class="dropdown">
+          <a href="#">Success Stories</a>
+          <a href="#">Partners & Finance</a>
+          <a href="#">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="#">Tutorials</a>
+          <a href="#">Safety</a>
+          <a href="#">Maintenance</a>
+        </div>
+      </li>
       <li><a href="catalog.html#contact">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="window.location='catalog.html#contact'">Get a Quote</button>
@@ -633,9 +632,9 @@
         <button class="mega-close" onclick="closeMega()">✕ Close</button>
       </div>
       <div class="mega-grid">
-        <a href="catalog.html#card-apollo" class="mega-card">
-          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apollo"/></div>
-          <div class="mega-card-name">Apollo</div>
+        <a href="catalog.html#card-apolo" class="mega-card">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
           <div class="mega-card-tier">Entry Level</div>
         </a>
         <a href="catalog.html#card-anubis" class="mega-card">
@@ -667,9 +666,11 @@
     </div>
     <div class="mobile-menu-links">
       <a href="index.html" onclick="closeMenu()">Home</a>
-      <a href="catalog.html" onclick="closeMenu()">Catalog</a>
-      <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
-      <a href="catalog.html#guide">Owner's Guide</a>
+      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
+      <a href="#">Company</a>
+      <a href="#">Shop</a>
+      <a href="#">Community</a>
+      <a href="#">Owner's Guide</a>
       <a href="catalog.html#contact" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
