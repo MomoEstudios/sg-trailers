@@ -477,22 +477,22 @@
         <button class="mega-close" onclick="closeMega()">✕ Close</button>
       </div>
       <div class="mega-grid">
-        <a href="#card-apolo" class="mega-card" onclick="closeMega()">
+        <a href="#" class="mega-card" onclick="closeMega();toggleModel('apolo')">
           <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apollo"/></div>
           <div class="mega-card-name">Apollo</div>
           <div class="mega-card-tier">Entry Level</div>
         </a>
-        <a href="#card-anubis" class="mega-card" onclick="closeMega()">
+        <a href="#" class="mega-card" onclick="closeMega();toggleModel('anubis')">
           <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
           <div class="mega-card-name">Anubis</div>
           <div class="mega-card-tier">Mid Range</div>
         </a>
-        <a href="#card-nemesis" class="mega-card" onclick="closeMega()">
+        <a href="#" class="mega-card" onclick="closeMega();toggleModel('nemesis')">
           <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
           <div class="mega-card-name">Nemesis</div>
           <div class="mega-card-tier">Upper Mid</div>
         </a>
-        <a href="#card-apocalypse" class="mega-card" onclick="closeMega()">
+        <a href="#" class="mega-card" onclick="closeMega();toggleModel('apocalypse')">
           <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
           <div class="mega-card-name">Apocalypse</div>
           <div class="mega-card-tier">Top of Line</div>
@@ -840,7 +840,7 @@
         // Step 5: scroll to expanded panel after it opens
         setTimeout(()=>{
           rowEl.scrollIntoView({behavior:'smooth', block:'start'});
-        }, 800);
+        }, 1200);
       }
     }
     function openMenu(){
