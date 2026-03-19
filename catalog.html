@@ -407,6 +407,13 @@
       footer{padding:36px 20px 20px;}
       .footer-top{grid-template-columns:1fr;gap:28px;}
       .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+
+      /* MEGA MENU MOBILE */
+      .mega-menu-inner{padding:80px 20px 40px;}
+      .mega-menu-header{margin-bottom:24px;padding-bottom:16px;}
+      .mega-grid{grid-template-columns:1fr 1fr;gap:10px;}
+      .mega-card-name{font-size:15px;padding:10px 12px 3px;}
+      .mega-card-tier{font-size:9px;padding:0 12px 12px;}
     }
     @media (max-width:480px){
       .card-img{height:170px;}
@@ -821,26 +828,22 @@
       const innerEl = document.getElementById('expand-inner-'+modelParam);
 
       if(card && rowEl && innerEl){
-        // Step 2: build HTML and mark active
         innerEl.innerHTML = buildHTML(modelParam);
         card.classList.add('active');
-        state.active = modelParam;
-
-        // Step 3: open row (triggers max-height transition)
         rowEl.classList.add('open');
-
-        // Step 4: force expand-inner visible after browser renders
-        requestAnimationFrame(()=>{
-          requestAnimationFrame(()=>{
-            innerEl.style.opacity = '1';
-            innerEl.style.transform = 'translateY(0)';
-          });
-        });
-
-        // Step 5: scroll to expanded panel after it opens
+        state.active = modelParam;
+        // Disable transition for first open
+        innerEl.style.transition = 'none';
+        innerEl.style.opacity = '1';
+        innerEl.style.transform = 'translateY(0)';
+        // Restore transition and scroll after panel fully opens
         setTimeout(()=>{
-          rowEl.scrollIntoView({behavior:'smooth', block:'start'});
-        }, 1200);
+          innerEl.style.transition = '';
+        }, 100);
+        setTimeout(()=>{
+          const offset=rowEl.getBoundingClientRect().top+window.scrollY-90;
+          window.scrollTo({top:offset,behavior:'smooth'});
+        }, 800);
       }
     }
     function openMenu(){
@@ -878,17 +881,17 @@
         card.classList.add('active');
         rowEl.classList.add('open');
         state.active = key;
-        // Force inner visible
-        requestAnimationFrame(()=>{
-          requestAnimationFrame(()=>{
-            innerEl.style.opacity='1';
-            innerEl.style.transform='translateY(0)';
-            // Scroll to panel after it opens
-            setTimeout(()=>{
-              rowEl.scrollIntoView({behavior:'smooth', block:'start'});
-            }, 800);
-          });
-        });
+        // Remove CSS transition on first open so it shows instantly
+        innerEl.style.transition = 'none';
+        innerEl.style.opacity = '1';
+        innerEl.style.transform = 'translateY(0)';
+        // Restore transition after first render
+        setTimeout(()=>{ innerEl.style.transition = ''; }, 100);
+        // Scroll after panel fully opens
+        setTimeout(()=>{
+          const offset=rowEl.getBoundingClientRect().top+window.scrollY-90;
+          window.scrollTo({top:offset,behavior:'smooth'});
+        }, 800);
       }
     }
   </script>
