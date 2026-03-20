@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;
+      --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+
+    /* Cursor */
+    #cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+    #ring{width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:9997;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:68px;background:rgba(20,19,18,.96);backdrop-filter:blur(16px);border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .nav-logo img{height:80px;width:auto;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative;padding-bottom:3px;}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+    .nav-links li{position:relative;}
+    .nav-links li .dropdown{position:absolute;top:100%;left:0;background:var(--black-d);border:1px solid rgba(232,184,0,.15);border-top:2px solid var(--gold);min-width:200px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:300;}
+    .nav-links li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+    .nav-links li .dropdown a{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .25s,background .25s;width:100%;}
+    .nav-links li .dropdown a:last-child{border-bottom:none;}
+    .nav-links li .dropdown a:hover{color:var(--gold);background:rgba(232,184,0,.04);}
+    .nav-cta{background:var(--red);color:var(--white);border:none;padding:10px 26px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+    .nav-cta:hover{background:#D42800;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.2);padding:10px 12px;cursor:none;}
+    .nav-hamburger span{display:block;width:22px;height:2px;background:var(--white);}
+
+    /* MEGA MENU */
+    .has-mega{position:static !important;}
+    .mega-menu{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;background:var(--black-d);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .35s,visibility .35s;pointer-events:none;overflow-y:auto;}
+    .mega-menu.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:all;}
+    .mega-menu-inner{max-width:1200px;margin:0 auto;padding:96px 60px 60px;}
+    .mega-menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid rgba(232,184,0,.2);}
+    .mega-menu-header span:first-child{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;}
+    .mega-close{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);text-transform:uppercase;cursor:none;transition:color .3s,border-color .3s;background:transparent;border:1px solid rgba(255,255,255,.15);padding:8px 16px;}
+    .mega-close:hover{color:var(--gold);border-color:var(--gold);}
+    .mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .mega-card{display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;}
+    .mega-card:hover{border-color:var(--gold);background:#272523;}
+    .mega-card-img{width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s);}
+    .mega-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85);}
+    .mega-card:hover .mega-card-img img{transform:scale(1.04);filter:brightness(1);}
+    .mega-card-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s;}
+    .mega-card:hover .mega-card-name{color:var(--gold);}
+    .mega-card-tier{font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px;}
+
+    /* MOBILE MENU */
+    .mobile-menu{position:fixed;inset:0;z-index:9997;background:var(--black-d);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+    .mobile-menu.open{transform:translateX(0);}
+    .mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:68px;border-bottom:2px solid var(--gold);flex-shrink:0;}
+    .mobile-menu-logo img{height:36px;width:auto;}
+    .mobile-menu-close{width:44px;height:44px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--white);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:none;}
+    .mobile-menu-links{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+    .mob-group{border-bottom:1px solid rgba(255,255,255,.06);}
+    .mob-group-btn{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);cursor:none;transition:color .3s;text-align:left;}
+    .mob-group-btn:hover,.mob-group-btn.open{color:var(--gold);}
+    .mob-group-arrow{font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0;}
+    .mob-group-btn.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
+    .mob-sub{max-height:0;overflow:hidden;transition:max-height .35s ease;background:rgba(0,0,0,.2);}
+    .mob-sub.open{max-height:400px;}
+    .mob-sub a{display:block;padding:14px 24px 14px 36px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);transition:color .3s;}
+    .mob-sub a:hover{color:var(--gold);}
+    .mobile-menu-footer{padding:24px;border-top:1px solid rgba(255,255,255,.06);}
+    .mobile-menu-cta{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+    .mobile-menu-cta:hover{background:#D42800;}
+
+    /* PAGE HERO */
+    .page-hero{
+      min-height:75vh;
+      background:linear-gradient(160deg,rgba(232,184,0,.08) 0%,transparent 45%),
+                 linear-gradient(200deg,rgba(181,34,0,.06) 0%,transparent 50%),
+                 var(--black-d);
+      display:flex;align-items:center;justify-content:center;
+      padding:120px 60px 80px;
+      position:relative;overflow:hidden;
+      border-bottom:1px solid rgba(232,184,0,.15);
+    }
+    .page-hero::after{content:'ABOUT';position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Oswald',sans-serif;font-size:280px;font-weight:700;color:rgba(232,184,0,.025);pointer-events:none;white-space:nowrap;letter-spacing:-.02em;}
+    .page-hero-content{max-width:900px;text-align:center;position:relative;z-index:1;}
+    .page-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:14px;justify-content:center;}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';width:36px;height:1px;background:var(--gold);}
+    .page-hero h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(56px,7vw,92px);line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px;}
+    .page-hero h1 em{font-style:normal;color:var(--gold);}
+    .page-hero p{font-size:17px;color:rgba(255,255,255,.7);line-height:1.8;font-weight:300;max-width:680px;margin:0 auto;}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* SECTIONS */
+    .section{padding:100px 60px;}
+    .section-alt{background:var(--black-s);}
+    .sec-eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:16px;}
+    .sec-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);opacity:.6;}
+    .sec-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(38px,4.5vw,58px);line-height:1.05;margin-bottom:20px;text-transform:uppercase;}
+    .sec-title em{font-style:normal;color:var(--gold);}
+    .sec-desc{font-size:16px;color:var(--gray-md);line-height:1.85;max-width:640px;font-weight:300;margin-bottom:0;}
+
+    /* STORY SECTION */
+    .story-section{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1240px;margin:0 auto;}
+    .story-img{width:100%;aspect-ratio:4/3;background:var(--black-c);border:2px solid rgba(232,184,0,.15);position:relative;overflow:hidden;}
+    .story-img img{width:100%;height:100%;object-fit:cover;}
+    .story-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,184,0,.05),transparent 50%);pointer-events:none;}
+    .story-content .sec-desc{max-width:none;margin-bottom:32px;}
+    .story-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;}
+    .stat-box{background:var(--black-c);padding:24px 28px;border-left:3px solid var(--gold);position:relative;overflow:hidden;}
+    .stat-box::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:radial-gradient(circle,rgba(232,184,0,.06),transparent 70%);pointer-events:none;}
+    .stat-num{font-family:'Oswald',sans-serif;font-weight:700;font-size:42px;color:var(--gold);line-height:1;margin-bottom:6px;}
+    .stat-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.35em;color:var(--gray-md);text-transform:uppercase;}
+
+    /* VALUES GRID */
+    .values-header{text-align:center;max-width:700px;margin:0 auto 30px;}
+    .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:1000px;margin:0 auto;}
+    .value-card{background:var(--black-c);padding:18px 50px;text-align:center;position:relative;overflow:hidden;transition:background .35s;}
+    .value-icon{font-size:34px;margin-bottom:12px;display:block;}
+    .value-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;transition:color .3s;}
+    .value-card:hover .value-title{color:var(--gold);}
+    .value-desc{font-size:14px;color:var(--gray-md);line-height:1.75;font-weight:300;}
+
+    /* WHY YUMA */
+    .yuma-section{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:1240px;margin:0 auto;}
+    .yuma-content .sec-desc{margin-bottom:36px;}
+    .yuma-features{display:flex;flex-direction:column;gap:16px;}
+    .yuma-feature{display:flex;align-items:flex-start;gap:16px;padding:14px;background:var(--black-c);border-left:2px solid transparent;transition:border-color .3s,background .3s;}
+    .yuma-feature:hover{border-color:var(--gold);background:#252321;}
+    .yuma-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+    .yuma-feature-title{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:6px;}
+    .yuma-feature-desc{font-size:13px;color:var(--gray-md);line-height:1.7;font-weight:300;}
+    .yuma-img{width:100%;aspect-ratio:4/3;background:var(--black-c);border:2px solid rgba(232,184,0,.15);position:relative;overflow:hidden;}
+    .yuma-img img{width:100%;height:100%;object-fit:cover;}
+
+    /* MANUFACTURING */
+    .mfg-header{text-align:center;max-width:700px;margin:0 auto 60px;}
+    .mfg-timeline{max-width:900px;margin:0 auto;position:relative;}
+    .mfg-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold) 10%,var(--gold) 90%,transparent);transform:translateX(-50%);}
+    .mfg-step{display:grid;grid-template-columns:1fr 80px 1fr;gap:0;margin-bottom:60px;position:relative;}
+    .mfg-step:last-child{margin-bottom:0;}
+    .mfg-step-left{text-align:right;padding-right:40px;}
+    .mfg-step-right{padding-left:40px;}
+    .mfg-step-center{display:flex;align-items:center;justify-content:center;position:relative;z-index:2;}
+    .mfg-step-num{width:60px;height:60px;border-radius:50%;background:var(--black-c);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--gold);}
+    .mfg-step-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+    .mfg-step-desc{font-size:14px;color:var(--gray-md);line-height:1.75;font-weight:300;}
+    .mfg-step:nth-child(even) .mfg-step-left{order:3;text-align:left;padding-left:40px;padding-right:0;}
+    .mfg-step:nth-child(even) .mfg-step-right{order:1;padding-right:40px;padding-left:0;}
+    .mfg-step:nth-child(even) .mfg-step-center{order:2;}
+
+    /* CTA SECTION */
+    .cta-section{background:linear-gradient(135deg,rgba(232,184,0,.08),rgba(181,34,0,.05));border-top:1px solid rgba(232,184,0,.15);border-bottom:1px solid rgba(232,184,0,.15);text-align:center;padding:50px 60px;}
+    .cta-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(36px,4vw,52px);text-transform:uppercase;margin-bottom:20px;line-height:1.1;}
+    .cta-title em{font-style:normal;color:var(--gold);}
+    .cta-desc{font-size:16px;color:var(--gray-md);line-height:1.8;max-width:580px;margin:0 auto 36px;font-weight:300;}
+    .cta-btn{display:inline-block;background:var(--gold);color:var(--black);padding:16px 48px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:background .3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+    .cta-btn:hover{background:#FFD000;}
+
+    /* FOOTER */
+    footer{background:var(--black-s);border-top:1px solid rgba(232,184,0,.1);padding:60px 60px 32px;}
+    .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;}
+    .footer-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+    .footer-brand span{color:var(--gold);}
+    .footer-tagline{font-size:13px;color:var(--gray-md);line-height:1.8;margin-bottom:24px;font-weight:300;max-width:320px;}
+    .footer-social{display:flex;gap:12px;}
+    .footer-social a{width:40px;height:40px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;color:var(--gray-md);text-decoration:none;transition:border-color .3s,color .3s;}
+    .footer-social a:hover{border-color:var(--gold);color:var(--gold);}
+    .footer-col-title{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .footer-links a{color:var(--gray-md);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s;}
+    .footer-links a:hover{color:var(--white);}
+    .footer-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:28px;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+    .footer-copy,.footer-made{font-size:11px;color:var(--gray-dk);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .story-section,.yuma-section{grid-template-columns:1fr;gap:50px;}
+      .yuma-section .yuma-img{order:-1;}
+      .values-grid{grid-template-columns:1fr;gap:1px;}
+      .mfg-timeline::before{left:30px;}
+      .mfg-step{grid-template-columns:60px 1fr;gap:20px;}
+      .mfg-step-left{display:none;}
+      .mfg-step-right{padding-left:0;}
+      .mfg-step-center{justify-content:flex-start;}
+      .mfg-step:nth-child(even) .mfg-step-left{display:none;}
+      .mfg-step:nth-child(even) .mfg-step-right{order:2;padding-left:0;}
+      .story-stats{grid-template-columns:1fr;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:40px;}
+    }
+    @media(max-width:768px){
+      #cur,#ring{display:none;}
+      body{cursor:auto;}
+      nav{padding:0 20px;height:60px;}
+      .nav-links{display:none;}
+      .nav-cta{display:none;}
+      .nav-logo img{height:60px;}
+      .nav-hamburger{display:flex;}
+      .page-hero{padding:90px 24px 48px;min-height:60vh;}
+      .page-hero::after{font-size:140px;right:-10px;}
+      .page-hero h1{font-size:clamp(38px,10vw,60px);}
+      .section{padding:56px 24px;}
+      .mega-menu-inner{padding:80px 20px 40px;}
+      .mega-grid{grid-template-columns:1fr 1fr;gap:10px;}
+      .footer-top{grid-template-columns:1fr;gap:28px;}
+      footer{padding:40px 24px 24px;}
+      .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+      .cta-section{padding:40px 24px;}
+    }
+  </style>
+</head>
+<body>
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.webp" alt="SG Trailers"/>
+    </a>
+    <ul class="nav-links">
+      <li class="has-mega"><a href="#" onclick="openMega(event)">Trailers</a></li>
+      <li class="has-dropdown">
+        <a href="#" class="active">Company</a>
+        <div class="dropdown">
+          <a href="about.html">About Us</a>
+          <a href="dealer_program.html">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown">
+          <a href="catalog.html#financing">Financing</a>
+          <a href="#">Parts & Accessories</a>
+          <a href="dealer_locations.html">Dealers</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Community</a>
+        <div class="dropdown">
+          <a href="#">Success Stories</a>
+          <a href="#">Partners & Finance</a>
+          <a href="#">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="#">Tutorials</a>
+          <a href="#">Safety</a>
+          <a href="#">Maintenance</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='contact.html'">Get a Quote</button>
+    <button class="nav-hamburger" onclick="openMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Our Trailers</span>
+        <button class="mega-close" onclick="closeMega()">Close ✕</button>
+      </div>
+      <div class="mega-grid">
+        <a href="catalog.html?model=apolo" class="mega-card">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="catalog.html?model=anubis" class="mega-card">
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Mid Range</div>
+        </a>
+        <a href="catalog.html?model=nemesis" class="mega-card">
+          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
+          <div class="mega-card-name">Nemesis</div>
+          <div class="mega-card-tier">Upper Mid</div>
+        </a>
+        <a href="catalog.html?model=apocalypse" class="mega-card">
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-name">Apocalypse</div>
+          <div class="mega-card-tier">Top of Line</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo"><img src="img/logo.webp" alt="SG Trailers"/></a>
+      <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Home <span style="color:var(--gray-dk);"></span></a>
+      <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Trailers <span style="color:var(--gray-dk);"></span></a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="about.html" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts & Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Dealers</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Success Stories</a>
+          <a href="#" onclick="closeMenu()">Partners & Finance</a>
+          <a href="#" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Contact <span style="color:var(--gray-dk);"></span></a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="contact.html" class="mobile-menu-cta">Get a Quote</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-eyebrow">Est. 2019</div>
+      <h1>Built on <em>Precision.</em><br/>Driven by <em>Purpose.</em></h1>
+      <p>Since 2019, SG Trailers has been manufacturing professional-grade car haulers in Yuma, Arizona. We're not here to compete on price—we're here to build the trailers that professionals trust for decades.</p>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="section reveal">
+    <div class="story-section">
+      <div class="story-img">
+        <img src="img/factory-placeholder.jpg" alt="SG Trailers Factory" style="object-position:center;filter:brightness(.9);"/>
+      </div>
+      <div class="story-content">
+        <div class="sec-eyebrow">Our Story</div>
+        <h2 class="sec-title">From Vision to <em>Reality</em></h2>
+        <p class="sec-desc">SG Trailers was founded on a simple principle: the hauling industry deserved better. Better engineering. Better materials. Better service. We started with a 12,000 sq ft facility in Yuma, Arizona, and a commitment to build every trailer as if our reputation depended on it—because it does.</p>
+        <p class="sec-desc">Today, we manufacture four distinct trailer lines, each designed for a specific segment of the market. From entry-level operators to seasoned professionals hauling high-value cargo, our trailers are built to handle whatever the road throws at them.</p>
+        <div class="story-stats">
+          <div class="stat-box">
+            <div class="stat-num">2,400+</div>
+            <div class="stat-label">Trailers Delivered</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">7 Years</div>
+            <div class="stat-label">Manufacturing Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section-alt reveal">
+    <div class="values-header">
+      <div class="sec-eyebrow">Our Values</div>
+      <h2 class="sec-title">What We <em>Stand For</em></h2>
+      <p class="sec-desc">Every decision we make is guided by these core principles. They're not just words on a page—they're the foundation of how we operate every day.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">🔧</span>
+        <div class="value-title">Build to Last</div>
+        <p class="value-desc">We don't cut corners. Every weld, every bolt, every component is chosen for maximum durability. Our trailers are built to outlast industry standards.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🎯</span>
+        <div class="value-title">Customer First</div>
+        <p class="value-desc">Your success is our success. We listen, we adapt, and we deliver solutions that match your specific needs—whether you're buying one or a hundred.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">⚡</span>
+        <div class="value-title">Continuous Innovation</div>
+        <p class="value-desc">The hauling industry evolves. So do we. We invest in R&D, listen to operator feedback, and constantly refine our designs to stay ahead.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🤝</span>
+        <div class="value-title">Transparent Pricing</div>
+        <p class="value-desc">No hidden fees. No dealer markups. You buy direct from the factory and get exactly what you pay for—nothing more, nothing less.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🇺🇸</span>
+        <div class="value-title">American Made</div>
+        <p class="value-desc">Every SG trailer is designed and manufactured in Yuma, Arizona. We support American jobs and American manufacturing without compromise.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">📐</span>
+        <div class="value-title">Precision Engineering</div>
+        <p class="value-desc">We measure twice, cut once, and weld with precision. Our engineering team brings decades of experience to every design decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY YUMA -->
+  <section class="section reveal">
+    <div class="yuma-section">
+      <div class="yuma-content">
+        <div class="sec-eyebrow">Why Yuma</div>
+        <h2 class="sec-title">Location <em>Matters</em></h2>
+        <p class="sec-desc">We chose Yuma, Arizona for strategic reasons. It's not just about cheap land or tax breaks—it's about access, logistics, and quality of life for our team.</p>
+        <div class="yuma-features">
+          <div class="yuma-feature">
+            <span class="yuma-icon">🚛</span>
+            <div>
+              <div class="yuma-feature-title">Strategic Logistics Hub</div>
+              <p class="yuma-feature-desc">Located at the intersection of I-8 and close to major transport corridors, Yuma gives us direct access to California, Arizona, Nevada, and Mexico markets.</p>
+            </div>
+          </div>
+          <div class="yuma-feature">
+            <span class="yuma-icon">☀️</span>
+            <div>
+              <div class="yuma-feature-title">Year-Round Production</div>
+              <p class="yuma-feature-desc">With 310+ days of sunshine annually, we can maintain consistent outdoor work schedules without weather delays affecting our production timelines.</p>
+            </div>
+          </div>
+          <div class="yuma-feature">
+            <span class="yuma-icon">💼</span>
+            <div>
+              <div class="yuma-feature-title">Skilled Workforce</div>
+              <p class="yuma-feature-desc">Yuma's manufacturing heritage and skilled labor pool allow us to hire experienced welders, fabricators, and technicians who take pride in their craft.</p>
+            </div>
+          </div>
+          <div class="yuma-feature">
+            <span class="yuma-icon">💰</span>
+            <div>
+              <div class="yuma-feature-title">Cost Efficiency</div>
+              <p class="yuma-feature-desc">Lower overhead means we can reinvest in better materials and pay-fair wages without passing inflated costs to customers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="yuma-img">
+        <img src="img/yuma-placeholder.jpg" alt="Yuma Arizona" style="object-position:center;filter:brightness(.85);"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANUFACTURING PROCESS -->
+  <section class="section section-alt reveal">
+    <div class="mfg-header">
+      <div class="sec-eyebrow">Our Process</div>
+      <h2 class="sec-title">How We <em>Build</em></h2>
+      <p class="sec-desc">Every trailer goes through a rigorous 7-stage manufacturing process designed to ensure structural integrity, safety compliance, and long-term reliability.</p>
+    </div>
+    <div class="mfg-timeline">
+      <div class="mfg-step">
+        <div class="mfg-step-left">
+          <div class="mfg-step-title">Design & Engineering</div>
+          <p class="mfg-step-desc">CAD modeling and structural analysis ensure every component meets load specifications and safety standards.</p>
+        </div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">1</div>
+        </div>
+        <div class="mfg-step-right"></div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left"></div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">2</div>
+        </div>
+        <div class="mfg-step-right">
+          <div class="mfg-step-title">Material Selection</div>
+          <p class="mfg-step-desc">Only top-tier steel, aluminum, and components from trusted suppliers make it to our production floor.</p>
+        </div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left">
+          <div class="mfg-step-title">Frame Fabrication</div>
+          <p class="mfg-step-desc">CNC cutting and precision welding create the structural foundation. Every frame is inspected for tolerances.</p>
+        </div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">3</div>
+        </div>
+        <div class="mfg-step-right"></div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left"></div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">4</div>
+        </div>
+        <div class="mfg-step-right">
+          <div class="mfg-step-title">Component Assembly</div>
+          <p class="mfg-step-desc">Axles, suspension, brakes, and electrical systems are installed by certified technicians following strict protocols.</p>
+        </div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left">
+          <div class="mfg-step-title">Surface Treatment</div>
+          <p class="mfg-step-desc">Industrial-grade powder coating and corrosion protection ensure your trailer withstands harsh environments.</p>
+        </div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">5</div>
+        </div>
+        <div class="mfg-step-right"></div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left"></div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">6</div>
+        </div>
+        <div class="mfg-step-right">
+          <div class="mfg-step-title">Quality Control</div>
+          <p class="mfg-step-desc">Multi-point inspection covering structural integrity, electrical systems, brake function, and road worthiness.</p>
+        </div>
+      </div>
+      <div class="mfg-step">
+        <div class="mfg-step-left">
+          <div class="mfg-step-title">Final Delivery Prep</div>
+          <p class="mfg-step-desc">Documentation, registration assistance, and final walkthrough before your trailer hits the road.</p>
+        </div>
+        <div class="mfg-step-center">
+          <div class="mfg-step-num">7</div>
+        </div>
+        <div class="mfg-step-right"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <h2 class="cta-title">Ready to Work with <em>SG Trailers?</em></h2>
+    <p class="cta-desc">Whether you're buying your first trailer or outfitting an entire fleet, we're ready to deliver the quality and service you deserve.</p>
+    <a href="contact.html" class="cta-btn">Get in Touch →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
+        </div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apolo">Apolo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
+          <li><a href="catalog.html#financing">Financing</a></li>
+          <li><a href="catalog.html#guide">Owner's Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_program.html">Dealer Inquiry</a></li>
+          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+    // Menu functions
+    function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';}
+    function openMega(e){e.preventDefault();document.getElementById('megaMenu').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMega(){document.getElementById('megaMenu').classList.remove('open');document.body.style.overflow='';}
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling;
+      const isOpen=btn.classList.contains('open');
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');});
+      if(!isOpen){btn.classList.add('open');sub.classList.add('open');}
+    }
+
+    // Reveal on scroll
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting)e.target.classList.add('visible');
+    }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
