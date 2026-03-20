@@ -425,6 +425,40 @@
       .specs-table td{font-size:12px;padding:8px 4px;}
       .fin-rate-val{font-size:22px;}
     }
+
+    /* MOBILE ACCORDION */
+    .mob-group { border-bottom:1px solid rgba(255,255,255,.06); }
+    .mob-group-btn {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 24px;width:100%;background:transparent;border:none;
+      font-family:'Oswald',sans-serif;font-weight:500;
+      font-size:18px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--white);cursor:none;transition:color .3s,background .3s;
+      text-align:left;
+    }
+    .mob-group-btn:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mob-group-btn.open { color:var(--gold); }
+    .mob-group-arrow {
+      font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;
+      flex-shrink:0;
+    }
+    .mob-group-btn.open .mob-group-arrow { transform:rotate(90deg);color:var(--gold); }
+    .mob-sub {
+      max-height:0;overflow:hidden;
+      transition:max-height .35s ease;
+      background:rgba(0,0,0,.2);
+    }
+    .mob-sub.open { max-height:400px; }
+    .mob-sub a {
+      display:block;padding:14px 24px 14px 36px;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:14px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.04);
+      transition:color .3s;
+    }
+    .mob-sub a:last-child { border-bottom:none; }
+    .mob-sub a:hover { color:var(--gold); }
   </style>
 </head>
 <body>
@@ -443,7 +477,7 @@
         <a href="#">Company</a>
         <div class="dropdown">
           <a href="#">About Us</a>
-          <a  href="dealers.html">Dealer Program</a>
+          <a  href="dealer_program.html">Dealer Program</a>
         </div>
       </li>
       <li class="has-dropdown">
@@ -451,7 +485,7 @@
         <div class="dropdown">
           <a href="#financing">Financing</a>
           <a href="#">Parts & Accessories</a>
-          <a href="#">Dealers</a>
+          <a href="dealer_locations.html">Dealers</a>
         </div>
       </li>
       <li class="has-dropdown">
@@ -470,7 +504,7 @@
           <a href="#">Maintenance</a>
         </div>
       </li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
     <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
@@ -487,8 +521,8 @@
       </div>
       <div class="mega-grid">
         <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('apolo'),400)">
-          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apollo"/></div>
-          <div class="mega-card-name">Apollo</div>
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
           <div class="mega-card-tier">Entry Level</div>
         </a>
         <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('anubis'),400)">
@@ -518,14 +552,41 @@
       </a>
       <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
-    <div class="mobile-menu-links">
-      <a href="index.html" onclick="closeMenu()">Home</a>
-      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
-      <a href="#">Company</a>
-      <a href="#">Shop</a>
-      <a href="#">Community</a>
-      <a href="#">Owner's Guide</a>
-      <a href="#contact" onclick="closeMenu()">Contact</a>
+        <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Home <span style="color:var(--gray-dk);">›</span></a>
+      <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Trailers <span style="color:var(--gray-dk);">›</span></a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts & Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Dealers</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Success Stories</a>
+          <a href="#" onclick="closeMenu()">Partners & Finance</a>
+          <a href="#" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="#contact" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Contact <span style="color:var(--gray-dk);">›</span></a>
     </div>
     <div class="mobile-menu-footer">
       <a href="#contact" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
@@ -547,7 +608,7 @@
         <div class="card-inner">
           <div class="card-img"><img src="img/apolo-1.webp" alt="apolo"/><div class="card-tier">Entry Level</div></div>
           <div class="card-info">
-            <div class="card-name">apolo</div>
+            <div class="card-name">Apolo</div>
             <div class="card-tagline">The gateway to the SG family. Uncompromised quality at an accessible price point.</div>
             <div class="card-specs-bar">
               <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">7,000 lbs</div></div>
@@ -701,7 +762,9 @@
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-brand"><div class="footer-brand-shield">⚡</div>SG <span>Trailers</span></div>
+      <div class="footer-brand">
+        <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
+      </div>
         <div class="footer-tagline">Precision-built trailers. Direct from the factory — no middlemen, no markups.</div>
         <div class="footer-social"><a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a></div>
       </div>
@@ -719,7 +782,7 @@
         <ul class="footer-links">
           <li><a href="#financing">Financing</a></li>
           <li><a href="#guide">Owner's Guide</a></li>
-          <li><a  href="dealers.html">Dealer Program</a></li>
+          <li><a  href="dealer_program.html">Dealer Program</a></li>
         </ul>
       </div>
       <div>
@@ -728,7 +791,7 @@
           <li><a href="#contact">Get a Quote</a></li>
           <li><a href="#">Technical Support</a></li>
           <li><a href="#">Warranty Claim</a></li>
-          <li><a href="#">Find a Dealer</a></li>
+          <li><a href="dealer_locations.html">Find a Dealer</a></li>
         </ul>
       </div>
     </div>
@@ -746,7 +809,7 @@
     (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     const models={
-      apolo:{nameHtml:'Ap<em>ollo</em>',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.png','img/apolo-4.png'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
+      apolo:{nameHtml:'Ap<em>olo</em>',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.png','img/apolo-4.png'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
       anubis:{nameHtml:'An<em>ubis</em>',tier:'Mid Range · Car Hauler',photos:['img/anubis-1.webp','img/anubis-2.png','img/anubis-3.png'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
       nemesis:{nameHtml:'Nem<em>esis</em>',tier:'Upper Mid · Car Hauler',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
       apocalypse:{nameHtml:'Apoc<em>alypse</em>',tier:'Top of Line · Car Hauler',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
@@ -893,6 +956,16 @@
           window.scrollTo({top:offset,behavior:'smooth'});
         }, 800);
       }
+    }
+
+    function toggleAccordion(btn){
+      const sub = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+      if(!isOpen){ btn.classList.add('open'); sub.classList.add('open'); }
     }
   </script>
 </body>

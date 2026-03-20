@@ -69,7 +69,6 @@
     .mobile-menu-links{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
     .mobile-menu-links a{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,background .3s;}
     .mobile-menu-links a:hover{color:var(--gold);background:rgba(232,184,0,.04);}
-    .mobile-menu-links a::after{content:'›';font-size:20px;color:var(--gray-dk);}
     .mobile-menu-footer{padding:24px;border-top:1px solid rgba(255,255,255,.06);}
     .mobile-menu-cta{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
     .mobile-menu-cta:hover{background:#D42800;}
@@ -197,6 +196,40 @@
       .mega-menu-inner{padding:80px 20px 40px;}
       .mega-grid{grid-template-columns:1fr 1fr;gap:10px;}
     }
+
+    /* MOBILE ACCORDION */
+    .mob-group { border-bottom:1px solid rgba(255,255,255,.06); }
+    .mob-group-btn {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 24px;width:100%;background:transparent;border:none;
+      font-family:'Oswald',sans-serif;font-weight:500;
+      font-size:18px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--white);cursor:none;transition:color .3s,background .3s;
+      text-align:left;
+    }
+    .mob-group-btn:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mob-group-btn.open { color:var(--gold); }
+    .mob-group-arrow {
+      font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;
+      flex-shrink:0;
+    }
+    .mob-group-btn.open .mob-group-arrow { transform:rotate(90deg);color:var(--gold); }
+    .mob-sub {
+      max-height:0;overflow:hidden;
+      transition:max-height .35s ease;
+      background:rgba(0,0,0,.2);
+    }
+    .mob-sub.open { max-height:400px; }
+    .mob-sub a {
+      display:block;padding:14px 24px 14px 36px;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:14px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.04);
+      transition:color .3s;
+    }
+    .mob-sub a:last-child { border-bottom:none; }
+    .mob-sub a:hover { color:var(--gold); }
   </style>
 </head>
 <body>
@@ -217,7 +250,7 @@
         <a href="#">Company</a>
         <div class="dropdown">
           <a href="#">About Us</a>
-          <a href="dealers.html" class="active">Dealer Program</a>
+          <a href="dealer_program.html" class="active">Dealer Program</a>
         </div>
       </li>
       <li class="has-dropdown">
@@ -225,7 +258,7 @@
         <div class="dropdown">
           <a href="catalog.html#financing">Financing</a>
           <a href="#">Parts & Accessories</a>
-          <a href="#">Dealers</a>
+          <a href="dealer_locations.html">Dealers</a>
         </div>
       </li>
       <li class="has-dropdown">
@@ -244,7 +277,7 @@
           <a href="#">Maintenance</a>
         </div>
       </li>
-      <li><a href="catalog.html#contact">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="window.location='#apply'">Apply Now</button>
     <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
@@ -292,13 +325,41 @@
       </a>
       <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
-    <div class="mobile-menu-links">
-      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
-      <a href="#">Company</a>
-      <a href="#">Shop</a>
-      <a href="#">Community</a>
-      <a href="#">Owner's Guide</a>
-      <a href="catalog.html#contact" onclick="closeMenu()">Contact</a>
+        <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Home <span style="color:var(--gray-dk);">›</span></a>
+      <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Trailers <span style="color:var(--gray-dk);">›</span></a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts & Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Dealers</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Success Stories</a>
+          <a href="#" onclick="closeMenu()">Partners & Finance</a>
+          <a href="#" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html"onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Contact <span style="color:var(--gray-dk);">›</span></a>
     </div>
     <div class="mobile-menu-footer">
       <a href="#apply" class="mobile-menu-cta" onclick="closeMenu()">Apply as Dealer →</a>
@@ -498,8 +559,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-brand">
-          <div class="footer-brand-shield">⚡</div>
-          SG <span>Trailers</span>
+        <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
         </div>
         <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
         <div class="footer-social">
@@ -519,7 +579,7 @@
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
           <li><a href="#">About Us</a></li>
-          <li><a href="dealers.html">Dealer Program</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
           <li><a href="catalog.html#financing">Financing</a></li>
           <li><a href="catalog.html#guide">Owner's Guide</a></li>
         </ul>
@@ -527,8 +587,8 @@
       <div>
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
-          <li><a href="catalog.html#contact">Get a Quote</a></li>
-          <li><a href="#apply">Dealer Inquiry</a></li>
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_program.html">Dealer Inquiry</a></li>
           <li><a href="#">Technical Support</a></li>
           <li><a href="#">Warranty Claim</a></li>
         </ul>
@@ -554,6 +614,16 @@
 
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    function toggleAccordion(btn){
+      const sub = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+      if(!isOpen){ btn.classList.add('open'); sub.classList.add('open'); }
+    }
   </script>
 </body>
 </html>

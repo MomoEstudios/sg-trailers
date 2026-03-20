@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Find a Dealer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;--black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:#F5F5F3;color:#1A1917;font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+    #cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+    #ring{width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:9997;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:68px;background:rgba(20,19,18,.96);backdrop-filter:blur(16px);border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;text-decoration:none;}
+    .nav-logo img{height:80px;width:auto;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative;padding-bottom:3px;}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+    .nav-links li{position:relative;}
+    .nav-links li .dropdown{position:absolute;top:100%;left:0;background:var(--black-d);border:1px solid rgba(232,184,0,.15);border-top:2px solid var(--gold);min-width:200px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:300;}
+    .nav-links li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+    .nav-links li .dropdown a{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .25s,background .25s;width:100%;}
+    .nav-links li .dropdown a:last-child{border-bottom:none;}
+    .nav-links li .dropdown a:hover{color:var(--gold);background:rgba(232,184,0,.04);}
+    .nav-cta{background:var(--red);color:var(--white);border:none;padding:10px 26px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+    .nav-cta:hover{background:#D42800;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.2);padding:10px 12px;cursor:none;}
+    .nav-hamburger span{display:block;width:22px;height:2px;background:var(--white);}
+
+    /* MEGA MENU */
+    .has-mega{position:static !important;}
+    .mega-menu{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;background:var(--black-d);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .35s,visibility .35s;pointer-events:none;overflow-y:auto;}
+    .mega-menu.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:all;}
+    .mega-menu-inner{max-width:1200px;margin:0 auto;padding:96px 60px 60px;}
+    .mega-menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid rgba(232,184,0,.2);}
+    .mega-menu-header span:first-child{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;}
+    .mega-close{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);text-transform:uppercase;cursor:none;transition:color .3s,border-color .3s;background:transparent;border:1px solid rgba(255,255,255,.15);padding:8px 16px;}
+    .mega-close:hover{color:var(--gold);border-color:var(--gold);}
+    .mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .mega-card{display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;}
+    .mega-card:hover{border-color:var(--gold);background:#272523;}
+    .mega-card-img{width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s);}
+    .mega-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85);}
+    .mega-card:hover .mega-card-img img{transform:scale(1.04);filter:brightness(1);}
+    .mega-card-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s;}
+    .mega-card:hover .mega-card-name{color:var(--gold);}
+    .mega-card-tier{font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px;}
+
+    /* MOBILE MENU */
+    .mobile-menu{position:fixed;inset:0;z-index:9997;background:var(--black-d);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+    .mobile-menu.open{transform:translateX(0);}
+    .mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:68px;border-bottom:2px solid var(--gold);flex-shrink:0;}
+    .mobile-menu-logo img{height:36px;width:auto;}
+    .mobile-menu-close{width:44px;height:44px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--white);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:none;}
+    .mobile-menu-links{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+    .mob-group{border-bottom:1px solid rgba(255,255,255,.06);}
+    .mob-group-btn{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);cursor:none;transition:color .3s;text-align:left;}
+    .mob-group-btn.open{color:var(--gold);}
+    .mob-group-arrow{font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0;}
+    .mob-group-btn.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
+    .mob-sub{max-height:0;overflow:hidden;transition:max-height .35s ease;background:rgba(0,0,0,.2);}
+    .mob-sub.open{max-height:400px;}
+    .mob-sub a{display:block;padding:14px 24px 14px 36px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);transition:color .3s;}
+    .mob-sub a:hover{color:var(--gold);}
+    .mobile-menu-footer{padding:24px;border-top:1px solid rgba(255,255,255,.06);}
+    .mobile-menu-cta{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+    .mobile-menu-cta:hover{background:#D42800;}
+
+    /* PAGE HERO */
+    .page-hero{padding:120px 60px 70px;background:#F5F5F3;border-bottom:1px solid rgba(0,0,0,.08);text-align:center;}
+    .page-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+    .page-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+    .page-hero h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(48px,6vw,80px);line-height:.95;text-transform:uppercase;margin-bottom:16px;color:#1A1917;}
+    .page-hero h1 em{font-style:normal;color:var(--gold);}
+    .page-hero p{font-size:15px;color:#737870;line-height:1.7;max-width:500px;font-weight:300;margin:0 auto;}
+    .page-eyebrow{justify-content:center;}
+    .page-eyebrow::before{display:none;}
+
+    /* DEALERS */
+    .section{padding:80px 60px;max-width:1100px;margin:0 auto;}
+    .section-alt{background:var(--black-s);}
+
+    .region{margin-bottom:56px;}
+    .region:last-child{margin-bottom:0;}
+    .region-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,.1);}
+    .region-flag{font-size:18px;}
+    .region-name{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#4A4744;}
+    .region-count{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.25em;color:var(--gray-dk);text-transform:uppercase;margin-left:auto;}
+
+    .dealers-grid{display:flex;flex-direction:column;gap:0;}
+
+    .dealer-card{background:transparent;padding:24px 0;position:relative;border-bottom:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:200px 1fr auto;align-items:center;gap:40px;}
+    .dealer-card:hover{background:transparent;}
+    .dealer-card::before{display:none;}
+    .dealer-card-left{min-width:0;}
+    .dealer-info{margin-bottom:0;}
+
+    .dealer-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;transition:color .3s;color:#1A1917;}
+    .dealer-card:hover .dealer-name{color:var(--gold);}
+    .dealer-city{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.35em;color:#737870;text-transform:uppercase;margin-bottom:0;}
+
+    .dealer-info{display:flex;flex-direction:column;gap:8px;}
+    .dealer-info-item{display:flex;align-items:flex-start;gap:10px;}
+    .dealer-info-icon{font-size:13px;flex-shrink:0;margin-top:2px;color:var(--gray-md);}
+    .dealer-info-text{font-size:13px;color:#737870;font-weight:300;line-height:1.5;}
+    .dealer-info-text a{color:#4A4744;text-decoration:none;transition:color .3s;}
+    .dealer-info-text a:hover{color:var(--gold);}
+
+    .dealer-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#4A4744;text-decoration:none;transition:color .3s;border:1px solid rgba(0,0,0,.15);padding:8px 16px;}
+    .dealer-btn:hover{color:var(--gold);border-color:var(--gold);}
+    .dealer-btn::after{content:'→';}
+
+    /* CTA BOTTOM */
+    .cta-section{padding:80px 60px;text-align:center;background:var(--black);border-top:none;}
+    .cta-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(28px,3vw,42px);text-transform:uppercase;margin-bottom:12px;}
+    .cta-title em{font-style:normal;color:var(--gold);}
+    .cta-desc{font-size:15px;color:var(--gray-md);font-weight:300;max-width:480px;margin:0 auto 32px;}
+    .cta-btn{display:inline-block;background:var(--gold);color:var(--black);padding:14px 40px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:background .3s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+    .cta-btn:hover{background:#FFD000;}
+
+    /* FOOTER */
+    footer{background:var(--black-d);border-top:2px solid var(--gold);padding:56px 60px 32px;}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+    .footer-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+    .footer-brand span{color:var(--gold);}
+    .footer-brand-shield{width:26px;height:30px;background:var(--gold);clip-path:polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%);display:flex;align-items:center;justify-content:center;font-size:11px;}
+    .footer-tagline{font-size:13px;color:var(--gray-md);line-height:1.7;max-width:260px;font-weight:300;margin-bottom:24px;}
+    .footer-social{display:flex;gap:10px;}
+    .footer-social a{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;transition:border-color .3s,color .3s;}
+    .footer-social a:hover{border-color:var(--gold);color:var(--gold);}
+    .footer-col-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.45em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+    .footer-links{list-style:none;}
+    .footer-links li{margin-bottom:10px;}
+    .footer-links a{color:var(--gray-md);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s;}
+    .footer-links a:hover{color:var(--white);}
+    .footer-divider{height:1px;background:rgba(255,255,255,.05);margin-bottom:24px;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+    .footer-copy{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--gray-dk);letter-spacing:.1em;}
+    .footer-made{font-size:11px;color:var(--gray-dk);font-weight:300;}
+
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      nav{padding:0 30px;}
+      .nav-links{gap:18px;}
+      .section{padding:60px 40px;}
+      .dealer-card{grid-template-columns:1fr;gap:16px;}
+      .dealer-card-left{margin-bottom:0;}
+      .dealer-city{margin-bottom:4px;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+    }
+    @media(max-width:768px){
+      #cur,#ring{display:none;}
+      body{cursor:auto;}
+      nav{padding:0 20px;height:60px;}
+      .nav-links{display:none;}
+      .nav-cta{display:none;}
+      .nav-logo img{height:25px;}
+      .nav-hamburger{display:flex;}
+      .page-hero{padding:90px 24px 48px;}
+      .section{padding:56px 24px;}
+      .cta-section{padding:56px 24px;}
+
+      footer{padding:40px 24px 24px;}
+      .footer-top{grid-template-columns:1fr;gap:28px;}
+      .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+      .mega-menu-inner{padding:80px 20px 40px;}
+      .mega-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
+    </a>
+    <ul class="nav-links">
+      <li class="has-mega"><a href="#" onclick="openMega(event)">Trailers</a></li>
+      <li class="has-dropdown">
+        <a href="#">Company</a>
+        <div class="dropdown">
+          <a href="#">About Us</a>
+          <a href="dealer_program.html">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown">
+          <a href="catalog.html#financing">Financing</a>
+          <a href="#">Parts & Accessories</a>
+          <a href="dealers-locations.html" class="active">Find a Dealer</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Community</a>
+        <div class="dropdown">
+          <a href="#">Success Stories</a>
+          <a href="#">Partners & Finance</a>
+          <a href="#">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="#">Tutorials</a>
+          <a href="#">Safety</a>
+          <a href="#">Maintenance</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="window.location='contact.html'">Get a Quote</button>
+    <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Trailer Models</span>
+        <button class="mega-close" onclick="closeMega()">✕ Close</button>
+      </div>
+      <div class="mega-grid">
+        <a href="catalog.html?model=apolo" class="mega-card">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="catalog.html?model=anubis" class="mega-card">
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Mid Range</div>
+        </a>
+        <a href="catalog.html?model=nemesis" class="mega-card">
+          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
+          <div class="mega-card-name">Nemesis</div>
+          <div class="mega-card-tier">Upper Mid</div>
+        </a>
+        <a href="catalog.html?model=apocalypse" class="mega-card">
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-name">Apocalypse</div>
+          <div class="mega-card-tier">Top of Line</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo"><img src="img/logo.webp" alt="SG Trailers"/></a>
+      <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Home <span style="color:var(--gray-dk)">›</span></a>
+      <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Trailers <span style="color:var(--gray-dk)">›</span></a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts & Accessories</a>
+          <a href="dealers-locations.html" onclick="closeMenu()">Find a Dealer</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Success Stories</a>
+          <a href="#" onclick="closeMenu()">Partners & Finance</a>
+          <a href="#" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Contact <span style="color:var(--gray-dk)">›</span></a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="reveal">
+      <div class="page-eyebrow">Authorized Network</div>
+      <h1>Find a <em>Dealer</em></h1>
+      <p>Our authorized dealers are carefully selected to ensure you get the same quality experience as buying direct from the factory.</p>
+    </div>
+  </div>
+
+  <!-- DEALERS -->
+  <div style="padding:80px 60px;background:#F5F5F3;">
+  <div style="max-width:760px;margin:0 auto;">
+
+    <!-- ARIZONA -->
+    <div class="region reveal">
+      <div class="region-header">
+        <span class="region-flag">🇺🇸</span>
+        <span class="region-name">Arizona</span>
+        <span class="region-count">2 Locations</span>
+      </div>
+      <div class="dealers-grid">
+        <div class="dealer-card">
+          <div class="dealer-name">Dealer Name TBD</div>
+          <div class="dealer-city">Yuma, AZ</div>
+          <div class="dealer-info">
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📍</span>
+              <span class="dealer-info-text">Address pending confirmation</span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📞</span>
+              <span class="dealer-info-text"><a href="#">(000) 000-0000</a></span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">✉️</span>
+              <span class="dealer-info-text"><a href="#"><span class="__cf_email__" data-cfemail="e18584808d8493a1848c80888dcf828e8c">[email&#160;protected]</span></a></span>
+            </div>
+          </div>
+          <a href="#" class="dealer-btn">Get Directions</a>
+        </div>
+        <div class="dealer-card">
+          <div class="dealer-name">Dealer Name TBD</div>
+          <div class="dealer-city">Yuma, AZ</div>
+          <div class="dealer-info">
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📍</span>
+              <span class="dealer-info-text">Address pending confirmation</span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📞</span>
+              <span class="dealer-info-text"><a href="#">(000) 000-0000</a></span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">✉️</span>
+              <span class="dealer-info-text"><a href="#"><span class="__cf_email__" data-cfemail="2c48494d40495e6c49414d4540024f4341">[email&#160;protected]</span></a></span>
+            </div>
+          </div>
+          <a href="#" class="dealer-btn">Get Directions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALIFORNIA -->
+    <div class="region reveal">
+      <div class="region-header">
+        <span class="region-flag">🇺🇸</span>
+        <span class="region-name">California</span>
+        <span class="region-count">1 Location</span>
+      </div>
+      <div class="dealers-grid">
+        <div class="dealer-card">
+          <div class="dealer-name">Dealer Name TBD</div>
+          <div class="dealer-city">California, CA</div>
+          <div class="dealer-info">
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📍</span>
+              <span class="dealer-info-text">Address pending confirmation</span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📞</span>
+              <span class="dealer-info-text"><a href="#">(000) 000-0000</a></span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">✉️</span>
+              <span class="dealer-info-text"><a href="#"><span class="__cf_email__" data-cfemail="3c58595d50594e7c59515d5550125f5351">[email&#160;protected]</span></a></span>
+            </div>
+          </div>
+          <a href="#" class="dealer-btn">Get Directions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÉXICO -->
+    <div class="region reveal">
+      <div class="region-header">
+        <span class="region-flag">🇲🇽</span>
+        <span class="region-name">México</span>
+        <span class="region-count">1 Location</span>
+      </div>
+      <div class="dealers-grid">
+        <div class="dealer-card">
+          <div class="dealer-name">Dealer Name TBD</div>
+          <div class="dealer-city">México</div>
+          <div class="dealer-info">
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📍</span>
+              <span class="dealer-info-text">Address pending confirmation</span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">📞</span>
+              <span class="dealer-info-text"><a href="#">+52 (000) 000-0000</a></span>
+            </div>
+            <div class="dealer-info-item">
+              <span class="dealer-info-icon">✉️</span>
+              <span class="dealer-info-text"><a href="#"><span class="__cf_email__" data-cfemail="badedfdbd6dfc8fadfd7dbd3d694d9d5d7">[email&#160;protected]</span></a></span>
+            </div>
+          </div>
+          <a href="#" class="dealer-btn">Get Directions</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section reveal">
+    <div class="cta-title">Want to Become a <em>Dealer?</em></div>
+    <p class="cta-desc">We're actively expanding our authorized network. Apply today and bring SG Trailers to your market.</p>
+    <a href="dealers.html" class="cta-btn">Apply for Dealership →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><div class="footer-brand-shield">⚡</div>SG <span>Trailers</span></div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social"><a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apolo">Apolo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
+          <li><a href="dealer_locations.html">Find a Dealer</a></li>
+          <li><a href="catalog.html#financing">Financing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_locations.html">Dealer Inquiry</a></li>
+          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*.25;ry+=(my-ry)*.25;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';}
+    function openMega(e){e.preventDefault();document.getElementById('megaMenu').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMega(){document.getElementById('megaMenu').classList.remove('open');document.body.style.overflow='';}
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling;
+      const isOpen=btn.classList.contains('open');
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');});
+      if(!isOpen){btn.classList.add('open');sub.classList.add('open');}
+    }
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
