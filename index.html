@@ -396,7 +396,7 @@
       transition:color .3s,background .3s;
     }
     .mobile-menu-links a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
-    .mobile-menu-links a::after { content:'›';font-size:20px;color:var(--gray-dk); }
+    .mobile-menu-links a::after { content:'';font-size:20px;color:var(--gray-dk); }
     .mobile-menu-links a:hover::after { color:var(--gold); }
 
     .mobile-menu-footer {
@@ -878,7 +878,7 @@
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
-    (function loop(){ rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
 
     // Hero Slider
     let cur2=0;

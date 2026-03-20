@@ -247,7 +247,7 @@
       transition:color .3s,background .3s;
     }
     .mobile-menu-links a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
-    .mobile-menu-links a::after { content:'›';font-size:20px;color:var(--gray-dk); }
+    .mobile-menu-links a::after { content:'';font-size:20px;color:var(--gray-dk); }
     .mobile-menu-links a:hover::after { color:var(--gold); }
 
     .mobile-menu-footer {
@@ -553,7 +553,8 @@
       <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
         <div class="mobile-menu-links">
-      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Home <span style="color:var(--gray-dk);"></span></a>
+    <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:flex-start;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Home <span style="color:var(--gray-dk);"></span></a> 
+    <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;">Trailers <span style="color:var(--gray-dk);"></span></a>
       <div class="mob-group">
         <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
         <div class="mob-sub">
@@ -805,7 +806,7 @@
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-    (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     const models={
       apolo:{nameHtml:'Ap<em>olo</em>',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.png','img/apolo-4.png'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
