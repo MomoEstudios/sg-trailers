@@ -507,6 +507,18 @@
       text-transform:uppercase;padding:0 16px 16px;
     }
 
+
+    /* MOBILE ACCORDION */
+    .mob-group{border-bottom:1px solid rgba(255,255,255,.06);}
+    .mob-group-btn{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);cursor:none;transition:color .3s,background .3s;text-align:left;}
+    .mob-group-btn:hover,.mob-group-btn.open{color:var(--gold);}
+    .mob-group-arrow{font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0;}
+    .mob-group-btn.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
+    .mob-sub{max-height:0;overflow:hidden;transition:max-height .35s ease;background:rgba(0,0,0,.2);}
+    .mob-sub.open{max-height:400px;}
+    .mob-sub a{display:block;padding:14px 24px 14px 36px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);transition:color .3s;}
+    .mob-sub a:hover{color:var(--gold);}
+
     /* ── RESPONSIVE ── */
 
     /* Tablet (max 1024px) */
@@ -674,13 +686,40 @@
       <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
     <div class="mobile-menu-links">
-      <a href="index.html" onclick="closeMenu()">Home</a>
-      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
-      <a href="#">Company</a>
-      <a href="#">Shop</a>
-      <a href="#">Community</a>
-      <a href="#">Owner's Guide</a>
-      <a href="contact.html" onclick="closeMenu()">Contact</a>
+      <a href="index.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Home <span style="color:var(--gray-dk);">›</span></a>
+      <a href="#" onclick="closeMenu();openMega(event)" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Trailers <span style="color:var(--gray-dk);">›</span></a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts & Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Find a Dealer</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Success Stories</a>
+          <a href="#" onclick="closeMenu()">Partners & Finance</a>
+          <a href="#" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);">Contact <span style="color:var(--gray-dk);">›</span></a>
     </div>
     <div class="mobile-menu-footer">
       <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
@@ -874,6 +913,12 @@
       if(e.isIntersecting) e.target.classList.add('visible');
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling;
+      const isOpen=btn.classList.contains('open');
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');});
+      if(!isOpen){btn.classList.add('open');sub.classList.add('open');}
+    }
 
     function openMenu(){
       document.getElementById('mobileMenu').classList.add('open');
