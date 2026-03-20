@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Owner's Guide | Tutorials, Safety & Maintenance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;
+      --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+
+    /* ── Cursor ── */
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9997;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 18px;height:52px;
+      width:calc(100% - 48px);max-width:870px;
+      background:rgba(14,13,12,.68);
+      backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+      border:1px solid rgba(232,184,0,.22);
+      border-radius:100px;
+      box-shadow:0 8px 32px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-logo {
+      font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;
+      letter-spacing:.18em;color:var(--white);text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;
+    }
+    @media (min-width:769px) {
+      .nav-logo { display:none; }
+      nav { justify-content:center;gap:0; }
+      .nav-links { position:static;transform:none;left:auto;display:flex;gap:22px; }
+      .nav-right { margin-left:20px;padding-right:14px; }
+    }
+    .nav-logo span { color:var(--gold); }
+    .nav-links {
+      display:flex;gap:28px;list-style:none;
+      position:absolute;left:50%;transform:translateX(-50%);
+    }
+    .nav-links a {
+      color:var(--gray-md);text-decoration:none;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+      transition:color .3s;position:relative;padding-bottom:3px;white-space:nowrap;
+    }
+    .nav-links a::after { content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-right { display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;padding-right:10px; }
+    .nav-cta {
+      background:var(--red);color:var(--white);border:none;
+      padding:9px 20px;font-family:'Barlow Condensed',sans-serif;
+      font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      cursor:none;transition:background .3s,box-shadow .3s;border-radius:100px;
+    }
+    .nav-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;
+      width:46px;height:46px;border-radius:50%;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+      padding:0;cursor:none;transition:border-color .3s,background .3s;
+    }
+    .nav-hamburger:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .nav-hamburger span { display:block;width:20px;height:2px;background:var(--white);transition:background .3s; }
+    .nav-hamburger:hover span { background:var(--gold); }
+
+    /* ── MOBILE MENU — Liquid Glass ── */
+    .mobile-menu {
+      position:fixed;inset:0;z-index:9997;
+      background:rgba(10,9,8,.68);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);
+      display:flex;flex-direction:column;transform:translateX(100%);
+      transition:transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .mobile-menu.open { transform:translateX(0); }
+    .mobile-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 20px;height:70px;background:rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;
+    }
+    .mobile-menu-logo img { height:40px;width:auto; }
+    .mobile-menu-close {
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);
+      color:var(--white);font-size:18px;display:flex;align-items:center;justify-content:center;
+      cursor:none;transition:border-color .3s,background .3s;
+    }
+    .mobile-menu-close:hover { border-color:var(--gold);background:rgba(232,184,0,.12); }
+    .mobile-menu-links { flex:1;overflow-y:auto;display:flex;flex-direction:column; }
+    .mobile-menu-links > a {
+      display:flex;justify-content:space-between;align-items:center;padding:15px 20px;
+      font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);
+      transition:color .3s,background .3s,opacity .3s;
+    }
+    .mobile-menu-links > a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mobile-menu-links > a::after { content:none !important; }
+    .mob-dimmed { opacity:0.22;transition:opacity .3s; }
+    .mob-group { border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;transition:opacity .3s; }
+    .mob-group-btn {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:15px 20px;width:100%;background:transparent;border:none;
+      font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);cursor:none;transition:color .3s,background .3s;text-align:left;
+    }
+    .mob-group-btn:hover,.mob-group-btn.open { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mob-group-arrow { font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0; }
+    .mob-group-btn.open .mob-group-arrow { transform:rotate(90deg);color:var(--gold); }
+    .mob-sub { max-height:0;overflow:hidden;transition:max-height .4s ease;background:rgba(0,0,0,.15); }
+    .mob-sub.open { max-height:600px; }
+    .mob-sub a {
+      display:block;padding:13px 20px 13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.05);transition:color .3s,background .3s;
+    }
+    .mob-sub a:last-child { border-bottom:none; }
+    .mob-sub a:hover { color:var(--gold);background:rgba(232,184,0,.05); }
+    .mob-header-actions { display:flex;align-items:center;gap:10px; }
+    .mobile-theme-toggle {
+      width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;
+      font-size:16px;cursor:none;transition:border-color .3s,background .3s;
+    }
+    .mobile-theme-toggle:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .mobile-menu-footer { padding:14px;border-top:1px solid rgba(255,255,255,.07); }
+    .mobile-menu-cta {
+      display:block;width:100%;text-align:center;background:var(--red);color:var(--white);
+      padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
+      letter-spacing:.2em;text-transform:uppercase;text-decoration:none;
+      transition:background .3s,box-shadow .3s;border-radius:100px;clip-path:none;
+    }
+    .mobile-menu-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── DROPDOWN ── */
+    .nav-links li { position:relative; }
+    .nav-links li .dropdown {
+      position:absolute;top:100%;left:0;background:var(--black-d);
+      border:1px solid rgba(232,184,0,.15);border-top:2px solid var(--gold);min-width:200px;
+      opacity:0;visibility:hidden;transform:translateY(8px);
+      transition:opacity .25s,transform .25s,visibility .25s;z-index:300;
+    }
+    .nav-links li:hover .dropdown { opacity:1;visibility:visible;transform:translateY(0); }
+    .nav-links li .dropdown a {
+      display:flex;justify-content:space-between;align-items:center;padding:13px 20px;
+      font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);
+      transition:color .25s,background .25s;width:100%;
+    }
+    .nav-links li .dropdown a:last-child { border-bottom:none; }
+    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+
+    /* ── MEGA MENU ── */
+    .has-mega { position:static !important; }
+    .mega-menu {
+      position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;background:var(--black-d);
+      border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(-12px);
+      transition:opacity .35s,transform .35s,visibility .35s;pointer-events:none;overflow-y:auto;
+    }
+    .mega-menu.open { opacity:1;visibility:visible;transform:translateY(0);pointer-events:all; }
+    .mega-menu-inner { max-width:1200px;margin:0 auto;padding:96px 60px 60px; }
+    .mega-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .mega-menu-header span:first-child {
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;
+    }
+    .mega-close {
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);
+      text-transform:uppercase;cursor:none;transition:color .3s;background:transparent;border:none;
+    }
+    .mega-close:hover { color:var(--gold); }
+    .mega-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px; }
+    .mega-card {
+      display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);
+      text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;
+    }
+    .mega-card:hover { border-color:var(--gold);background:#272523; }
+    .mega-card-img { width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s); }
+    .mega-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85); }
+    .mega-card:hover .mega-card-img img { transform:scale(1.04);filter:brightness(1); }
+    .mega-card-name {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s;
+    }
+    .mega-card:hover .mega-card-name { color:var(--gold); }
+    .mega-card-tier {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;letter-spacing:.35em;
+      color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      #cur, #ring { display:none; }
+      body { cursor:auto; }
+      nav { top:0;left:0;right:0;width:100%;transform:none;max-width:none;border-radius:0;height:60px;padding:0 16px;border:none;border-bottom:1px solid rgba(232,184,0,.15);box-shadow:0 2px 24px rgba(0,0,0,.4); }
+      .nav-links { display:none; }
+      .nav-cta { display:none; }
+      .nav-logo img { height:36px; }
+      .nav-hamburger { display:flex; }
+      .mega-menu-inner { padding:80px 20px 40px; }
+      .mega-grid { grid-template-columns:1fr 1fr;gap:10px; }
+    }
+    @media (max-width:375px) {
+      .mobile-menu-links > a { font-size:14px;padding:13px 16px; }
+      .mob-group-btn { font-size:14px;padding:13px 16px; }
+      .mob-sub a { font-size:12px;padding:11px 16px 11px 28px; }
+      .mobile-menu-header { height:60px; }
+      .mobile-menu-logo img { height:32px; }
+    }
+
+    /* ── LOGO FLOTANTE ── */
+    .nav-floating-logo {
+      position:fixed;top:10px;z-index:9999;left:max(20px, calc(50% - 470px));
+      display:flex;align-items:center;text-decoration:none;
+      filter:drop-shadow(0 3px 12px rgba(0,0,0,.6));opacity:1;transition:opacity .5s ease;
+    }
+    .nav-floating-logo.hidden { opacity:0;pointer-events:none; }
+    .nav-floating-logo:hover { opacity:.82; }
+    .nav-floating-logo img { height:82px;width:auto; }
+    @media (max-width:960px) { .nav-floating-logo { display:none; } }
+
+    /* ── THEME BUBBLE ── */
+    .nav-theme-bubble {
+      position:fixed;top:22px;z-index:9999;right:max(24px, calc(50% - 490px));
+      width:46px;height:46px;border-radius:50%;background:rgba(14,13,12,.72);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(232,184,0,.22);
+      box-shadow:0 4px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;
+      transition:border-color .3s,background .3s,transform .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-theme-bubble:hover { border-color:rgba(232,184,0,.5);background:rgba(232,184,0,.1);transform:rotate(20deg) scale(1.08); }
+    @media (max-width:960px) { .nav-theme-bubble { display:none; } }
+
+    /* ── LIGHT MODE ── */
+    body.light {
+      --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;
+      --white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744;
+    }
+    body.light nav { background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3); }
+    body.light .nav-theme-bubble { background:rgba(240,237,234,.82);border-color:rgba(232,184,0,.3); }
+    body.light .nav-hamburger { border-color:rgba(0,0,0,.2); }
+    body.light .nav-hamburger span { background:var(--white); }
+    body.light .mobile-menu { background:var(--black-d); }
+    body.light .mega-menu { background:var(--black-s); }
+    body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
+    body.light #cur { background:var(--gold); }
+    body.light #ring { border-color:rgba(232,184,0,.5); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:70vh;
+      background:linear-gradient(160deg,rgba(232,184,0,.08) 0%,transparent 45%),
+                 linear-gradient(200deg,rgba(181,34,0,.06) 0%,transparent 50%),var(--black-d);
+      display:flex;align-items:center;justify-content:center;
+      padding:120px 60px 80px;position:relative;overflow:hidden;
+      border-bottom:1px solid rgba(232,184,0,.15);
+    }
+    .page-hero::after {
+      content:'GUIDE';position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+      font-family:'Oswald',sans-serif;font-size:220px;font-weight:700;
+      color:rgba(232,184,0,.025);pointer-events:none;white-space:nowrap;letter-spacing:-.02em;
+    }
+    .page-hero-content { max-width:900px;text-align:center;position:relative;z-index:1; }
+    .page-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.55em;
+      color:var(--gold);text-transform:uppercase;margin-bottom:20px;
+      display:flex;align-items:center;gap:14px;justify-content:center;
+    }
+    .page-eyebrow::before,.page-eyebrow::after { content:'';width:36px;height:1px;background:var(--gold); }
+    .page-hero h1 {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(52px,7vw,88px);
+      line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px;
+    }
+    .page-hero h1 em { font-style:normal;color:var(--gold); }
+    .page-hero p {
+      font-size:17px;color:rgba(255,255,255,.7);line-height:1.8;font-weight:300;max-width:680px;margin:0 auto 32px;
+    }
+    .hero-model-filter {
+      display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+    }
+    .model-pill {
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;
+      text-transform:uppercase;padding:8px 20px;border-radius:100px;
+      border:1px solid rgba(255,255,255,.18);color:var(--gray-md);
+      background:transparent;cursor:none;transition:border-color .3s,color .3s,background .3s;
+    }
+    .model-pill:hover,.model-pill.active { border-color:var(--gold);color:var(--gold);background:rgba(232,184,0,.08); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+
+    /* ── SECTIONS ── */
+    .section { padding:100px 60px; }
+    .section-alt { background:var(--black-s); }
+    .sec-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;
+      letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;
+      display:flex;align-items:center;gap:16px;
+    }
+    .sec-eyebrow::before { content:'';width:32px;height:1px;background:var(--gold);opacity:.6; }
+    .sec-title {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(38px,4.5vw,58px);
+      line-height:1.05;margin-bottom:14px;text-transform:uppercase;
+    }
+    .sec-title em { font-style:normal;color:var(--gold); }
+    .sec-desc { font-size:16px;color:var(--gray-md);line-height:1.85;max-width:640px;font-weight:300; }
+
+    /* ── QUICK START CHECKLIST ── */
+    .quickstart-grid {
+      display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;
+    }
+    .checklist { display:flex;flex-direction:column;gap:12px; }
+    .check-item {
+      display:flex;align-items:flex-start;gap:16px;
+      padding:18px 20px;background:var(--black-c);
+      border-left:3px solid transparent;transition:border-color .3s,background .3s;
+    }
+    .check-item:hover { border-left-color:var(--gold);background:#272523; }
+    .check-box {
+      width:22px;height:22px;border:2px solid rgba(232,184,0,.3);
+      border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      font-size:12px;color:var(--gold);transition:border-color .3s;margin-top:1px;
+    }
+    .check-item:hover .check-box { border-color:var(--gold); }
+    .check-label {
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;
+      font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);margin-bottom:4px;
+    }
+    .check-desc { font-size:13px;color:var(--gray-md);line-height:1.65;font-weight:300; }
+    .quickstart-img {
+      position:sticky;top:90px;
+      width:100%;aspect-ratio:4/3;background:var(--black-c);
+      border:1px solid rgba(232,184,0,.12);overflow:hidden;
+    }
+    .quickstart-img img { width:100%;height:100%;object-fit:cover;filter:brightness(.85); }
+    .quickstart-img-cap {
+      position:absolute;bottom:0;left:0;right:0;
+      padding:16px 20px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;
+      color:rgba(255,255,255,.6);text-transform:uppercase;
+    }
+
+    /* ── TUTORIALS ── */
+    .tutorials-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+    }
+    .tutorial-card {
+      background:var(--black-c);overflow:hidden;cursor:none;
+      transition:background .3s;position:relative;
+    }
+    .tutorial-card:hover { background:#272523; }
+    .tutorial-thumb {
+      width:100%;aspect-ratio:16/9;background:var(--black-s);
+      position:relative;overflow:hidden;
+    }
+    .tutorial-thumb img {
+      width:100%;height:100%;object-fit:cover;
+      filter:brightness(.65) saturate(.9);transition:filter .4s,transform .5s;
+    }
+    .tutorial-card:hover .tutorial-thumb img { filter:brightness(.85) saturate(1);transform:scale(1.04); }
+    .tutorial-play {
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    }
+    .tutorial-play-btn {
+      width:52px;height:52px;border-radius:50%;
+      background:rgba(232,184,0,.85);display:flex;align-items:center;justify-content:center;
+      font-size:18px;color:var(--black);transition:transform .3s,background .3s;
+    }
+    .tutorial-card:hover .tutorial-play-btn { transform:scale(1.1);background:var(--gold); }
+    .tutorial-duration {
+      position:absolute;bottom:10px;right:12px;
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;
+      color:var(--white);background:rgba(0,0,0,.7);padding:3px 8px;
+    }
+    .tutorial-level {
+      position:absolute;top:10px;left:12px;
+      font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.3em;
+      text-transform:uppercase;color:var(--gold);background:rgba(0,0,0,.75);padding:4px 10px;
+    }
+    .tutorial-body { padding:24px 28px; }
+    .tutorial-number {
+      font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.4em;
+      color:var(--gray-dk);text-transform:uppercase;margin-bottom:8px;
+    }
+    .tutorial-title {
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--white);
+      margin-bottom:8px;transition:color .3s;
+    }
+    .tutorial-card:hover .tutorial-title { color:var(--gold); }
+    .tutorial-desc {
+      font-size:13px;color:var(--gray-md);line-height:1.7;font-weight:300;
+    }
+
+    /* ── SAFETY ── */
+    .safety-intro { max-width:700px;margin-bottom:52px; }
+    .safety-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:2px; }
+    .safety-card {
+      background:var(--black-c);padding:36px 40px;
+      display:flex;align-items:flex-start;gap:20px;
+      position:relative;overflow:hidden;transition:background .3s;
+    }
+    .safety-card:hover { background:#272523; }
+    .safety-icon-wrap {
+      width:52px;height:52px;border-radius:50%;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;margin-top:2px;
+    }
+    .safety-icon-wrap.warn { background:rgba(181,34,0,.12);border:1px solid rgba(181,34,0,.25); }
+    .safety-icon-wrap.info { background:rgba(232,184,0,.08);border:1px solid rgba(232,184,0,.2); }
+    .safety-icon-wrap.ok   { background:rgba(0,160,80,.08);border:1px solid rgba(0,160,80,.2); }
+    .safety-title {
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;
+      letter-spacing:.08em;text-transform:uppercase;color:var(--white);
+      margin-bottom:10px;transition:color .3s;
+    }
+    .safety-card:hover .safety-title { color:var(--gold); }
+    .safety-list { list-style:none;display:flex;flex-direction:column;gap:6px; }
+    .safety-list li {
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:13px;color:var(--gray-md);line-height:1.65;font-weight:300;
+    }
+    .safety-list li::before { content:'›';color:var(--gold);flex-shrink:0;margin-top:1px; }
+
+    /* ── MAINTENANCE SCHEDULE ── */
+    .maint-intro { max-width:700px;margin-bottom:52px; }
+    .maint-table-wrap { overflow-x:auto; }
+    .maint-table {
+      width:100%;border-collapse:collapse;min-width:640px;
+    }
+    .maint-table thead tr {
+      background:var(--black-d);border-bottom:2px solid var(--gold);
+    }
+    .maint-table th {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.4em;
+      text-transform:uppercase;color:var(--gold);padding:14px 20px;text-align:left;
+      font-weight:600;white-space:nowrap;
+    }
+    .maint-table tbody tr {
+      border-bottom:1px solid rgba(255,255,255,.04);transition:background .25s;
+    }
+    .maint-table tbody tr:hover { background:rgba(232,184,0,.025); }
+    .maint-table td {
+      padding:14px 20px;font-size:13px;vertical-align:top;
+    }
+    .maint-table td:first-child {
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;color:var(--white);
+    }
+    .maint-table td:nth-child(2) {
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.08em;
+      color:var(--gold);text-transform:uppercase;white-space:nowrap;
+    }
+    .maint-table td:nth-child(3) { color:var(--gray-md);line-height:1.65; }
+    .maint-table td:last-child { color:var(--gray-md); }
+    .maint-badge {
+      display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;
+      letter-spacing:.25em;text-transform:uppercase;padding:3px 10px;border-radius:100px;
+    }
+    .maint-badge.diy { background:rgba(232,184,0,.12);color:var(--gold);border:1px solid rgba(232,184,0,.2); }
+    .maint-badge.pro { background:rgba(181,34,0,.12);color:#E05030;border:1px solid rgba(181,34,0,.2); }
+
+    /* ── DOWNLOADS ── */
+    .downloads-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:2px; }
+    .download-card {
+      background:var(--black-c);padding:32px 36px;
+      display:flex;align-items:center;gap:24px;
+      cursor:none;transition:background .3s;text-decoration:none;color:inherit;
+    }
+    .download-card:hover { background:#272523; }
+    .download-icon {
+      width:56px;height:56px;flex-shrink:0;background:rgba(232,184,0,.08);
+      border:1px solid rgba(232,184,0,.18);display:flex;align-items:center;
+      justify-content:center;font-size:22px;transition:background .3s;
+    }
+    .download-card:hover .download-icon { background:rgba(232,184,0,.15); }
+    .download-title {
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;
+      letter-spacing:.08em;text-transform:uppercase;color:var(--white);
+      margin-bottom:4px;transition:color .3s;
+    }
+    .download-card:hover .download-title { color:var(--gold); }
+    .download-meta {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.15em;
+      color:var(--gray-dk);text-transform:uppercase;margin-bottom:6px;
+    }
+    .download-desc { font-size:13px;color:var(--gray-md);font-weight:300;line-height:1.6; }
+    .download-arrow {
+      margin-left:auto;flex-shrink:0;font-size:20px;color:var(--gray-dk);
+      transition:color .3s,transform .3s;
+    }
+    .download-card:hover .download-arrow { color:var(--gold);transform:translateX(4px); }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background:linear-gradient(135deg,rgba(232,184,0,.08),rgba(181,34,0,.05));
+      border-top:1px solid rgba(232,184,0,.15);border-bottom:1px solid rgba(232,184,0,.15);
+      text-align:center;padding:80px 60px;
+    }
+    .cta-title {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(36px,4vw,54px);text-transform:uppercase;
+      margin-bottom:20px;line-height:1.05;
+    }
+    .cta-title em { font-style:normal;color:var(--gold); }
+    .cta-desc { font-size:16px;color:var(--gray-md);line-height:1.8;max-width:560px;margin:0 auto 40px;font-weight:300; }
+    .cta-actions { display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap; }
+    .cta-btn-primary {
+      display:inline-block;background:var(--gold);color:var(--black);
+      padding:16px 48px;font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+      text-decoration:none;transition:background .3s;
+      clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    }
+    .cta-btn-primary:hover { background:#FFD000; }
+    .cta-btn-ghost {
+      display:inline-flex;align-items:center;gap:8px;
+      color:rgba(255,255,255,.6);font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+      text-decoration:none;transition:color .3s;
+    }
+    .cta-btn-ghost:hover { color:var(--gold); }
+    .cta-btn-ghost::after { content:'→'; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--black-s);border-top:1px solid rgba(232,184,0,.1);padding:60px 60px 32px; }
+    .footer-top { display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px; }
+    .footer-brand {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;
+      letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .footer-brand span { color:var(--gold); }
+    .footer-tagline { font-size:13px;color:var(--gray-md);line-height:1.8;margin-bottom:24px;font-weight:300;max-width:320px; }
+    .footer-social { display:flex;gap:12px; }
+    .footer-social a {
+      width:40px;height:40px;border:1px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+      color:var(--gray-md);text-decoration:none;transition:border-color .3s,color .3s;
+    }
+    .footer-social a:hover { border-color:var(--gold);color:var(--gold); }
+    .footer-col-title {
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;
+      letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;
+    }
+    .footer-links { list-style:none;display:flex;flex-direction:column;gap:10px; }
+    .footer-links a { color:var(--gray-md);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-divider { height:1px;background:rgba(255,255,255,.05);margin-bottom:24px; }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+    .footer-copy { font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--gray-dk);letter-spacing:.1em; }
+    .footer-made { font-size:11px;color:var(--gray-dk);font-weight:300; }
+
+    /* ── RESPONSIVE SECTIONS ── */
+    @media (max-width:1024px) {
+      .tutorials-grid { grid-template-columns:1fr 1fr; }
+      .downloads-grid { grid-template-columns:1fr; }
+      .footer-top { grid-template-columns:1fr 1fr;gap:40px; }
+    }
+    @media (max-width:768px) {
+      .section { padding:60px 24px; }
+      .page-hero { padding:100px 24px 60px; }
+      .page-hero::after { font-size:100px; }
+      .quickstart-grid { grid-template-columns:1fr; }
+      .quickstart-img { display:none; }
+      .tutorials-grid { grid-template-columns:1fr; }
+      .safety-grid { grid-template-columns:1fr; }
+      .maint-table th,.maint-table td { padding:12px 14px; }
+      .downloads-grid { grid-template-columns:1fr; }
+      .cta-section { padding:60px 24px; }
+      .cta-actions { flex-direction:column; }
+      .footer-top { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+    }
+    /* ── SCROLLED: logo en isla (reemplaza floating logo) ── */
+    @media (min-width:769px) {
+      body.scrolled nav { justify-content:space-between; }
+      body.scrolled .nav-logo { display:flex !important; }
+      body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- LOGO FLOTANTE DESKTOP -->
+  <a href="index.html" class="nav-floating-logo">
+    <img src="img/logo.webp" alt="SG Trailers"/>
+  </a>
+  <!-- THEME BUBBLE DESKTOP -->
+  <button class="nav-theme-bubble" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.webp" alt="SG Trailers" style="height:36px;width:auto;"/>
+    </a>
+    <ul class="nav-links">
+      <li class="has-mega">
+        <a href="#" onclick="openMega(event)">Trailers</a>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Company</a>
+        <div class="dropdown">
+          <a href="about.html">About Us</a>
+          <a href="dealer_program.html">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown">
+          <a href="catalog.html#financing">Financing</a>
+          <a href="#">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html">Dealers</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Community</a>
+        <div class="dropdown">
+          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html#partners">Partners &amp; Finance</a>
+          <a href="community.html#media">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="owners_guide.html" class="active">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="owners_guide.html#tutorials">Tutorials</a>
+          <a href="owners_guide.html#safety">Safety</a>
+          <a href="owners_guide.html#maintenance">Maintenance</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cta" onclick="window.location='contact.html'">Get a Quote</button>
+      <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Trailer Models</span>
+        <button class="mega-close" onclick="closeMega()">✕ Close</button>
+      </div>
+      <div class="mega-grid">
+        <a href="catalog.html?model=apolo" class="mega-card">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="catalog.html?model=anubis" class="mega-card">
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Mid Range</div>
+        </a>
+        <a href="catalog.html?model=nemesis" class="mega-card">
+          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
+          <div class="mega-card-name">Nemesis</div>
+          <div class="mega-card-tier">Upper Mid</div>
+        </a>
+        <a href="catalog.html?model=apocalypse" class="mega-card">
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-name">Apocalypse</div>
+          <div class="mega-card-tier">Top of Line</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo">
+        <img src="img/logo.webp" alt="SG Trailers"/>
+      </a>
+      <div class="mob-header-actions">
+        <button class="mobile-theme-toggle" id="themeToggleMobile" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+      </div>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="about.html" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Find a Dealer</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
+          <a href="community.html#media" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="owners_guide.html#tutorials" onclick="closeMenu()">Tutorials</a>
+          <a href="owners_guide.html#safety" onclick="closeMenu()">Safety</a>
+          <a href="owners_guide.html#maintenance" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()">Contact</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-eyebrow">For SG Trailer Owners</div>
+      <h1>Owner's <em>Guide</em></h1>
+      <p>Everything you need to operate, maintain, and get the most out of your SG Trailer. From pre-trip checklists to long-term maintenance schedules.</p>
+      <div class="hero-model-filter">
+        <button class="model-pill active">All Models</button>
+        <button class="model-pill">Apolo</button>
+        <button class="model-pill">Anubis</button>
+        <button class="model-pill">Nemesis</button>
+        <button class="model-pill">Apocalypse</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK START -->
+  <section class="section" id="quickstart">
+    <div class="quickstart-grid">
+      <div>
+        <div class="sec-eyebrow reveal">Getting Started</div>
+        <h2 class="sec-title reveal">Pre-Trip <em>Checklist</em></h2>
+        <p class="sec-desc reveal" style="margin-bottom:32px;">Run through this checklist before every haul. Takes 10 minutes and keeps you road-legal and safe. Print it or bookmark this page for quick reference.</p>
+        <div class="checklist">
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Hitch & Coupler</div>
+              <p class="check-desc">Verify coupler is fully locked onto ball. Safety chains crossed under the tongue and secured to vehicle. Break-away cable connected.</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Lighting & Electrical</div>
+              <p class="check-desc">Test all running lights, brake lights, turn signals, and clearance lights with vehicle connected. Check 7-pin connector for corrosion.</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Tire Pressure & Condition</div>
+              <p class="check-desc">Inflate to recommended PSI (see placard on trailer frame). Inspect sidewalls for cracking, bubbling, or wear. Check lug nut torque (100–110 ft-lbs).</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Brake System</div>
+              <p class="check-desc">Test electric brakes with brake controller. Verify brake magnets engage on all axles. Check brake fluid level if equipped with hydraulic surge brakes.</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Tie-Downs & Load Securement</div>
+              <p class="check-desc">Use minimum 4 tie-down points per vehicle. Ratchet straps at 45° angle. Verify combined WLL (Working Load Limit) exceeds vehicle weight × 1.5.</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Load Distribution</div>
+              <p class="check-desc">60% of load weight forward of the trailer axle centerline. Nose weight should be 10–15% of total trailer weight on the hitch ball.</p>
+            </div>
+          </div>
+          <div class="check-item reveal">
+            <div class="check-box">✓</div>
+            <div>
+              <div class="check-label">Wheel Bearings</div>
+              <p class="check-desc">Grab each wheel and attempt to wiggle — no play indicates healthy bearings. Check for heat immediately after first 10 miles of each trip.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="quickstart-img reveal">
+        <img src="img/nemesis-1.webp" alt="SG Trailer pre-trip inspection"/>
+        <div class="quickstart-img-cap">Nemesis — pre-trip inspection checklist</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUTORIALS -->
+  <section class="section section-alt" id="tutorials">
+    <div style="max-width:700px;margin-bottom:52px;" class="reveal">
+      <div class="sec-eyebrow">Step-by-Step Guides</div>
+      <h2 class="sec-title">Video <em>Tutorials</em></h2>
+      <p class="sec-desc">Hands-on guides for the most important operations. Filmed at our Yuma facility with our production team.</p>
+    </div>
+    <div class="tutorials-grid">
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/anubis-1.webp" alt="Hitching tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Beginner</div>
+          <div class="tutorial-duration">8:24</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 01</div>
+          <div class="tutorial-title">Hitching & Unhitching Safely</div>
+          <p class="tutorial-desc">Proper technique for coupling and decoupling your SG Trailer. Includes safety chain routing, electrical connection, and tongue weight verification.</p>
+        </div>
+      </div>
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/apocalypse-1.webp" alt="Load securement tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Beginner</div>
+          <div class="tutorial-duration">11:05</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 02</div>
+          <div class="tutorial-title">Load Securement & Tie-Down Technique</div>
+          <p class="tutorial-desc">FMCSA-compliant load securement for single and multi-car loads. Correct tie-down angles, ratchet strap operation, and axle strap positioning.</p>
+        </div>
+      </div>
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/nemesis-1.webp" alt="Bearing repack tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Intermediate</div>
+          <div class="tutorial-duration">22:30</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 03</div>
+          <div class="tutorial-title">Wheel Bearing Inspection & Repack</div>
+          <p class="tutorial-desc">Annual bearing maintenance procedure. Tools required, grease specifications, adjustment torque specs, and signs of bearing failure to watch for.</p>
+        </div>
+      </div>
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/apolo-1.webp" alt="Electric brakes tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Intermediate</div>
+          <div class="tutorial-duration">14:18</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 04</div>
+          <div class="tutorial-title">Electric Brake Adjustment & Testing</div>
+          <p class="tutorial-desc">How to set brake controller gain, verify brake magnet operation, adjust shoes, and diagnose common electrical brake issues on all SG models.</p>
+        </div>
+      </div>
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/anubis-2.webp" alt="Lighting repair tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Beginner</div>
+          <div class="tutorial-duration">6:45</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 05</div>
+          <div class="tutorial-title">Trailer Lighting Troubleshooting</div>
+          <p class="tutorial-desc">Diagnosing and fixing common lighting issues: dead bulbs, ground faults, corroded connectors, and blown fuses. Covers 4-pin and 7-pin configurations.</p>
+        </div>
+      </div>
+      <div class="tutorial-card reveal">
+        <div class="tutorial-thumb">
+          <img src="img/nemesis-2.webp" alt="Deck board replacement tutorial"/>
+          <div class="tutorial-play"><div class="tutorial-play-btn">▶</div></div>
+          <div class="tutorial-level">Advanced</div>
+          <div class="tutorial-duration">28:12</div>
+        </div>
+        <div class="tutorial-body">
+          <div class="tutorial-number">Tutorial 06</div>
+          <div class="tutorial-title">Deck Board Replacement</div>
+          <p class="tutorial-desc">Full deck board replacement walkthrough for SG Trailer models. Wood species specifications, fastener torque, board layout patterns, and finish recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY GUIDELINES -->
+  <section class="section" id="safety">
+    <div class="safety-intro reveal">
+      <div class="sec-eyebrow">Critical Information</div>
+      <h2 class="sec-title">Safety <em>Guidelines</em></h2>
+      <p class="sec-desc">Read and understand all safety guidelines before operating your SG Trailer. Non-compliance may void warranty and result in serious injury.</p>
+    </div>
+    <div class="safety-grid">
+      <div class="safety-card reveal">
+        <div class="safety-icon-wrap warn">⚠️</div>
+        <div>
+          <div class="safety-title">Towing Vehicle Requirements</div>
+          <ul class="safety-list">
+            <li>Never exceed your tow vehicle's rated towing capacity</li>
+            <li>Hitch ball must match coupler size exactly (1-7/8", 2", or 2-5/16")</li>
+            <li>Weight distribution hitch required when tongue weight exceeds 500 lbs</li>
+            <li>Sway control recommended for trailers over 5,000 lbs GVW</li>
+            <li>Trailer brakes required on axles over 3,000 lbs in most states</li>
+          </ul>
+        </div>
+      </div>
+      <div class="safety-card reveal">
+        <div class="safety-icon-wrap warn">⚠️</div>
+        <div>
+          <div class="safety-title">Weight & Loading Limits</div>
+          <ul class="safety-list">
+            <li>Never exceed the GVWR stamped on the VIN plate</li>
+            <li>Distribute load evenly side-to-side — max 5% variance</li>
+            <li>Individual tire load must not exceed tire load index rating</li>
+            <li>Overloading voids manufacturer warranty</li>
+            <li>Check state laws — GVWR determines registration class</li>
+          </ul>
+        </div>
+      </div>
+      <div class="safety-card reveal">
+        <div class="safety-icon-wrap info">📋</div>
+        <div>
+          <div class="safety-title">Legal & Licensing Requirements</div>
+          <ul class="safety-list">
+            <li>Trailers over 10,000 lbs GVWR may require CDL in some states</li>
+            <li>Registration and license plate required in all 50 states</li>
+            <li>Commercial use (for hire) requires USDOT number in most cases</li>
+            <li>Safety chains required by law in all states</li>
+            <li>Brake-away battery must be functional and charged</li>
+          </ul>
+        </div>
+      </div>
+      <div class="safety-card reveal">
+        <div class="safety-icon-wrap ok">✅</div>
+        <div>
+          <div class="safety-title">Operating Best Practices</div>
+          <ul class="safety-list">
+            <li>Reduce speed to 55 mph maximum when towing</li>
+            <li>Add 40% more stopping distance vs. normal driving</li>
+            <li>Avoid sudden lane changes — check mirrors every 5–7 seconds</li>
+            <li>Stop and inspect after first 50 miles of any trip</li>
+            <li>Re-torque lug nuts after first 50 miles: 100–110 ft-lbs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAINTENANCE SCHEDULE -->
+  <section class="section section-alt" id="maintenance">
+    <div class="maint-intro reveal">
+      <div class="sec-eyebrow">Preventive Care</div>
+      <h2 class="sec-title">Maintenance <em>Schedule</em></h2>
+      <p class="sec-desc">Follow this schedule to protect your investment and keep your warranty valid. All SG Trailers come with a 2-year structural warranty.</p>
+    </div>
+    <div class="maint-table-wrap reveal">
+      <table class="maint-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Interval</th>
+            <th>Description</th>
+            <th>Service</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pre-trip inspection</td>
+            <td>Every Use</td>
+            <td>Hitch, lights, tires, load securement, brakes, safety chains</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Lug nut torque check</td>
+            <td>Every 50 mi</td>
+            <td>Re-torque to 100–110 ft-lbs after first use and any tire change. Check monthly thereafter</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Tire pressure & condition</td>
+            <td>Monthly</td>
+            <td>Inflate to recommended PSI. Inspect for sidewall cracking, uneven wear, and embedded objects</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Brake adjustment</td>
+            <td>Every 6 Months</td>
+            <td>Adjust brake shoes, check magnets for wear, verify brake controller calibration</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Lubrication service</td>
+            <td>Every 6 Months</td>
+            <td>Grease coupler, safety chain hooks, jack screw, and all pivot points. Apply corrosion inhibitor to hitch receiver</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Wheel bearing repack</td>
+            <td>Annually / 12,000 mi</td>
+            <td>Remove hubs, clean and inspect bearings, repack with marine-grade grease, inspect seals</td>
+            <td><span class="maint-badge pro">Authorized Service</span></td>
+          </tr>
+          <tr>
+            <td>Brake system inspection</td>
+            <td>Annually</td>
+            <td>Full drum brake inspection — shoes, springs, adjusters, drums. Measure drum diameter, replace worn components</td>
+            <td><span class="maint-badge pro">Authorized Service</span></td>
+          </tr>
+          <tr>
+            <td>Electrical system check</td>
+            <td>Annually</td>
+            <td>Inspect all wiring harnesses for chafing, corrosion, and secure routing. Test all lights, connectors, and brake controller interface</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Structural inspection</td>
+            <td>Annually</td>
+            <td>Inspect all welds, frame members, cross members, and mounting points for cracks, corrosion, and deformation</td>
+            <td><span class="maint-badge pro">Authorized Service</span></td>
+          </tr>
+          <tr>
+            <td>Deck boards</td>
+            <td>Every 2–3 Years</td>
+            <td>Inspect for cracking, rot, and loose fasteners. Treat with penetrating wood sealer. Replace boards showing structural compromise</td>
+            <td><span class="maint-badge diy">DIY</span></td>
+          </tr>
+          <tr>
+            <td>Axle alignment check</td>
+            <td>Every 2 Years</td>
+            <td>Verify axle alignment is within spec to prevent abnormal tire wear and instability. Requires specialized equipment</td>
+            <td><span class="maint-badge pro">Authorized Service</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section class="section" id="downloads">
+    <div style="max-width:700px;margin-bottom:48px;" class="reveal">
+      <div class="sec-eyebrow">Documentation</div>
+      <h2 class="sec-title">Owner's <em>Downloads</em></h2>
+      <p class="sec-desc">Official documentation for your SG Trailer. Download and keep these on hand — digitally or printed in your glovebox.</p>
+    </div>
+    <div class="downloads-grid">
+      <a href="#" class="download-card reveal">
+        <div class="download-icon">📄</div>
+        <div>
+          <div class="download-meta">PDF · 4.2 MB · All Models</div>
+          <div class="download-title">Complete Owner's Manual</div>
+          <p class="download-desc">Full operator manual covering all SG Trailer models. Safety, operation, specifications, and maintenance for Apolo, Anubis, Nemesis, and Apocalypse.</p>
+        </div>
+        <div class="download-arrow">↓</div>
+      </a>
+      <a href="#" class="download-card reveal">
+        <div class="download-icon">📋</div>
+        <div>
+          <div class="download-meta">PDF · 0.8 MB · Printable</div>
+          <div class="download-title">Pre-Trip Inspection Checklist</div>
+          <p class="download-desc">Printable pre-trip checklist formatted for your glovebox. 3-hole punch ready. Available in English and Spanish.</p>
+        </div>
+        <div class="download-arrow">↓</div>
+      </a>
+      <a href="#" class="download-card reveal">
+        <div class="download-icon">🔧</div>
+        <div>
+          <div class="download-meta">PDF · 1.4 MB · Technical</div>
+          <div class="download-title">Maintenance Record Log</div>
+          <p class="download-desc">Track all service intervals, repair records, and part replacements. Required for warranty claims and resale documentation.</p>
+        </div>
+        <div class="download-arrow">↓</div>
+      </a>
+      <a href="#" class="download-card reveal">
+        <div class="download-icon">⚖️</div>
+        <div>
+          <div class="download-meta">PDF · 0.6 MB · Legal</div>
+          <div class="download-title">Warranty Terms & Registration</div>
+          <p class="download-desc">Full warranty terms, coverage details, claim procedures, and product registration form for your SG Trailer purchase.</p>
+        </div>
+        <div class="download-arrow">↓</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <h2 class="cta-title">Need <em>Technical Support?</em></h2>
+    <p class="cta-desc">Can't find what you're looking for? Our team in Yuma is available to answer technical questions directly — no ticket system, no runaround.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="cta-btn-primary">Contact Technical Support</a>
+      <a href="dealer_locations.html" class="cta-btn-ghost">Find Authorized Service</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
+        </div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apolo">Apolo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="owners_guide.html">Owner's Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_program.html">Dealer Inquiry</a></li>
+          <li><a href="contact.html">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling;
+      const group=btn.parentElement;
+      const isOpen=btn.classList.contains('open');
+      closeAccordion();
+      if(!isOpen){
+        document.querySelectorAll('.mobile-menu-links > *').forEach(el=>{
+          if(el!==group) el.classList.add('mob-dimmed');
+        });
+        btn.classList.add('open');
+        sub.classList.add('open');
+      }
+    }
+    function closeAccordion(){
+      document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+    }
+    function openMenu(){
+      document.getElementById('mobileMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMenu(){
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow='';
+      closeAccordion();
+    }
+    function openMega(e){
+      e.preventDefault();
+      document.getElementById('megaMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMega(){
+      document.getElementById('megaMenu').classList.remove('open');
+      document.body.style.overflow='';
+    }
+
+    // Floating logo
+    const floatingLogo = document.querySelector('.nav-floating-logo');
+    window.addEventListener('scroll', () => {
+      if (floatingLogo) const _sc=window.scrollY>60;floatingLogo.classList.toggle('hidden',_sc);document.body.classList.toggle('scrolled',_sc);
+    }, { passive: true });
+
+    // Theme Toggle
+    function setThemeIcons(isLight){
+      const icon=isLight?'☀️':'🌙';
+      document.getElementById('themeToggle').textContent=icon;
+      document.getElementById('themeToggleMobile').textContent=icon;
+    }
+    function toggleTheme(){
+      const isLight=document.body.classList.toggle('light');
+      setThemeIcons(isLight);
+      localStorage.setItem('sg-theme',isLight?'light':'dark');
+    }
+    // Init scroll state on load
+    (function(){ if(window.scrollY>60){document.body.classList.add('scrolled');const fl=document.querySelector('.nav-floating-logo');if(fl)fl.classList.add('hidden');} })();
+    (function(){
+      if(localStorage.getItem('sg-theme')==='light'){
+        document.body.classList.add('light');
+        setThemeIcons(true);
+      }
+    })();
+
+    // Reveal on scroll
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // Model filter pills (UI only — placeholder)
+    document.querySelectorAll('.model-pill').forEach(pill=>{
+      pill.addEventListener('click',()=>{
+        document.querySelectorAll('.model-pill').forEach(p=>p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Community | Success Stories & Partners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;
+      --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+
+    /* ── Cursor ── */
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9997;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 18px;height:52px;
+      width:calc(100% - 48px);max-width:870px;
+      background:rgba(14,13,12,.68);
+      backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+      border:1px solid rgba(232,184,0,.22);
+      border-radius:100px;
+      box-shadow:0 8px 32px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-logo {
+      font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;
+      letter-spacing:.18em;color:var(--white);text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;text-decoration:none;
+      flex-shrink:0;
+    }
+    @media (min-width:769px) {
+      .nav-logo { display:none; }
+      nav { justify-content:center;gap:0; }
+      .nav-links { position:static;transform:none;left:auto;display:flex;gap:22px; }
+      .nav-right { margin-left:20px;padding-right:14px; }
+    }
+    .nav-logo span { color:var(--gold); }
+    .nav-links {
+      display:flex;gap:28px;list-style:none;
+      position:absolute;left:50%;transform:translateX(-50%);
+    }
+    .nav-links a {
+      color:var(--gray-md);text-decoration:none;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+      transition:color .3s;position:relative;padding-bottom:3px;white-space:nowrap;
+    }
+    .nav-links a::after {
+      content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+      background:var(--gold);transition:width .3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-right { display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;padding-right:10px; }
+    .nav-cta {
+      background:var(--red);color:var(--white);border:none;
+      padding:9px 20px;font-family:'Barlow Condensed',sans-serif;
+      font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      cursor:none;transition:background .3s,box-shadow .3s;
+      border-radius:100px;
+    }
+    .nav-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── HAMBURGER MENU ── */
+    .nav-hamburger {
+      display:none;
+      flex-direction:column;gap:5px;align-items:center;justify-content:center;
+      width:46px;height:46px;border-radius:50%;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+      padding:0;cursor:none;transition:border-color .3s,background .3s;
+    }
+    .nav-hamburger:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .nav-hamburger span {
+      display:block;width:20px;height:2px;
+      background:var(--white);transition:background .3s;
+    }
+    .nav-hamburger:hover span { background:var(--gold); }
+
+    /* ── MOBILE MENU — Liquid Glass ── */
+    .mobile-menu {
+      position:fixed;inset:0;z-index:9997;
+      background:rgba(10,9,8,.68);
+      backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);
+      display:flex;flex-direction:column;
+      transform:translateX(100%);
+      transition:transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .mobile-menu.open { transform:translateX(0); }
+    .mobile-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 20px;height:70px;
+      background:rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      flex-shrink:0;
+    }
+    .mobile-menu-logo img { height:40px;width:auto; }
+    .mobile-menu-close {
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.07);
+      color:var(--white);font-size:18px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:none;transition:border-color .3s,background .3s;
+    }
+    .mobile-menu-close:hover { border-color:var(--gold);background:rgba(232,184,0,.12); }
+    .mobile-menu-links {
+      flex:1;overflow-y:auto;
+      display:flex;flex-direction:column;
+    }
+    .mobile-menu-links > a {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:15px 20px;
+      font-family:'Oswald',sans-serif;font-weight:500;
+      font-size:16px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      transition:color .3s,background .3s,opacity .3s;
+    }
+    .mobile-menu-links > a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mobile-menu-links > a::after { content:none !important; }
+    .mob-dimmed { opacity:0.22;transition:opacity .3s; }
+    .mob-group { border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;transition:opacity .3s; }
+    .mob-group-btn {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:15px 20px;width:100%;background:transparent;border:none;
+      font-family:'Oswald',sans-serif;font-weight:500;
+      font-size:16px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);cursor:none;transition:color .3s,background .3s;text-align:left;
+    }
+    .mob-group-btn:hover,.mob-group-btn.open { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mob-group-arrow { font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0; }
+    .mob-group-btn.open .mob-group-arrow { transform:rotate(90deg);color:var(--gold); }
+    .mob-sub { max-height:0;overflow:hidden;transition:max-height .4s ease;background:rgba(0,0,0,.15); }
+    .mob-sub.open { max-height:600px; }
+    .mob-sub a {
+      display:block;padding:13px 20px 13px 32px;
+      font-family:'Barlow Condensed',sans-serif;font-size:13px;
+      letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      transition:color .3s,background .3s;
+    }
+    .mob-sub a:last-child { border-bottom:none; }
+    .mob-sub a:hover { color:var(--gold);background:rgba(232,184,0,.05); }
+    .mob-header-actions { display:flex;align-items:center;gap:10px; }
+    .mobile-theme-toggle {
+      width:46px;height:46px;border-radius:50%;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+      display:flex;align-items:center;justify-content:center;
+      font-size:16px;cursor:none;transition:border-color .3s,background .3s;
+    }
+    .mobile-theme-toggle:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .mobile-menu-footer { padding:14px;border-top:1px solid rgba(255,255,255,.07); }
+    .mobile-menu-cta {
+      display:block;width:100%;text-align:center;
+      background:var(--red);color:var(--white);
+      padding:16px;font-family:'Barlow Condensed',sans-serif;
+      font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      text-decoration:none;transition:background .3s,box-shadow .3s;
+      border-radius:100px;clip-path:none;
+    }
+    .mobile-menu-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── DROPDOWN ── */
+    .nav-links li { position:relative; }
+    .nav-links li .dropdown {
+      position:absolute;top:100%;left:0;
+      background:var(--black-d);
+      border:1px solid rgba(232,184,0,.15);
+      border-top:2px solid var(--gold);
+      min-width:200px;
+      opacity:0;visibility:hidden;
+      transform:translateY(8px);
+      transition:opacity .25s,transform .25s,visibility .25s;
+      z-index:300;
+    }
+    .nav-links li:hover .dropdown { opacity:1;visibility:visible;transform:translateY(0); }
+    .nav-links li .dropdown a {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:13px 20px;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gray-md);text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      transition:color .25s,background .25s;width:100%;
+    }
+    .nav-links li .dropdown a:last-child { border-bottom:none; }
+    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+
+    /* ── MEGA MENU ── */
+    .has-mega { position:static !important; }
+    .mega-menu {
+      position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;
+      background:var(--black-d);border-top:3px solid var(--gold);
+      opacity:0;visibility:hidden;transform:translateY(-12px);
+      transition:opacity .35s,transform .35s,visibility .35s;
+      pointer-events:none;overflow-y:auto;
+    }
+    .mega-menu.open { opacity:1;visibility:visible;transform:translateY(0);pointer-events:all; }
+    .mega-menu-inner { max-width:1200px;margin:0 auto;padding:96px 60px 60px; }
+    .mega-menu-header {
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:28px;padding-bottom:16px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .mega-menu-header span:first-child {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:13px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;
+    }
+    .mega-close {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:12px;letter-spacing:.2em;color:var(--gray-md);
+      text-transform:uppercase;cursor:none;transition:color .3s;background:transparent;border:none;
+    }
+    .mega-close:hover { color:var(--gold); }
+    .mega-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px; }
+    .mega-card {
+      display:flex;flex-direction:column;
+      background:var(--black-c);border:1px solid rgba(255,255,255,.05);
+      text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;
+    }
+    .mega-card:hover { border-color:var(--gold);background:#272523; }
+    .mega-card-img { width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s); }
+    .mega-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85); }
+    .mega-card:hover .mega-card-img img { transform:scale(1.04);filter:brightness(1); }
+    .mega-card-name {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:18px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);padding:14px 16px 4px;transition:color .3s;
+    }
+    .mega-card:hover .mega-card-name { color:var(--gold); }
+    .mega-card-tier {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;
+      font-size:10px;letter-spacing:.35em;color:var(--gray-dk);
+      text-transform:uppercase;padding:0 16px 16px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      #cur, #ring { display:none; }
+      body { cursor:auto; }
+      nav { top:0;left:0;right:0;width:100%;transform:none;max-width:none;border-radius:0;height:60px;padding:0 16px;border:none;border-bottom:1px solid rgba(232,184,0,.15);box-shadow:0 2px 24px rgba(0,0,0,.4); }
+      .nav-links { display:none; }
+      .nav-cta { display:none; }
+      .nav-logo img { height:36px; }
+      .nav-hamburger { display:flex; }
+      .mega-menu-inner { padding:80px 20px 40px; }
+      .mega-grid { grid-template-columns:1fr 1fr;gap:10px; }
+    }
+    @media (max-width:375px) {
+      .mobile-menu-links > a { font-size:14px;padding:13px 16px; }
+      .mob-group-btn { font-size:14px;padding:13px 16px; }
+      .mob-sub a { font-size:12px;padding:11px 16px 11px 28px; }
+      .mobile-menu-header { height:60px; }
+      .mobile-menu-logo img { height:32px; }
+    }
+
+    /* ── LOGO FLOTANTE (desktop) ── */
+    .nav-floating-logo {
+      position:fixed;top:10px;z-index:9999;
+      left:max(20px, calc(50% - 470px));
+      display:flex;align-items:center;text-decoration:none;
+      filter:drop-shadow(0 3px 12px rgba(0,0,0,.6));
+      opacity:1;transition:opacity .5s ease;
+    }
+    .nav-floating-logo.hidden { opacity:0;pointer-events:none; }
+    .nav-floating-logo:hover { opacity:.82; }
+    .nav-floating-logo img { height:82px;width:auto; }
+    @media (max-width:960px) { .nav-floating-logo { display:none; } }
+
+    /* ── THEME BUBBLE (desktop) ── */
+    .nav-theme-bubble {
+      position:fixed;top:22px;z-index:9999;
+      right:max(24px, calc(50% - 490px));
+      width:46px;height:46px;border-radius:50%;
+      background:rgba(14,13,12,.72);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(232,184,0,.22);
+      box-shadow:0 4px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:center;
+      font-size:16px;cursor:none;
+      transition:border-color .3s,background .3s,transform .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-theme-bubble:hover { border-color:rgba(232,184,0,.5);background:rgba(232,184,0,.1);transform:rotate(20deg) scale(1.08); }
+    @media (max-width:960px) { .nav-theme-bubble { display:none; } }
+
+    /* ── LIGHT MODE ── */
+    body.light {
+      --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;
+      --white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744;
+    }
+    body.light nav { background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3); }
+    body.light .nav-theme-bubble { background:rgba(240,237,234,.82);border-color:rgba(232,184,0,.3); }
+    body.light .nav-hamburger { border-color:rgba(0,0,0,.2); }
+    body.light .nav-hamburger span { background:var(--white); }
+    body.light .mobile-menu { background:var(--black-d); }
+    body.light .mega-menu { background:var(--black-s); }
+    body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
+    body.light #cur { background:var(--gold); }
+    body.light #ring { border-color:rgba(232,184,0,.5); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:75vh;
+      background:linear-gradient(160deg,rgba(232,184,0,.08) 0%,transparent 45%),
+                 linear-gradient(200deg,rgba(181,34,0,.06) 0%,transparent 50%),
+                 var(--black-d);
+      display:flex;align-items:center;justify-content:center;
+      padding:120px 60px 80px;
+      position:relative;overflow:hidden;
+      border-bottom:1px solid rgba(232,184,0,.15);
+    }
+    .page-hero::after {
+      content:'COMMUNITY';position:absolute;right:-40px;top:50%;
+      transform:translateY(-50%);
+      font-family:'Oswald',sans-serif;font-size:180px;font-weight:700;
+      color:rgba(232,184,0,.025);pointer-events:none;white-space:nowrap;letter-spacing:-.02em;
+    }
+    .page-hero-content { max-width:900px;text-align:center;position:relative;z-index:1; }
+    .page-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.55em;
+      color:var(--gold);text-transform:uppercase;margin-bottom:20px;
+      display:flex;align-items:center;gap:14px;justify-content:center;
+    }
+    .page-eyebrow::before,.page-eyebrow::after { content:'';width:36px;height:1px;background:var(--gold); }
+    .page-hero h1 {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(56px,7vw,92px);line-height:.92;
+      letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px;
+    }
+    .page-hero h1 em { font-style:normal;color:var(--gold); }
+    .page-hero p {
+      font-size:17px;color:rgba(255,255,255,.7);line-height:1.8;
+      font-weight:300;max-width:680px;margin:0 auto;
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+
+    /* ── SECTIONS ── */
+    .section { padding:100px 60px; }
+    .section-alt { background:var(--black-s); }
+    .sec-eyebrow {
+      font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:10px;
+      letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;
+      display:flex;align-items:center;gap:16px;
+    }
+    .sec-eyebrow::before { content:'';width:32px;height:1px;background:var(--gold);opacity:.6; }
+    .sec-title {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(38px,4.5vw,58px);line-height:1.05;
+      margin-bottom:14px;text-transform:uppercase;
+    }
+    .sec-title em { font-style:normal;color:var(--gold); }
+    .sec-desc {
+      font-size:16px;color:var(--gray-md);line-height:1.85;
+      max-width:640px;font-weight:300;margin-bottom:0;
+    }
+
+    /* ── SUCCESS STORIES ── */
+    .stories-intro { max-width:700px;margin-bottom:56px; }
+    .stories-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+    }
+    .story-card {
+      background:var(--black-c);padding:40px 36px;
+      position:relative;overflow:hidden;
+      transition:background .3s;
+    }
+    .story-card:hover { background:#272523; }
+    .story-card::before {
+      content:'';position:absolute;top:0;left:0;width:3px;height:0;
+      background:var(--gold);transition:height .4s;
+    }
+    .story-card:hover::before { height:100%; }
+    .story-quote {
+      font-size:48px;color:var(--gold);opacity:.3;line-height:1;
+      font-family:'Oswald',sans-serif;font-weight:700;margin-bottom:16px;
+    }
+    .story-text {
+      font-size:14px;color:rgba(255,255,255,.75);line-height:1.85;
+      font-weight:300;margin-bottom:28px;font-style:italic;
+    }
+    .story-divider {
+      width:32px;height:1px;background:var(--gold);opacity:.4;margin-bottom:20px;
+    }
+    .story-name {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:15px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--white);margin-bottom:4px;
+    }
+    .story-role {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.3em;color:var(--gray-md);text-transform:uppercase;
+    }
+    .story-model {
+      position:absolute;bottom:20px;right:24px;
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.3em;color:var(--gold);opacity:.5;text-transform:uppercase;
+    }
+
+    /* ── FEATURED STORY ── */
+    .featured-story {
+      display:grid;grid-template-columns:1.1fr 1fr;gap:0;
+      border:1px solid rgba(232,184,0,.12);
+      margin-bottom:2px;overflow:hidden;
+    }
+    .featured-story-img {
+      aspect-ratio:4/3;background:var(--black-s);position:relative;overflow:hidden;
+    }
+    .featured-story-img img {
+      width:100%;height:100%;object-fit:cover;
+      filter:brightness(.8);transition:filter .4s;
+    }
+    .featured-story:hover .featured-story-img img { filter:brightness(.95); }
+    .featured-story-img::after {
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(90deg,transparent 60%,rgba(14,13,12,.6));
+      pointer-events:none;
+    }
+    .featured-story-content {
+      background:var(--black-c);padding:56px 48px;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .featured-badge {
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.45em;color:var(--gold);text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .featured-badge::before {
+      content:'';width:8px;height:8px;border-radius:50%;
+      background:var(--gold);flex-shrink:0;
+    }
+    .featured-story-text {
+      font-size:18px;color:rgba(255,255,255,.85);line-height:1.9;
+      font-weight:300;font-style:italic;margin-bottom:32px;
+    }
+    .featured-story-name {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:17px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--white);margin-bottom:4px;
+    }
+    .featured-story-role {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.3em;color:var(--gray-md);text-transform:uppercase;
+      margin-bottom:32px;
+    }
+    .featured-story-stats {
+      display:flex;gap:32px;padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+    .feat-stat-num {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:30px;
+      color:var(--gold);line-height:1;margin-bottom:4px;
+    }
+    .feat-stat-label {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.3em;color:var(--gray-md);text-transform:uppercase;
+    }
+
+    /* ── PARTNERS ── */
+    .partners-intro { text-align:center;max-width:700px;margin:0 auto 56px; }
+    .partners-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+      margin-bottom:48px;
+    }
+    .partner-card {
+      background:var(--black-c);padding:40px 36px;
+      display:flex;flex-direction:column;align-items:flex-start;gap:20px;
+      position:relative;overflow:hidden;transition:background .3s;
+      border-bottom:3px solid transparent;transition:background .3s,border-color .3s;
+    }
+    .partner-card:hover { background:#272523;border-bottom-color:var(--gold); }
+    .partner-icon { font-size:36px;flex-shrink:0; }
+    .partner-name {
+      font-family:'Oswald',sans-serif;font-weight:600;
+      font-size:18px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--white);margin-bottom:6px;transition:color .3s;
+    }
+    .partner-card:hover .partner-name { color:var(--gold); }
+    .partner-type {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;
+    }
+    .partner-desc {
+      font-size:13px;color:var(--gray-md);line-height:1.75;font-weight:300;
+    }
+    .partner-link {
+      display:inline-flex;align-items:center;gap:8px;margin-top:auto;
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.2em;color:var(--gray-dk);text-transform:uppercase;
+      text-decoration:none;transition:color .3s;
+    }
+    .partner-card:hover .partner-link { color:var(--gold); }
+    .partner-link::after { content:'→'; }
+
+    /* ── FINANCE BANNER ── */
+    .finance-banner {
+      background:linear-gradient(135deg,rgba(232,184,0,.07) 0%,rgba(181,34,0,.05) 100%);
+      border:1px solid rgba(232,184,0,.18);
+      padding:48px 56px;
+      display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;
+    }
+    .finance-banner-title {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(26px,3vw,36px);text-transform:uppercase;
+      letter-spacing:.04em;margin-bottom:10px;
+    }
+    .finance-banner-title em { font-style:normal;color:var(--gold); }
+    .finance-banner-desc {
+      font-size:15px;color:var(--gray-md);font-weight:300;line-height:1.7;
+    }
+    .finance-rates {
+      display:flex;gap:32px;flex-shrink:0;
+    }
+    .finance-rate {
+      text-align:center;
+    }
+    .finance-rate-val {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:36px;
+      color:var(--gold);line-height:1;
+    }
+    .finance-rate-label {
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.3em;color:var(--gray-md);text-transform:uppercase;margin-top:4px;
+    }
+
+    /* ── MEDIA GALLERY ── */
+    .media-intro { max-width:700px;margin-bottom:48px; }
+    .media-tabs {
+      display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:32px;
+    }
+    .media-tab-btn {
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.2em;text-transform:uppercase;color:var(--gray-md);
+      padding:12px 24px;background:transparent;border:none;
+      border-bottom:2px solid transparent;cursor:none;
+      transition:color .3s,border-color .3s;margin-bottom:-1px;
+    }
+    .media-tab-btn.active,.media-tab-btn:hover { color:var(--gold);border-bottom-color:var(--gold); }
+    .media-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:220px;gap:4px;
+    }
+    .media-item {
+      background:var(--black-c);position:relative;overflow:hidden;cursor:none;
+    }
+    .media-item:first-child {
+      grid-column:span 2;grid-row:span 2;
+    }
+    .media-item img {
+      width:100%;height:100%;object-fit:cover;
+      filter:brightness(.7) saturate(.9);
+      transition:filter .4s,transform .5s;
+    }
+    .media-item:hover img { filter:brightness(.95) saturate(1.1);transform:scale(1.04); }
+    .media-item-overlay {
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 50%);
+      pointer-events:none;
+    }
+    .media-item-label {
+      position:absolute;bottom:16px;left:16px;
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.25em;color:rgba(255,255,255,.75);text-transform:uppercase;
+    }
+    .media-item-type {
+      position:absolute;top:12px;right:12px;
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.2em;color:var(--gold);text-transform:uppercase;
+      background:rgba(0,0,0,.6);padding:4px 10px;
+    }
+    .media-play {
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .3s;
+    }
+    .media-item:hover .media-play { opacity:1; }
+    .media-play-btn {
+      width:56px;height:56px;border-radius:50%;
+      background:rgba(232,184,0,.9);
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;color:var(--black);
+    }
+
+    /* ── SOCIAL PROOF BAR ── */
+    .social-bar {
+      display:grid;grid-template-columns:repeat(4,1fr);
+      border-top:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .social-stat {
+      padding:36px 40px;text-align:center;
+      border-right:1px solid rgba(255,255,255,.06);
+    }
+    .social-stat:last-child { border-right:none; }
+    .social-stat-num {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:48px;
+      color:var(--gold);line-height:1;margin-bottom:8px;
+    }
+    .social-stat-label {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.35em;color:var(--gray-md);text-transform:uppercase;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background:linear-gradient(135deg,rgba(232,184,0,.08),rgba(181,34,0,.05));
+      border-top:1px solid rgba(232,184,0,.15);
+      border-bottom:1px solid rgba(232,184,0,.15);
+      text-align:center;padding:80px 60px;
+    }
+    .cta-title {
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(36px,4vw,54px);text-transform:uppercase;
+      margin-bottom:20px;line-height:1.05;
+    }
+    .cta-title em { font-style:normal;color:var(--gold); }
+    .cta-desc {
+      font-size:16px;color:var(--gray-md);line-height:1.8;
+      max-width:580px;margin:0 auto 40px;font-weight:300;
+    }
+    .cta-actions { display:flex;gap:16px;justify-content:center;align-items:center; }
+    .cta-btn-primary {
+      display:inline-block;background:var(--gold);color:var(--black);
+      padding:16px 48px;font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+      text-decoration:none;transition:background .3s;
+      clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    }
+    .cta-btn-primary:hover { background:#FFD000; }
+    .cta-btn-ghost {
+      display:inline-flex;align-items:center;gap:8px;
+      color:rgba(255,255,255,.6);font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+      text-decoration:none;transition:color .3s;
+    }
+    .cta-btn-ghost:hover { color:var(--gold); }
+    .cta-btn-ghost::after { content:'→'; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--black-s);border-top:1px solid rgba(232,184,0,.1);padding:60px 60px 32px; }
+    .footer-top { display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px; }
+    .footer-brand {
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;
+      letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .footer-brand span { color:var(--gold); }
+    .footer-tagline { font-size:13px;color:var(--gray-md);line-height:1.8;margin-bottom:24px;font-weight:300;max-width:320px; }
+    .footer-social { display:flex;gap:12px; }
+    .footer-social a {
+      width:40px;height:40px;border:1px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+      color:var(--gray-md);text-decoration:none;transition:border-color .3s,color .3s;
+    }
+    .footer-social a:hover { border-color:var(--gold);color:var(--gold); }
+    .footer-col-title {
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;
+      letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;
+    }
+    .footer-links { list-style:none;display:flex;flex-direction:column;gap:10px; }
+    .footer-links a { color:var(--gray-md);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-divider { height:1px;background:rgba(255,255,255,.05);margin-bottom:24px; }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+    .footer-copy { font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--gray-dk);letter-spacing:.1em; }
+    .footer-made { font-size:11px;color:var(--gray-dk);font-weight:300; }
+
+    /* ── RESPONSIVE SECTIONS ── */
+    @media (max-width:1024px) {
+      .stories-grid { grid-template-columns:1fr 1fr; }
+      .partners-grid { grid-template-columns:1fr 1fr; }
+      .featured-story { grid-template-columns:1fr; }
+      .featured-story-img { aspect-ratio:16/9; }
+      .media-grid { grid-template-columns:1fr 1fr;grid-auto-rows:180px; }
+      .media-item:first-child { grid-column:span 2; }
+      .social-bar { grid-template-columns:1fr 1fr; }
+      .social-stat:nth-child(2) { border-right:none; }
+      .footer-top { grid-template-columns:1fr 1fr;gap:40px; }
+    }
+    @media (max-width:768px) {
+      .section { padding:60px 24px; }
+      .page-hero { padding:100px 24px 60px; }
+      .page-hero::after { font-size:100px; }
+      .stories-grid { grid-template-columns:1fr; }
+      .featured-story-content { padding:36px 28px; }
+      .featured-story-stats { gap:20px; }
+      .partners-grid { grid-template-columns:1fr; }
+      .finance-banner { grid-template-columns:1fr;padding:32px 28px; }
+      .finance-rates { justify-content:flex-start; }
+      .media-grid { grid-template-columns:1fr 1fr;grid-auto-rows:140px; }
+      .social-bar { grid-template-columns:1fr 1fr; }
+      .cta-section { padding:60px 24px; }
+      .cta-actions { flex-direction:column; }
+      .footer-top { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+    }
+    /* ── SCROLLED: logo en isla (reemplaza floating logo) ── */
+    @media (min-width:769px) {
+      body.scrolled nav { justify-content:space-between; }
+      body.scrolled .nav-logo { display:flex !important; }
+      body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- LOGO FLOTANTE DESKTOP -->
+  <a href="index.html" class="nav-floating-logo">
+    <img src="img/logo.webp" alt="SG Trailers"/>
+  </a>
+  <!-- THEME BUBBLE DESKTOP -->
+  <button class="nav-theme-bubble" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.webp" alt="SG Trailers" style="height:36px;width:auto;"/>
+    </a>
+    <ul class="nav-links">
+      <li class="has-mega">
+        <a href="#" onclick="openMega(event)">Trailers</a>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Company</a>
+        <div class="dropdown">
+          <a href="about.html">About Us</a>
+          <a href="dealer_program.html">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown">
+          <a href="catalog.html#financing">Financing</a>
+          <a href="#">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html">Dealers</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="community.html" class="active">Community</a>
+        <div class="dropdown">
+          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html#partners">Partners &amp; Finance</a>
+          <a href="community.html#media">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="#">Tutorials</a>
+          <a href="#">Safety</a>
+          <a href="#">Maintenance</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cta" onclick="window.location='contact.html'">Get a Quote</button>
+      <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Trailer Models</span>
+        <button class="mega-close" onclick="closeMega()">✕ Close</button>
+      </div>
+      <div class="mega-grid">
+        <a href="catalog.html?model=apolo" class="mega-card">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="catalog.html?model=anubis" class="mega-card">
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Mid Range</div>
+        </a>
+        <a href="catalog.html?model=nemesis" class="mega-card">
+          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
+          <div class="mega-card-name">Nemesis</div>
+          <div class="mega-card-tier">Upper Mid</div>
+        </a>
+        <a href="catalog.html?model=apocalypse" class="mega-card">
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-name">Apocalypse</div>
+          <div class="mega-card-tier">Top of Line</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo">
+        <img src="img/logo.webp" alt="SG Trailers"/>
+      </a>
+      <div class="mob-header-actions">
+        <button class="mobile-theme-toggle" id="themeToggleMobile" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+      </div>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="about.html" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="catalog.html#financing" onclick="closeMenu()">Financing</a>
+          <a href="#" onclick="closeMenu()">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Find a Dealer</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
+          <a href="community.html#media" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="#" onclick="closeMenu()">Tutorials</a>
+          <a href="#" onclick="closeMenu()">Safety</a>
+          <a href="#" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()">Contact</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-eyebrow">Real People. Real Work.</div>
+      <h1>The SG <em>Community</em></h1>
+      <p>Thousands of operators, dealers, and fleet managers across the country trust SG Trailers to get the job done. These are their stories.</p>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF BAR -->
+  <div class="social-bar reveal">
+    <div class="social-stat">
+      <div class="social-stat-num">1,200+</div>
+      <div class="social-stat-label">Trailers Delivered</div>
+    </div>
+    <div class="social-stat">
+      <div class="social-stat-num">38</div>
+      <div class="social-stat-label">States Reached</div>
+    </div>
+    <div class="social-stat">
+      <div class="social-stat-num">96%</div>
+      <div class="social-stat-label">Customer Satisfaction</div>
+    </div>
+    <div class="social-stat">
+      <div class="social-stat-num">4.9★</div>
+      <div class="social-stat-label">Average Rating</div>
+    </div>
+  </div>
+
+  <!-- SUCCESS STORIES -->
+  <section class="section" id="stories">
+    <div class="stories-intro reveal">
+      <div class="sec-eyebrow">Success Stories</div>
+      <h2 class="sec-title">Built for <em>Professionals</em></h2>
+      <p class="sec-desc">From solo operators to multi-truck fleets, SG Trailers are working coast to coast. Here's what our customers have to say.</p>
+    </div>
+
+    <!-- Featured Story -->
+    <div class="featured-story reveal">
+      <div class="featured-story-img">
+        <img src="img/anubis-1.webp" alt="Featured customer story"/>
+      </div>
+      <div class="featured-story-content">
+        <div class="featured-badge">Featured Story</div>
+        <p class="featured-story-text">"I've been hauling cars for 14 years and I've owned trailers from every major brand. Nothing comes close to the build quality on my SG Anubis. It's been two seasons of heavy use and it still looks and performs like day one. The direct-buy process saved me over $3,000 compared to the dealer quote I got."</p>
+        <div class="featured-story-name">Marcus T.</div>
+        <div class="featured-story-role">Independent Auto Transport — Phoenix, AZ</div>
+        <div class="featured-story-stats">
+          <div>
+            <div class="feat-stat-num">2</div>
+            <div class="feat-stat-label">SG Trailers Owned</div>
+          </div>
+          <div>
+            <div class="feat-stat-num">3 yrs</div>
+            <div class="feat-stat-label">SG Customer</div>
+          </div>
+          <div>
+            <div class="feat-stat-num">$3K+</div>
+            <div class="feat-stat-label">Saved vs. Dealer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stories Grid -->
+    <div class="stories-grid">
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">Ordered an Apocalypse for my fleet. Build quality is exceptional — the welds are clean, the lights are solid, the floor doesn't flex. My drivers love it. Already ordered a second unit.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">Carlos R.</div>
+        <div class="story-role">Fleet Manager — San Diego, CA</div>
+        <div class="story-model">Apocalypse · Triple Axle</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">Switched from a competitor brand after my second axle failure in a year. Got the Nemesis from SG and it's been bulletproof. Customer service actually picks up the phone — huge deal when you're on the road.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">Derek W.</div>
+        <div class="story-role">Solo Operator — Dallas, TX</div>
+        <div class="story-model">Nemesis · Heavy Duty Tandem</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">I was skeptical about buying direct from the factory but the process was smooth and the price was $2,500 below what dealers quoted. The trailer arrived exactly as spec'd. No surprises.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">Jennifer L.</div>
+        <div class="story-role">Car Auction Buyer — Las Vegas, NV</div>
+        <div class="story-model">Anubis · Tandem Axle</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">My Apolo is my first trailer and it was perfect for getting started. Solid enough to grow into the business. When I'm ready to expand I'm going straight back to SG for the next unit.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">Roberto M.</div>
+        <div class="story-role">New Operator — Tucson, AZ</div>
+        <div class="story-model">Apolo · Entry Level</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">We run 6 units hauling dealer inventory. SG's fleet pricing is unmatched and the quality is consistent across every trailer. Our maintenance costs dropped significantly after switching.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">TK Auto Group</div>
+        <div class="story-role">Dealer Fleet — Albuquerque, NM</div>
+        <div class="story-model">Nemesis & Apocalypse Fleet</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-quote">"</div>
+        <p class="story-text">Bought at a trade show and had the trailer within 3 weeks. The walkaround inspection with the team was thorough — they explained every detail. I felt confident in what I was buying.</p>
+        <div class="story-divider"></div>
+        <div class="story-name">Paul A.</div>
+        <div class="story-role">Classic Car Collector — Mesa, AZ</div>
+        <div class="story-model">Anubis · Tandem Axle</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS & FINANCE -->
+  <section class="section section-alt" id="partners">
+    <div class="partners-intro reveal">
+      <div class="sec-eyebrow">Partners &amp; Finance</div>
+      <h2 class="sec-title">Trusted <em>Partners</em></h2>
+      <p class="sec-desc">We work with a network of lenders, insurers, and industry partners to make owning an SG Trailer easier — from purchase to operation.</p>
+    </div>
+
+    <div class="partners-grid">
+      <div class="partner-card reveal">
+        <div class="partner-icon">🏦</div>
+        <div>
+          <div class="partner-type">Financing Partner</div>
+          <div class="partner-name">Southwest Commercial Lending</div>
+          <p class="partner-desc">Specialized trailer financing with rates starting at 6.9% APR. Pre-approval in 24 hours, terms from 24 to 84 months. Fleet programs available for 3+ units.</p>
+        </div>
+        <a href="contact.html" class="partner-link">Apply Now</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">🛡️</div>
+        <div>
+          <div class="partner-type">Insurance Partner</div>
+          <div class="partner-name">Haulers Pro Insurance</div>
+          <p class="partner-desc">Commercial trailer insurance designed for auto haulers. Cargo coverage, liability, and physical damage packages built around the specific risks of the trade.</p>
+        </div>
+        <a href="contact.html" class="partner-link">Get a Quote</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">🔧</div>
+        <div>
+          <div class="partner-type">Service Partner</div>
+          <div class="partner-name">Desert Southwest Service Network</div>
+          <p class="partner-desc">Authorized service locations across Arizona, California, Nevada, and New Mexico. Warranty work, preventive maintenance, and emergency roadside assistance.</p>
+        </div>
+        <a href="dealer_locations.html" class="partner-link">Find Locations</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">📋</div>
+        <div>
+          <div class="partner-type">Title &amp; Registration</div>
+          <div class="partner-name">AZ Title Services</div>
+          <p class="partner-desc">Streamlined title and registration processing for Arizona and neighboring states. We handle the paperwork so you can focus on hauling.</p>
+        </div>
+        <a href="contact.html" class="partner-link">Learn More</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">📦</div>
+        <div>
+          <div class="partner-type">Parts &amp; Accessories</div>
+          <div class="partner-name">Precision Trailer Supply</div>
+          <p class="partner-desc">OEM-compatible parts, tie-down systems, lighting upgrades, and accessories. All components tested and approved for use with SG Trailer models.</p>
+        </div>
+        <a href="#" class="partner-link">Shop Parts</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">🤝</div>
+        <div>
+          <div class="partner-type">Dealer Network</div>
+          <div class="partner-name">Become a Partner Dealer</div>
+          <p class="partner-desc">Join the SG dealer network and expand your business. Preferential pricing, dedicated support, and co-marketing resources for qualifying dealers.</p>
+        </div>
+        <a href="dealer_program.html" class="partner-link">Apply to Dealer Program</a>
+      </div>
+    </div>
+
+    <!-- Finance Banner -->
+    <div class="finance-banner reveal">
+      <div>
+        <h3 class="finance-banner-title">Finance Your <em>SG Trailer</em></h3>
+        <p class="finance-banner-desc">Competitive rates through our preferred lender network. Get pre-approved in 24 hours with no impact to your credit score. Available for individuals and business entities.</p>
+      </div>
+      <div class="finance-rates">
+        <div class="finance-rate">
+          <div class="finance-rate-val">6.9%</div>
+          <div class="finance-rate-label">Starting APR</div>
+        </div>
+        <div class="finance-rate">
+          <div class="finance-rate-val">84</div>
+          <div class="finance-rate-label">Max Months</div>
+        </div>
+        <div class="finance-rate">
+          <div class="finance-rate-val">24h</div>
+          <div class="finance-rate-label">Pre-Approval</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA GALLERY -->
+  <section class="section" id="media">
+    <div class="media-intro reveal">
+      <div class="sec-eyebrow">Media Gallery</div>
+      <h2 class="sec-title">SG in <em>Action</em></h2>
+      <p class="sec-desc">From the factory floor to the open road. See how SG Trailers perform in the hands of real operators.</p>
+    </div>
+
+    <div class="media-tabs reveal">
+      <button class="media-tab-btn active">All</button>
+      <button class="media-tab-btn">Photos</button>
+      <button class="media-tab-btn">Videos</button>
+      <button class="media-tab-btn">Factory</button>
+    </div>
+
+    <div class="media-grid reveal">
+      <div class="media-item">
+        <img src="img/apocalypse-1.webp" alt="Apocalypse on the road"/>
+        <div class="media-item-overlay"></div>
+        <div class="media-item-label">Apocalypse — Highway Haul</div>
+        <div class="media-item-type">Photo</div>
+      </div>
+      <div class="media-item">
+        <img src="img/nemesis-1.webp" alt="Nemesis at work site"/>
+        <div class="media-item-overlay"></div>
+        <div class="media-item-label">Nemesis — Fleet Delivery</div>
+        <div class="media-item-type">Photo</div>
+        <div class="media-play">
+          <div class="media-play-btn">▶</div>
+        </div>
+      </div>
+      <div class="media-item">
+        <img src="img/anubis-1.webp" alt="Anubis delivery"/>
+        <div class="media-item-overlay"></div>
+        <div class="media-item-label">Anubis — Customer Pickup</div>
+        <div class="media-item-type">Photo</div>
+      </div>
+      <div class="media-item">
+        <img src="img/apolo-1.webp" alt="Apolo first haul"/>
+        <div class="media-item-overlay"></div>
+        <div class="media-item-label">Apolo — First Haul</div>
+        <div class="media-item-type">Photo</div>
+      </div>
+      <div class="media-item">
+        <img src="img/apocalypse-2.webp" alt="Factory build process"/>
+        <div class="media-item-overlay"></div>
+        <div class="media-item-label">Yuma Factory — Build Day</div>
+        <div class="media-item-type">Video</div>
+        <div class="media-play">
+          <div class="media-play-btn">▶</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <h2 class="cta-title">Be Part of the <em>SG Story</em></h2>
+    <p class="cta-desc">Own an SG Trailer? Share your story, tag us on social media, or reach out to be featured in our community spotlight.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="cta-btn-primary">Get Your SG Trailer</a>
+      <a href="contact.html" class="cta-btn-ghost">Share Your Story</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/>
+        </div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apolo">Apolo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
+          <li><a href="catalog.html#financing">Financing</a></li>
+          <li><a href="community.html">Community</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_program.html">Dealer Inquiry</a></li>
+          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling;
+      const group=btn.parentElement;
+      const isOpen=btn.classList.contains('open');
+      closeAccordion();
+      if(!isOpen){
+        document.querySelectorAll('.mobile-menu-links > *').forEach(el=>{
+          if(el!==group) el.classList.add('mob-dimmed');
+        });
+        btn.classList.add('open');
+        sub.classList.add('open');
+      }
+    }
+    function closeAccordion(){
+      document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+    }
+    function openMenu(){
+      document.getElementById('mobileMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMenu(){
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow='';
+      closeAccordion();
+    }
+    function openMega(e){
+      e.preventDefault();
+      document.getElementById('megaMenu').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeMega(){
+      document.getElementById('megaMenu').classList.remove('open');
+      document.body.style.overflow='';
+    }
+
+    // Floating logo
+    const floatingLogo = document.querySelector('.nav-floating-logo');
+    window.addEventListener('scroll', () => {
+      if (floatingLogo) const _sc=window.scrollY>60;floatingLogo.classList.toggle('hidden',_sc);document.body.classList.toggle('scrolled',_sc);
+    }, { passive: true });
+
+    // Theme Toggle
+    function setThemeIcons(isLight){
+      const icon=isLight?'☀️':'🌙';
+      document.getElementById('themeToggle').textContent=icon;
+      document.getElementById('themeToggleMobile').textContent=icon;
+    }
+    function toggleTheme(){
+      const isLight=document.body.classList.toggle('light');
+      setThemeIcons(isLight);
+      localStorage.setItem('sg-theme',isLight?'light':'dark');
+    }
+    // Init scroll state on load
+    (function(){ if(window.scrollY>60){document.body.classList.add('scrolled');const fl=document.querySelector('.nav-floating-logo');if(fl)fl.classList.add('hidden');} })();
+    (function(){
+      if(localStorage.getItem('sg-theme')==='light'){
+        document.body.classList.add('light');
+        setThemeIcons(true);
+      }
+    })();
+
+    // Reveal on scroll
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // Media tabs (UI only — placeholder behavior)
+    document.querySelectorAll('.media-tab-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.media-tab-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
