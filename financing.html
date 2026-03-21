@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Financing Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#8A8884;
+      --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+
+    /* ── Cursor ── */
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9997;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 18px;height:52px;
+      width:calc(100% - 48px);max-width:870px;
+      background:rgba(14,13,12,.68);
+      backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+      border:1px solid rgba(232,184,0,.22);border-radius:100px;
+      box-shadow:0 8px 32px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-logo { font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:.18em;color:var(--white);text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0; }
+    @media (min-width:769px) { .nav-logo { display:none; } nav { justify-content:center;gap:0; } .nav-links { position:static;transform:none;left:auto;display:flex;gap:22px; } .nav-right { margin-left:20px;padding-right:14px; } }
+    .nav-logo span { color:var(--gold); }
+    .nav-links { display:flex;gap:28px;list-style:none;position:absolute;left:50%;transform:translateX(-50%); }
+    .nav-links a { color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative;padding-bottom:3px;white-space:nowrap; }
+    .nav-links a::after { content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after,.nav-links a.active::after { width:100%; }
+    .nav-right { display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;padding-right:10px; }
+    .nav-cta { background:var(--red);color:var(--white);border:none;padding:9px 20px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s,box-shadow .3s;border-radius:100px; }
+    .nav-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger { display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);padding:0;cursor:none;transition:border-color .3s,background .3s; }
+    .nav-hamburger:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .nav-hamburger span { display:block;width:20px;height:2px;background:var(--white);transition:background .3s; }
+    .nav-hamburger:hover span { background:var(--gold); }
+
+    /* ── MOBILE MENU — Liquid Glass ── */
+    .mobile-menu { position:fixed;inset:0;z-index:9997;background:rgba(10,9,8,.68);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1); }
+    .mobile-menu.open { transform:translateX(0); }
+    .mobile-menu-header { display:flex;justify-content:space-between;align-items:center;padding:0 20px;height:70px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0; }
+    .mobile-menu-logo img { height:40px;width:auto; }
+    .mobile-menu-close { width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:var(--white);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .3s,background .3s; }
+    .mobile-menu-close:hover { border-color:var(--gold);background:rgba(232,184,0,.12); }
+    .mobile-menu-links { flex:1;overflow-y:auto;display:flex;flex-direction:column; }
+    .mobile-menu-links > a { display:flex;justify-content:space-between;align-items:center;padding:15px 20px;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,background .3s,opacity .3s; }
+    .mobile-menu-links > a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mobile-menu-links > a::after { content:none !important; }
+    .mob-dimmed { opacity:0.22;transition:opacity .3s; }
+    .mob-group { border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;transition:opacity .3s; }
+    .mob-group-btn { display:flex;justify-content:space-between;align-items:center;padding:15px 20px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);cursor:none;transition:color .3s,background .3s;text-align:left; }
+    .mob-group-btn:hover,.mob-group-btn.open { color:var(--gold);background:rgba(232,184,0,.04); }
+    .mob-group-arrow { font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0; }
+    .mob-group-btn.open .mob-group-arrow { transform:rotate(90deg);color:var(--gold); }
+    .mob-sub { max-height:0;overflow:hidden;transition:max-height .4s ease;background:rgba(0,0,0,.15); }
+    .mob-sub.open { max-height:600px; }
+    .mob-sub a { display:block;padding:13px 20px 13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .3s,background .3s; }
+    .mob-sub a:last-child { border-bottom:none; }
+    .mob-sub a:hover { color:var(--gold);background:rgba(232,184,0,.05); }
+    .mob-header-actions { display:flex;align-items:center;gap:10px; }
+    .mobile-theme-toggle { width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;transition:border-color .3s,background .3s; }
+    .mobile-theme-toggle:hover { border-color:var(--gold);background:rgba(232,184,0,.1); }
+    .mobile-menu-footer { padding:14px;border-top:1px solid rgba(255,255,255,.07); }
+    .mobile-menu-cta { display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s,box-shadow .3s;border-radius:100px; }
+    .mobile-menu-cta:hover { background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25); }
+
+    /* ── DROPDOWN ── */
+    .nav-links li { position:relative; }
+    .nav-links li .dropdown { position:absolute;top:100%;left:0;background:var(--black-d);border:1px solid rgba(232,184,0,.15);border-top:2px solid var(--gold);min-width:200px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:300; }
+    .nav-links li:hover .dropdown { opacity:1;visibility:visible;transform:translateY(0); }
+    .nav-links li .dropdown a { display:flex;justify-content:space-between;align-items:center;padding:13px 20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .25s,background .25s;width:100%; }
+    .nav-links li .dropdown a:last-child { border-bottom:none; }
+    .nav-links li .dropdown a:hover { color:var(--gold);background:rgba(232,184,0,.04); }
+
+    /* ── MEGA MENU ── */
+    .has-mega { position:static !important; }
+    .mega-menu { position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;background:var(--black-d);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .35s,visibility .35s;pointer-events:none;overflow-y:auto; }
+    .mega-menu.open { opacity:1;visibility:visible;transform:translateY(0);pointer-events:all; }
+    .mega-menu-inner { max-width:1200px;margin:0 auto;padding:96px 60px 60px; }
+    .mega-menu-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06); }
+    .mega-menu-header span:first-child { font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase; }
+    .mega-close { font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);text-transform:uppercase;cursor:none;transition:color .3s;background:transparent;border:none; }
+    .mega-close:hover { color:var(--gold); }
+    .mega-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px; }
+    .mega-card { display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s; }
+    .mega-card:hover { border-color:var(--gold);background:#272523; }
+    .mega-card-img { width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s); }
+    .mega-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85); }
+    .mega-card:hover .mega-card-img img { transform:scale(1.04);filter:brightness(1); }
+    .mega-card-name { font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s; }
+    .mega-card:hover .mega-card-name { color:var(--gold); }
+    .mega-card-tier { font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:10px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px; }
+
+    /* ── LOGO FLOTANTE ── */
+    .nav-floating-logo { position:fixed;top:10px;z-index:9999;left:max(20px, calc(50% - 470px));display:flex;align-items:center;text-decoration:none;filter:drop-shadow(0 3px 12px rgba(0,0,0,.6));opacity:1;transition:opacity .5s ease; }
+    .nav-floating-logo.hidden { opacity:0;pointer-events:none; }
+    .nav-floating-logo:hover { opacity:.82; }
+    .nav-floating-logo img { height:82px;width:auto; }
+    @media (max-width:960px) { .nav-floating-logo { display:none; } }
+
+    /* ── THEME BUBBLE ── */
+    .nav-theme-bubble { position:fixed;top:22px;z-index:9999;right:max(24px, calc(50% - 490px));width:46px;height:46px;border-radius:50%;background:rgba(14,13,12,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(232,184,0,.22);box-shadow:0 4px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;transition:border-color .3s,background .3s,transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .nav-theme-bubble:hover { border-color:rgba(232,184,0,.5);background:rgba(232,184,0,.1);transform:rotate(20deg) scale(1.08); }
+    @media (max-width:960px) { .nav-theme-bubble { display:none; } }
+
+    /* ── LIGHT MODE ── */
+    body.light { --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;--white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744; }
+    body.light nav { background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3); }
+    body.light .nav-theme-bubble { background:rgba(240,237,234,.82);border-color:rgba(232,184,0,.3); }
+    body.light .nav-hamburger { border-color:rgba(0,0,0,.2); }
+    body.light .nav-hamburger span { background:var(--white); }
+    body.light .mobile-menu { background:var(--black-d); }
+    body.light .mega-menu { background:var(--black-s); }
+    body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
+    body.light #cur { background:var(--gold); }
+    body.light #ring { border-color:rgba(232,184,0,.5); }
+
+    /* ── SCROLLED ── */
+    @media (min-width:769px) {
+      body.scrolled nav { justify-content:space-between; }
+      body.scrolled .nav-logo { display:flex !important; }
+      body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      #cur,#ring { display:none; }
+      body { cursor:auto; }
+      nav { top:0;left:0;right:0;width:100%;transform:none;max-width:none;border-radius:0;height:60px;padding:0 16px;border:none;border-bottom:1px solid rgba(232,184,0,.15);box-shadow:0 2px 24px rgba(0,0,0,.4); }
+      .nav-links { display:none; }
+      .nav-cta { display:none; }
+      .nav-logo img { height:36px; }
+      .nav-hamburger { display:flex; }
+      .mega-menu-inner { padding:80px 20px 40px; }
+      .mega-grid { grid-template-columns:1fr 1fr;gap:10px; }
+    }
+    @media (max-width:375px) {
+      .mobile-menu-links > a { font-size:14px;padding:13px 16px; }
+      .mob-group-btn { font-size:14px;padding:13px 16px; }
+      .mob-sub a { font-size:12px;padding:11px 16px 11px 28px; }
+      .mobile-menu-header { height:60px; }
+      .mobile-menu-logo img { height:32px; }
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+
+    /* ── FOOTER ── */
+    footer { background:var(--black-s);border-top:1px solid rgba(232,184,0,.1);padding:60px 60px 32px; }
+    .footer-top { display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px; }
+    .footer-tagline { font-size:14px;color:var(--gray-md);line-height:1.8;margin-bottom:24px;font-weight:400;max-width:320px; }
+    .footer-social { display:flex;gap:12px; }
+    .footer-social a { width:40px;height:40px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;color:var(--gray-md);text-decoration:none;transition:border-color .3s,color .3s; }
+    .footer-social a:hover { border-color:var(--gold);color:var(--gold); }
+    .footer-col-title { font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:16px; }
+    .footer-links { list-style:none;display:flex;flex-direction:column;gap:10px; }
+    .footer-links a { color:var(--gray-md);text-decoration:none;font-size:14px;font-weight:400;transition:color .3s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-divider { height:1px;background:rgba(255,255,255,.06);margin-bottom:28px; }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+    .footer-copy,.footer-made { font-size:11px;color:var(--gray-dk);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em; }
+    @media(max-width:1024px){ .footer-top { grid-template-columns:1fr 1fr;gap:40px; } }
+    @media(max-width:768px){ footer { padding:40px 24px 24px; } .footer-top { grid-template-columns:1fr;gap:28px; } .footer-bottom { flex-direction:column;gap:8px;text-align:center; } }
+
+    /* ── SECTIONS ── */
+    .section { padding:80px 60px; }
+    .section-alt { background:var(--black-s); }
+    .sec-eyebrow { font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:16px; }
+    .sec-eyebrow::before { content:'';width:32px;height:1px;background:var(--gold);opacity:.6; }
+    .sec-title { font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(32px,4vw,50px);line-height:1.05;margin-bottom:16px;text-transform:uppercase; }
+    .sec-title em { font-style:normal;color:var(--gold); }
+    .section-header { text-align:center;max-width:680px;margin:0 auto 48px; }
+    .section-header p { font-size:16px;color:var(--gray-md);line-height:1.85;font-weight:400;margin-top:10px; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:68vh;padding:120px 60px 70px;
+      background:linear-gradient(160deg,rgba(232,184,0,.08) 0%,transparent 45%),
+                 linear-gradient(200deg,rgba(181,34,0,.06) 0%,transparent 50%),var(--black-d);
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+      border-bottom:1px solid rgba(232,184,0,.15);
+    }
+    .page-hero::after { content:'FINANCING';position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Oswald',sans-serif;font-size:240px;font-weight:700;color:rgba(232,184,0,.025);pointer-events:none;white-space:nowrap; }
+    .page-hero-content { max-width:860px;text-align:center;position:relative;z-index:1; }
+    .page-eyebrow { font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:14px;justify-content:center; }
+    .page-eyebrow::before,.page-eyebrow::after { content:'';width:36px;height:1px;background:var(--gold); }
+    .page-hero h1 { font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(50px,7vw,88px);line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px; }
+    .page-hero h1 em { font-style:normal;color:var(--gold); }
+    .page-hero p { font-size:17px;color:rgba(255,255,255,.7);line-height:1.85;font-weight:400;max-width:680px;margin:0 auto; }
+
+    /* ── HOW IT WORKS ── */
+    .steps-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:0 auto; }
+    .step-card { background:var(--black-c);padding:40px 32px;position:relative;overflow:hidden;transition:background .35s,opacity .7s,transform .7s; }
+    .step-card:hover { background:#272523; }
+    .step-num { font-family:'Oswald',sans-serif;font-weight:700;font-size:64px;color:rgba(232,184,0,.12);line-height:1;margin-bottom:16px; }
+    .step-title { font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;transition:color .3s; }
+    .step-card:hover .step-title { color:var(--gold); }
+    .step-desc { font-size:15px;color:var(--gray-md);line-height:1.8;font-weight:400; }
+    .step-icon { font-size:32px;margin-bottom:14px;display:block; }
+
+    /* ── PARTNERS ── */
+    .partners-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1100px;margin:0 auto; }
+    .partner-card {
+      background:var(--black-c);border:1px solid rgba(255,255,255,.06);
+      padding:32px 24px;text-align:center;
+      transition:border-color .3s,background .3s,opacity .7s,transform .7s;
+    }
+    .partner-card:hover { border-color:rgba(232,184,0,.25);background:#272523; }
+    .partner-logo { width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px; }
+    .partner-name { font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px; }
+    .partner-tag { font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase; }
+    .partner-note { font-size:13px;color:var(--gray-md);line-height:1.7;font-weight:400;margin-top:10px; }
+
+    /* ── DISCLAIMER BOX ── */
+    .disclaimer {
+      max-width:860px;margin:0 auto;
+      background:rgba(232,184,0,.05);border:1px solid rgba(232,184,0,.15);
+      padding:28px 36px;
+      display:flex;gap:20px;align-items:flex-start;
+    }
+    .disclaimer-icon { font-size:24px;flex-shrink:0;margin-top:2px; }
+    .disclaimer h3 { font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px; }
+    .disclaimer p { font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;font-weight:400; }
+
+    /* ── CTA ── */
+    .cta-section { background:linear-gradient(135deg,rgba(232,184,0,.08),rgba(181,34,0,.05));border-top:1px solid rgba(232,184,0,.15);border-bottom:1px solid rgba(232,184,0,.15);text-align:center;padding:60px; }
+    .cta-title { font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(32px,4vw,50px);text-transform:uppercase;margin-bottom:18px;line-height:1.1; }
+    .cta-title em { font-style:normal;color:var(--gold); }
+    .cta-desc { font-size:16px;color:var(--gray-md);line-height:1.8;max-width:560px;margin:0 auto 36px;font-weight:400; }
+    .cta-actions { display:flex;gap:16px;justify-content:center;flex-wrap:wrap; }
+    .cta-btn-gold { display:inline-block;background:var(--gold);color:var(--black);padding:16px 48px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:background .3s;border-radius:100px; }
+    .cta-btn-gold:hover { background:#FFD000; }
+    .cta-btn-outline { display:inline-block;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.2);padding:16px 48px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:border-color .3s,color .3s;border-radius:100px; }
+    .cta-btn-outline:hover { border-color:var(--gold);color:var(--gold); }
+
+    @media(max-width:1024px) { .partners-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:768px) {
+      .page-hero { padding:90px 24px 48px;min-height:55vh; }
+      .page-hero::after { font-size:90px; }
+      .section { padding:56px 24px; }
+      .steps-grid { grid-template-columns:1fr; }
+      .partners-grid { grid-template-columns:1fr 1fr; }
+      .cta-section { padding:40px 24px; }
+      .disclaimer { padding:20px 20px;flex-direction:column;gap:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cur"></div>
+  <div id="ring"></div>
+
+  <!-- LOGO FLOTANTE DESKTOP -->
+  <a href="index.html" class="nav-floating-logo"><img src="img/logo.webp" alt="SG Trailers"/></a>
+  <!-- THEME BUBBLE DESKTOP -->
+  <button class="nav-theme-bubble" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.webp" alt="SG Trailers" style="height:36px;width:auto;"/>
+    </a>
+    <ul class="nav-links">
+      <li class="has-mega"><a href="#" onclick="openMega(event)">Trailers</a></li>
+      <li class="has-dropdown">
+        <a href="#">Company</a>
+        <div class="dropdown">
+          <a href="about.html">About Us</a>
+          <a href="dealer_program.html">Dealer Program</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" class="active">Shop</a>
+        <div class="dropdown">
+          <a href="financing.html">Financing</a>
+          <a href="parts_accessories.html">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html">Dealers</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="community.html">Community</a>
+        <div class="dropdown">
+          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html#partners">Partners &amp; Finance</a>
+          <a href="community.html#media">Media</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="owners_guide.html">Owner's Guide</a>
+        <div class="dropdown">
+          <a href="owners_guide.html#tutorials">Tutorials</a>
+          <a href="owners_guide.html#safety">Safety</a>
+          <a href="owners_guide.html#maintenance">Maintenance</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cta" onclick="window.location='contact.html'">Get a Quote</button>
+      <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-header">
+        <span>Trailer Models</span>
+        <button class="mega-close" onclick="closeMega()">✕ Close</button>
+      </div>
+      <div class="mega-grid">
+        <a href="catalog.html?model=apolo" class="mega-card"><div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div><div class="mega-card-name">Apolo</div><div class="mega-card-tier">Entry Level</div></a>
+        <a href="catalog.html?model=anubis" class="mega-card"><div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div><div class="mega-card-name">Anubis</div><div class="mega-card-tier">Mid Range</div></a>
+        <a href="catalog.html?model=nemesis" class="mega-card"><div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div><div class="mega-card-name">Nemesis</div><div class="mega-card-tier">Upper Mid</div></a>
+        <a href="catalog.html?model=apocalypse" class="mega-card"><div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div><div class="mega-card-name">Apocalypse</div><div class="mega-card-tier">Top of Line</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="mobile-menu-logo"><img src="img/logo.webp" alt="SG Trailers"/></a>
+      <div class="mob-header-actions">
+        <button class="mobile-theme-toggle" id="themeToggleMobile" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+      </div>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="#" onclick="closeMenu();openMega(event)">Trailers</a>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="about.html" onclick="closeMenu()">About Us</a>
+          <a href="dealer_program.html" onclick="closeMenu()">Dealer Program</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="financing.html" onclick="closeMenu()">Financing</a>
+          <a href="parts_accessories.html" onclick="closeMenu()">Parts &amp; Accessories</a>
+          <a href="dealer_locations.html" onclick="closeMenu()">Find a Dealer</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
+          <a href="community.html#media" onclick="closeMenu()">Media</a>
+        </div>
+      </div>
+      <div class="mob-group">
+        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
+        <div class="mob-sub">
+          <a href="owners_guide.html#tutorials" onclick="closeMenu()">Tutorials</a>
+          <a href="owners_guide.html#safety" onclick="closeMenu()">Safety</a>
+          <a href="owners_guide.html#maintenance" onclick="closeMenu()">Maintenance</a>
+        </div>
+      </div>
+      <a href="contact.html" onclick="closeMenu()">Contact</a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-eyebrow">Financing Options</div>
+      <h1>Get Your Trailer<br/><em>Financed.</em></h1>
+      <p>SG Trailers works with trusted financing programs so owning a professional-grade trailer is within reach. Our dealer network guides you through every option — no pressure, just answers.</p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="sec-eyebrow">The Process</div>
+      <h2 class="sec-title">How It <em>Works</em></h2>
+      <p>Financing your SG Trailer is straightforward. Your local dealer handles the process from application to approval — we just build the best trailer possible.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-icon">🚛</span>
+        <div class="step-num">01</div>
+        <div class="step-title">Choose Your Trailer</div>
+        <p class="step-desc">Browse our four models and find the one that matches your work. Whether you're hauling one car or a fleet, we have the right trailer at the right price point.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">🤝</span>
+        <div class="step-num">02</div>
+        <div class="step-title">Connect with a Dealer</div>
+        <p class="step-desc">Your local SG Trailers dealer will walk you through available financing programs, current rates, and documentation requirements. They manage the entire application process.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">🔑</span>
+        <div class="step-num">03</div>
+        <div class="step-title">Get Approved &amp; Drive Away</div>
+        <p class="step-desc">Once approved, finalize your paperwork at the dealership and drive away with your new SG Trailer. It's that simple — no factory delays, no runaround.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCING PARTNERS -->
+  <section class="section section-alt reveal">
+    <div class="section-header">
+      <div class="sec-eyebrow">Backed By</div>
+      <h2 class="sec-title">Financing <em>Programs</em></h2>
+      <p>Our dealer network works with established financing programs to offer competitive rates and flexible terms. Availability varies by region — contact your local dealer for current options.</p>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-logo">🏦</div>
+        <div class="partner-name">Commercial Loans</div>
+        <div class="partner-tag">Business &amp; Fleet</div>
+        <p class="partner-note">Equipment financing for fleet operators and commercial buyers. Competitive rates for established businesses.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">📋</div>
+        <div class="partner-name">Installment Plans</div>
+        <div class="partner-tag">Personal Use</div>
+        <p class="partner-note">Fixed monthly payment plans for individual buyers. Terms from 24 to 72 months depending on credit profile.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">🌐</div>
+        <div class="partner-name">Cross-Border Options</div>
+        <div class="partner-tag">US &amp; Mexico</div>
+        <p class="partner-note">Financing solutions available through our Mexico dealer network for buyers on both sides of the border.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">⚡</div>
+        <div class="partner-name">Fast Approval</div>
+        <div class="partner-tag">24–48 Hours</div>
+        <p class="partner-note">Most approvals completed within 24 to 48 business hours. Pre-qualification available with no impact to your credit score.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="section reveal">
+    <div class="disclaimer">
+      <span class="disclaimer-icon">ℹ️</span>
+      <div>
+        <h3>Important Note on Financing</h3>
+        <p>SG Trailers LLC does not directly provide financing or act as a lender. All financing is arranged independently through our authorized dealer network and their lending partners. Rates, terms, and availability vary by location, dealer, and individual credit profile. Contact your nearest SG Trailers dealer for current financing options in your area.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <h2 class="cta-title">Ready to Move <em>Forward?</em></h2>
+    <p class="cta-desc">Find an authorized SG Trailers dealer near you and ask about available financing programs for your next trailer purchase.</p>
+    <div class="cta-actions">
+      <a href="dealer_locations.html" class="cta-btn-gold">Find a Dealer →</a>
+      <a href="contact.html" class="cta-btn-outline">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div style="margin-bottom:16px;"><img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/></div>
+        <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
+        <div class="footer-social"><a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Trailers</div>
+        <ul class="footer-links">
+          <li><a href="catalog.html?model=apolo">Apolo</a></li>
+          <li><a href="catalog.html?model=anubis">Anubis</a></li>
+          <li><a href="catalog.html?model=nemesis">Nemesis</a></li>
+          <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="dealer_program.html">Dealer Program</a></li>
+          <li><a href="financing.html">Financing</a></li>
+          <li><a href="owners_guide.html">Owner's Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="dealer_program.html">Dealer Inquiry</a></li>
+          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Warranty Claim</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    </div>
+  </footer>
+
+  <script>
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+
+    function toggleAccordion(btn){
+      const sub=btn.nextElementSibling,group=btn.parentElement,isOpen=btn.classList.contains('open');
+      closeAccordion();
+      if(!isOpen){
+        document.querySelectorAll('.mobile-menu-links > *').forEach(el=>{ if(el!==group) el.classList.add('mob-dimmed'); });
+        btn.classList.add('open');sub.classList.add('open');
+      }
+    }
+    function closeAccordion(){
+      document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
+      document.querySelectorAll('.mob-group-btn').forEach(b=>{ b.classList.remove('open');b.nextElementSibling.classList.remove('open'); });
+    }
+    function openMenu(){ document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden'; }
+    function closeMenu(){ document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';closeAccordion(); }
+    function openMega(e){ e.preventDefault();document.getElementById('megaMenu').classList.add('open');document.body.style.overflow='hidden'; }
+    function closeMega(){ document.getElementById('megaMenu').classList.remove('open');document.body.style.overflow=''; }
+
+    const floatingLogo=document.querySelector('.nav-floating-logo');
+    window.addEventListener('scroll',()=>{
+      if(floatingLogo){ const _sc=window.scrollY>60;floatingLogo.classList.toggle('hidden',_sc);document.body.classList.toggle('scrolled',_sc); }
+    },{passive:true});
+
+    function setThemeIcons(isLight){ const icon=isLight?'☀️':'🌙';document.getElementById('themeToggle').textContent=icon;document.getElementById('themeToggleMobile').textContent=icon; }
+    function toggleTheme(){ const isLight=document.body.classList.toggle('light');setThemeIcons(isLight);localStorage.setItem('sg-theme',isLight?'light':'dark'); }
+    (function(){ if(window.scrollY>60){document.body.classList.add('scrolled');const fl=document.querySelector('.nav-floating-logo');if(fl)fl.classList.add('hidden');} })();
+    (function(){ if(localStorage.getItem('sg-theme')==='light'){document.body.classList.add('light');setThemeIcons(true);} })();
+
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting)e.target.classList.add('visible'); }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
