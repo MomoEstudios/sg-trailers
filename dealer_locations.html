@@ -311,6 +311,7 @@
 
     /* ── LIGHT MODE ── */
     body.light {
+      --gold: #A67C00;
       --black:   #F0EDEA;
       --black-s: #E8E5E2;
       --black-c: #FFFFFF;
@@ -426,9 +427,25 @@
       body.scrolled .nav-logo { display:flex !important; }
       body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
     }
+    @media(max-width:768px){
+      
+      
+      
+      
+      
+    }
+    @media(max-width:768px){
+      .footer-top>div:first-child{display:grid;grid-template-columns:80px 1fr;grid-template-areas:"logo tag" "soc soc";column-gap:20px;row-gap:16px;}
+      .footer-top>div:first-child .footer-brand{grid-area:logo;align-self:center;margin-bottom:0;}
+      .footer-top>div:first-child .footer-brand img{height:72px !important;width:auto !important;display:block;}
+      .footer-top>div:first-child .footer-tagline{grid-area:tag;font-size:13px;line-height:1.65;margin-bottom:0;align-self:center;}
+      .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
+      .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
+    }
   </style>
 </head>
 <body>
+  <script>if(localStorage.getItem('sg-theme')==='light')document.body.classList.add('light');</script>
 
   <div id="cur"></div>
   <div id="ring"></div>
@@ -710,7 +727,7 @@
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-brand"><div class="footer-brand-shield">⚡</div>SG <span>Trailers</span></div>
+        <div class="footer-brand"><img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;"/></div>
         <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
         <div class="footer-social"><a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a></div>
       </div>

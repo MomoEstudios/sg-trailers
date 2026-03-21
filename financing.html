@@ -116,7 +116,8 @@
     @media (max-width:960px) { .nav-theme-bubble { display:none; } }
 
     /* ── LIGHT MODE ── */
-    body.light { --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;--white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744; }
+    body.light {
+      --gold: #A67C00; --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;--white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744; }
     body.light nav { background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3); }
     body.light .nav-theme-bubble { background:rgba(240,237,234,.82);border-color:rgba(232,184,0,.3); }
     body.light .nav-hamburger { border-color:rgba(0,0,0,.2); }
@@ -126,6 +127,8 @@
     body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
     body.light #cur { background:var(--gold); }
     body.light #ring { border-color:rgba(232,184,0,.5); }
+    body.light .page-hero p { color:rgba(50,46,42,.78); }
+    body.light .disclaimer p { color:rgba(50,46,42,.72); }
 
     /* ── SCROLLED ── */
     @media (min-width:769px) {
@@ -253,13 +256,23 @@
       .page-hero::after { font-size:90px; }
       .section { padding:56px 24px; }
       .steps-grid { grid-template-columns:1fr; }
-      .partners-grid { grid-template-columns:1fr 1fr; }
+      .partners-grid { grid-template-columns:1fr; }
       .cta-section { padding:40px 24px; }
-      .disclaimer { padding:20px 20px;flex-direction:column;gap:12px; }
+      .cta-actions { flex-direction:column;align-items:center; }
+      .disclaimer { padding:20px;flex-direction:column;gap:12px; }
+    }
+    @media(max-width:768px){
+      .footer-top>div:first-child{display:grid;grid-template-columns:80px 1fr;grid-template-areas:"logo tag" "soc soc";column-gap:20px;row-gap:16px;}
+      .footer-top>div:first-child .footer-brand{grid-area:logo;align-self:center;margin-bottom:0;}
+      .footer-top>div:first-child .footer-brand img{height:72px !important;width:auto !important;display:block;}
+      .footer-top>div:first-child .footer-tagline{grid-area:tag;font-size:13px;line-height:1.65;margin-bottom:0;align-self:center;}
+      .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
+      .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
     }
   </style>
 </head>
 <body>
+  <script>if(localStorage.getItem('sg-theme')==='light')document.body.classList.add('light');</script>
   <div id="cur"></div>
   <div id="ring"></div>
 

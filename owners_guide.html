@@ -245,6 +245,7 @@
 
     /* ── LIGHT MODE ── */
     body.light {
+      --gold: #A67C00;
       --black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;
       --white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744;
     }
@@ -257,6 +258,8 @@
     body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
     body.light #cur { background:var(--gold); }
     body.light #ring { border-color:rgba(232,184,0,.5); }
+    body.light .page-hero p { color:rgba(50,46,42,.78); }
+    body.light .cta-btn-ghost { color:rgba(50,46,42,.65); }
 
     /* ── PAGE HERO ── */
     .page-hero {
@@ -592,9 +595,25 @@
       body.scrolled .nav-logo { display:flex !important; }
       body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
     }
+    @media(max-width:768px){
+      
+      
+      
+      
+      
+    }
+    @media(max-width:768px){
+      .footer-top>div:first-child{display:grid;grid-template-columns:80px 1fr;grid-template-areas:"logo tag" "soc soc";column-gap:20px;row-gap:16px;}
+      .footer-top>div:first-child .footer-brand{grid-area:logo;align-self:center;margin-bottom:0;}
+      .footer-top>div:first-child .footer-brand img{height:72px !important;width:auto !important;display:block;}
+      .footer-top>div:first-child .footer-tagline{grid-area:tag;font-size:13px;line-height:1.65;margin-bottom:0;align-self:center;}
+      .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
+      .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
+    }
   </style>
 </head>
 <body>
+  <script>if(localStorage.getItem('sg-theme')==='light')document.body.classList.add('light');</script>
 
   <div id="cur"></div>
   <div id="ring"></div>

@@ -104,6 +104,7 @@
 
     /* ── LIGHT MODE ── */
     body.light {
+      --gold: #A67C00;
       --black:   #F0EDEA;
       --black-s: #E8E5E2;
       --black-c: #FFFFFF;
@@ -118,7 +119,13 @@
     body.light .nav-hamburger span { background:var(--white); }
     body.light .mobile-menu { background:var(--black-d); }
     body.light .mega-menu { background:var(--black-s); }
-    body.light .dropdown { background:var(--black-c);border-color:rgba(0,0,0,.1); }
+    body.light .nav-links li .dropdown { background:rgba(240,237,234,.96);border-color:rgba(0,0,0,.12);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px); }
+    body.light .nav-links li .dropdown a { border-bottom-color:rgba(0,0,0,.06); }
+    body.light .model-card { background:#F0EBE4; }
+    body.light .model-card:hover { background:#E6DDD4; }
+    body.light .model-card.active { background:linear-gradient(90deg,rgba(232,184,0,.07) 0%,#E6DDD4 30%); }
+    body.light .expand-row { background:#EAE4DC; }
+    body.light .card-spec { background:rgba(0,0,0,.05); }
     body.light #cur { background:var(--gold); }
     body.light #ring { border-color:rgba(232,184,0,.5); }
 
@@ -136,9 +143,6 @@
     .model-card.active{background:#272523;}
     .model-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s;z-index:2;}
     .model-card:hover::before,.model-card.active::before{transform:scaleY(1);}
-    #card-apolo::before{background:#5BB8F5;}
-    #card-apolo:hover .card-name,#card-apolo.active .card-name{color:#5BB8F5;}
-    #card-apolo .card-msrp{color:#5BB8F5;}
     .card-inner{display:grid;grid-template-columns:360px 1fr auto;align-items:center;min-height:220px;}
     .card-img{height:220px;width:360px;flex-shrink:0;background:linear-gradient(135deg,#1a1816,#242220);position:relative;overflow:hidden;transition:transform .5s;}
     .card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
@@ -534,6 +538,9 @@
       .section{padding:56px 20px;}
       .fin-grid{grid-template-columns:1fr;}
       .guide-grid{grid-template-columns:1fr;}
+      .guide-card{padding:20px 24px;flex-direction:column;gap:6px;}
+      .guide-icon{font-size:22px;margin-top:0;margin-bottom:2px;}
+      .guide-desc{font-size:12px;margin-bottom:6px;}
       .contact-grid{grid-template-columns:1fr;}
       .form-row{grid-template-columns:1fr;}
       footer{padding:36px 20px 20px;}
@@ -565,9 +572,25 @@
       body.scrolled .nav-logo { display:flex !important; }
       body.scrolled .nav-links { position:absolute !important;left:50% !important;transform:translateX(-50%) !important; }
     }
+    @media(max-width:768px){
+      
+      
+      
+      
+      
+    }
+    @media(max-width:768px){
+      .footer-top>div:first-child{display:grid;grid-template-columns:80px 1fr;grid-template-areas:"logo tag" "soc soc";column-gap:20px;row-gap:16px;}
+      .footer-top>div:first-child .footer-brand{grid-area:logo;align-self:center;margin-bottom:0;}
+      .footer-top>div:first-child .footer-brand img{height:72px !important;width:auto !important;display:block;}
+      .footer-top>div:first-child .footer-tagline{grid-area:tag;font-size:13px;line-height:1.65;margin-bottom:0;align-self:center;}
+      .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
+      .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
+    }
   </style>
 </head>
 <body>
+  <script>if(localStorage.getItem('sg-theme')==='light')document.body.classList.add('light');</script>
   <div id="cur"></div>
   <div id="ring"></div>
 
@@ -928,10 +951,10 @@
     (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     const models={
-      apolo:{nameHtml:'Ap<em>olo</em>',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.png','img/apolo-4.png'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
-      anubis:{nameHtml:'An<em>ubis</em>',tier:'Mid Range · Car Hauler',photos:['img/anubis-1.webp','img/anubis-2.png','img/anubis-3.png'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
-      nemesis:{nameHtml:'Nem<em>esis</em>',tier:'Upper Mid · Car Hauler',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
-      apocalypse:{nameHtml:'Apoc<em>alypse</em>',tier:'Top of Line · Car Hauler',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
+      apolo:{nameHtml:'Apolo',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.png','img/apolo-4.png'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
+      anubis:{nameHtml:'Anubis',tier:'Mid Range · Car Hauler',photos:['img/anubis-1.webp','img/anubis-2.png','img/anubis-3.png'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
+      nemesis:{nameHtml:'Nemesis',tier:'Upper Mid · Car Hauler',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
+      apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
     };
 
     const state={active:null,prices:{apolo:8500,anubis:12800,nemesis:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,nemesis:0,apocalypse:0}};
