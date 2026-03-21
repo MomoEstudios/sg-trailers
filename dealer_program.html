@@ -507,20 +507,15 @@
         </div>
       </li>
       <li class="has-dropdown">
-        <a href="community.html">Community</a>
+        <a href="#">Community</a>
         <div class="dropdown">
-          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html">Success Stories</a>
           <a href="community.html#partners">Partners &amp; Finance</a>
           <a href="community.html#media">Media</a>
         </div>
       </li>
-      <li class="has-dropdown">
+      <li>
         <a href="owners_guide.html">Owner's Guide</a>
-        <div class="dropdown">
-          <a href="owners_guide.html#tutorials">Tutorials</a>
-          <a href="owners_guide.html#safety">Safety</a>
-          <a href="owners_guide.html#maintenance">Maintenance</a>
-        </div>
       </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -596,19 +591,12 @@
       <div class="mob-group">
         <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
         <div class="mob-sub">
-          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html" onclick="closeMenu()">Success Stories</a>
           <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
           <a href="community.html#media" onclick="closeMenu()">Media</a>
         </div>
       </div>
-      <div class="mob-group">
-        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
-        <div class="mob-sub">
-          <a href="owners_guide.html#tutorials" onclick="closeMenu()">Tutorials</a>
-          <a href="owners_guide.html#safety" onclick="closeMenu()">Safety</a>
-          <a href="owners_guide.html#maintenance" onclick="closeMenu()">Maintenance</a>
-        </div>
-      </div>
+      <a href="owners_guide.html" onclick="closeMenu()">Owner's Guide</a>
       <a href="contact.html" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
@@ -859,8 +847,8 @@
     (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
 
     function toggleAccordion(btn){
-      const sub=btn.nextElementSibling;
-      const group=btn.parentElement;
+      const sub=btn.closest('.mob-group').querySelector('.mob-sub');
+      const group=btn.closest('.mob-group');
       const isOpen=btn.classList.contains('open');
       closeAccordion();
       if(!isOpen){
@@ -873,9 +861,9 @@
     }
     function closeAccordion(){
       document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
-      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+      document.querySelectorAll('.mob-group-btn,.mob-group-toggle').forEach(b=>{
         b.classList.remove('open');
-        b.nextElementSibling.classList.remove('open');
+        b.closest('.mob-group').querySelector('.mob-sub').classList.remove('open');
       });
     }
     function openMenu(){

@@ -571,6 +571,11 @@
     .mob-sub.open{max-height:400px;}
     .mob-sub a{display:block;padding:14px 24px 14px 36px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);transition:color .3s;}
     .mob-sub a:hover{color:var(--gold);}
+    .mob-group-header{display:flex;align-items:center;width:100%;}
+    .mob-group-link{flex:1;padding:20px 24px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color .3s;}
+    .mob-group-link:hover{color:var(--gold);}
+    .mob-group-toggle{display:flex;align-items:center;justify-content:center;min-width:60px;padding:0 16px;background:transparent;border:none;border-left:1px solid rgba(255,255,255,.06);flex-shrink:0;cursor:none;align-self:stretch;}
+    .mob-group-toggle.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
 
     /* ── RESPONSIVE ── */
 
@@ -770,20 +775,15 @@
         </div>
       </li>
       <li class="has-dropdown">
-        <a href="community.html">Community</a>
+        <a href="#">Community</a>
         <div class="dropdown">
-          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html">Success Stories</a>
           <a href="community.html#partners">Partners &amp; Finance</a>
           <a href="community.html#media">Media</a>
         </div>
       </li>
-      <li class="has-dropdown">
+      <li>
         <a href="owners_guide.html">Owner's Guide</a>
-        <div class="dropdown">
-          <a href="owners_guide.html#tutorials">Tutorials</a>
-          <a href="owners_guide.html#safety">Safety</a>
-          <a href="owners_guide.html#maintenance">Maintenance</a>
-        </div>
       </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -859,19 +859,12 @@
       <div class="mob-group">
         <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
         <div class="mob-sub">
-          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html" onclick="closeMenu()">Success Stories</a>
           <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
           <a href="community.html#media" onclick="closeMenu()">Media</a>
         </div>
       </div>
-      <div class="mob-group">
-        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
-        <div class="mob-sub">
-          <a href="owners_guide.html#tutorials" onclick="closeMenu()">Tutorials</a>
-          <a href="owners_guide.html#safety" onclick="closeMenu()">Safety</a>
-          <a href="owners_guide.html#maintenance" onclick="closeMenu()">Maintenance</a>
-        </div>
-      </div>
+      <a href="owners_guide.html" onclick="closeMenu()">Owner's Guide</a>
       <a href="contact.html" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
@@ -1067,8 +1060,8 @@
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     function toggleAccordion(btn){
-      const sub=btn.nextElementSibling;
-      const group=btn.parentElement;
+      const sub=btn.closest('.mob-group').querySelector('.mob-sub');
+      const group=btn.closest('.mob-group');
       const isOpen=btn.classList.contains('open');
       closeAccordion();
       if(!isOpen){
@@ -1082,9 +1075,9 @@
     }
     function closeAccordion(){
       document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
-      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+      document.querySelectorAll('.mob-group-btn,.mob-group-toggle').forEach(b=>{
         b.classList.remove('open');
-        b.nextElementSibling.classList.remove('open');
+        b.closest('.mob-group').querySelector('.mob-sub').classList.remove('open');
       });
     }
 

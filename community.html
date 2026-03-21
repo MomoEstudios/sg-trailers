@@ -314,12 +314,12 @@
 
     /* ── PAGE HERO ── */
     .page-hero {
-      min-height:75vh;
+      min-height:40vh;
       background:linear-gradient(160deg,rgba(232,184,0,.08) 0%,transparent 45%),
                  linear-gradient(200deg,rgba(181,34,0,.06) 0%,transparent 50%),
                  var(--black-d);
       display:flex;align-items:center;justify-content:center;
-      padding:120px 60px 80px;
+      padding:120px 60px 60px;
       position:relative;overflow:hidden;
       border-bottom:1px solid rgba(232,184,0,.15);
     }
@@ -338,13 +338,13 @@
     .page-eyebrow::before,.page-eyebrow::after { content:'';width:36px;height:1px;background:var(--gold); }
     .page-hero h1 {
       font-family:'Oswald',sans-serif;font-weight:700;
-      font-size:clamp(56px,7vw,92px);line-height:.92;
-      letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px;
+      font-size:clamp(38px,5vw,64px);line-height:.95;
+      letter-spacing:.01em;text-transform:uppercase;margin-bottom:16px;
     }
     .page-hero h1 em { font-style:normal;color:var(--gold); }
     .page-hero p {
-      font-size:17px;color:rgba(255,255,255,.7);line-height:1.8;
-      font-weight:400;max-width:680px;margin:0 auto;
+      font-size:16px;color:rgba(255,255,255,.7);line-height:1.75;
+      font-weight:400;max-width:600px;margin:0 auto;
     }
 
     /* ── REVEAL ── */
@@ -775,18 +775,13 @@
       <li class="has-dropdown">
         <a href="community.html" class="active">Community</a>
         <div class="dropdown">
-          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html">Success Stories</a>
           <a href="community.html#partners">Partners &amp; Finance</a>
           <a href="community.html#media">Media</a>
         </div>
       </li>
-      <li class="has-dropdown">
-        <a href="#">Owner's Guide</a>
-        <div class="dropdown">
-          <a href="#">Tutorials</a>
-          <a href="#">Safety</a>
-          <a href="#">Maintenance</a>
-        </div>
+      <li>
+        <a href="owners_guide.html">Owner's Guide</a>
       </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -862,19 +857,12 @@
       <div class="mob-group">
         <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
         <div class="mob-sub">
-          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html" onclick="closeMenu()">Success Stories</a>
           <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
           <a href="community.html#media" onclick="closeMenu()">Media</a>
         </div>
       </div>
-      <div class="mob-group">
-        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
-        <div class="mob-sub">
-          <a href="#" onclick="closeMenu()">Tutorials</a>
-          <a href="#" onclick="closeMenu()">Safety</a>
-          <a href="#" onclick="closeMenu()">Maintenance</a>
-        </div>
-      </div>
+      <a href="owners_guide.html" onclick="closeMenu()">Owner's Guide</a>
       <a href="contact.html" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
@@ -1179,7 +1167,7 @@
           <li><a href="about.html">About Us</a></li>
           <li><a href="dealer_program.html">Dealer Program</a></li>
           <li><a href="financing.html">Financing</a></li>
-          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Community</a></li>
         </ul>
       </div>
       <div>
@@ -1207,8 +1195,8 @@
     (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
 
     function toggleAccordion(btn){
-      const sub=btn.nextElementSibling;
-      const group=btn.parentElement;
+      const sub=btn.closest('.mob-group').querySelector('.mob-sub');
+      const group=btn.closest('.mob-group');
       const isOpen=btn.classList.contains('open');
       closeAccordion();
       if(!isOpen){
@@ -1221,9 +1209,9 @@
     }
     function closeAccordion(){
       document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
-      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+      document.querySelectorAll('.mob-group-btn,.mob-group-toggle').forEach(b=>{
         b.classList.remove('open');
-        b.nextElementSibling.classList.remove('open');
+        b.closest('.mob-group').querySelector('.mob-sub').classList.remove('open');
       });
     }
     function openMenu(){

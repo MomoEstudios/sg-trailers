@@ -301,6 +301,72 @@
     }
     .model-pill:hover,.model-pill.active { border-color:var(--gold);color:var(--gold);background:rgba(232,184,0,.08); }
 
+    /* ── GUIDE QUICK NAV ── */
+    .guide-quicknav { background:var(--black-s);border-bottom:1px solid rgba(255,255,255,.06); }
+    .guide-quicknav-grid { display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto; }
+    .guide-quicknav-item {
+      display:flex;align-items:center;gap:14px;padding:24px 28px;
+      text-decoration:none;border-right:1px solid rgba(255,255,255,.06);
+      transition:background .3s;cursor:none;
+    }
+    .guide-quicknav-item:last-child { border-right:none; }
+    .guide-quicknav-item:hover { background:rgba(232,184,0,.05); }
+    .guide-quicknav-item:hover .gnav-label { color:var(--gold); }
+    .guide-quicknav-item:hover .gnav-arrow { color:var(--gold);transform:translateX(4px); }
+    .gnav-icon {
+      width:42px;height:42px;border-radius:10px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:20px;
+      background:rgba(232,184,0,.16);border:1px solid rgba(232,184,0,.4);
+      color:var(--gold);
+    }
+    .gnav-text { flex:1;min-width:0; }
+    .gnav-label { font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--white);transition:color .3s;margin-bottom:3px; }
+    .gnav-desc { font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-md); }
+    .gnav-arrow { font-size:18px;color:rgba(255,255,255,.25);transition:color .3s,transform .3s;flex-shrink:0; }
+    body.light .guide-quicknav { background:rgba(240,237,234,1);border-bottom-color:rgba(0,0,0,.08); }
+    body.light .guide-quicknav-item { border-right-color:rgba(0,0,0,.08); }
+    body.light .guide-quicknav-item:hover { background:rgba(166,124,0,.06); }
+    body.light .gnav-label { color:rgba(50,46,42,.9); }
+    body.light .gnav-desc { color:rgba(50,46,42,.5); }
+    body.light .gnav-arrow { color:rgba(50,46,42,.25); }
+    body.light .gnav-icon { background:rgba(166,124,0,.14);border-color:rgba(166,124,0,.4);color:var(--gold); }
+
+    /* ── GUIDE SIDE NAV ── */
+    .guide-sidenav {
+      position:fixed;right:24px;top:50%;transform:translateY(-50%);
+      z-index:200;display:flex;flex-direction:column;gap:6px;
+      opacity:0;pointer-events:none;transition:opacity .4s;
+    }
+    .guide-sidenav.visible { opacity:1;pointer-events:all; }
+    .guide-sidenav-item {
+      display:flex;align-items:center;gap:10px;
+      text-decoration:none;cursor:none;justify-content:flex-end;
+      padding:4px 0;
+    }
+    .guide-sidenav-label {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;
+      text-transform:uppercase;color:rgba(255,255,255,.35);
+      opacity:0;transform:translateX(6px);
+      transition:opacity .2s,transform .2s,color .25s;
+      white-space:nowrap;
+    }
+    .guide-sidenav-item:hover .guide-sidenav-label,
+    .guide-sidenav-item.active .guide-sidenav-label { opacity:1;transform:translateX(0); }
+    .guide-sidenav-item.active .guide-sidenav-label { color:var(--gold); }
+    .guide-sidenav-dot {
+      width:6px;height:6px;border-radius:50%;flex-shrink:0;
+      background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);
+      transition:background .3s,border-color .3s,transform .3s,width .3s;
+    }
+    .guide-sidenav-item:hover .guide-sidenav-dot { border-color:rgba(232,184,0,.6); }
+    .guide-sidenav-item.active .guide-sidenav-dot {
+      background:var(--gold);border-color:var(--gold);
+      transform:scale(1.5);
+    }
+    body.light .guide-sidenav-label { color:rgba(50,46,42,.4); }
+    body.light .guide-sidenav-item.active .guide-sidenav-label { color:var(--gold); }
+    body.light .guide-sidenav-dot { background:rgba(50,46,42,.15);border-color:rgba(50,46,42,.3); }
+
     /* ── REVEAL ── */
     .reveal { opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s; }
     .reveal.visible { opacity:1;transform:translateY(0); }
@@ -588,6 +654,14 @@
       .cta-actions { flex-direction:column; }
       .footer-top { grid-template-columns:1fr; }
       .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+      .guide-quicknav-grid { grid-template-columns:1fr 1fr; }
+      .guide-quicknav-item { padding:18px 14px;gap:10px;border-right:none;border-bottom:1px solid rgba(255,255,255,.06); }
+      .guide-quicknav-item:nth-child(odd) { border-right:1px solid rgba(255,255,255,.06); }
+      .guide-quicknav-item:nth-child(3),.guide-quicknav-item:nth-child(4) { border-bottom:none; }
+      .gnav-icon { width:36px;height:36px;font-size:16px;border-radius:8px; }
+      .gnav-label { font-size:12px; }
+      .gnav-arrow { display:none; }
+      .guide-sidenav { display:none; }
     }
     /* ── SCROLLED: logo en isla (reemplaza floating logo) ── */
     @media (min-width:769px) {
@@ -652,18 +726,13 @@
       <li class="has-dropdown">
         <a href="#">Community</a>
         <div class="dropdown">
-          <a href="community.html#stories">Success Stories</a>
+          <a href="community.html">Success Stories</a>
           <a href="community.html#partners">Partners &amp; Finance</a>
           <a href="community.html#media">Media</a>
         </div>
       </li>
-      <li class="has-dropdown">
+      <li>
         <a href="owners_guide.html" class="active">Owner's Guide</a>
-        <div class="dropdown">
-          <a href="owners_guide.html#tutorials">Tutorials</a>
-          <a href="owners_guide.html#safety">Safety</a>
-          <a href="owners_guide.html#maintenance">Maintenance</a>
-        </div>
       </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -739,19 +808,12 @@
       <div class="mob-group">
         <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
         <div class="mob-sub">
-          <a href="community.html#stories" onclick="closeMenu()">Success Stories</a>
+          <a href="community.html" onclick="closeMenu()">Success Stories</a>
           <a href="community.html#partners" onclick="closeMenu()">Partners &amp; Finance</a>
           <a href="community.html#media" onclick="closeMenu()">Media</a>
         </div>
       </div>
-      <div class="mob-group">
-        <button class="mob-group-btn" onclick="toggleAccordion(this)">Owner's Guide <span class="mob-group-arrow">›</span></button>
-        <div class="mob-sub">
-          <a href="owners_guide.html#tutorials" onclick="closeMenu()">Tutorials</a>
-          <a href="owners_guide.html#safety" onclick="closeMenu()">Safety</a>
-          <a href="owners_guide.html#maintenance" onclick="closeMenu()">Maintenance</a>
-        </div>
-      </div>
+      <a href="owners_guide.html" onclick="closeMenu()">Owner's Guide</a>
       <a href="contact.html" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-menu-footer">
@@ -774,6 +836,64 @@
       </div>
     </div>
   </section>
+
+  <!-- GUIDE QUICK NAV -->
+  <div class="guide-quicknav">
+    <div class="guide-quicknav-grid">
+      <a href="#quickstart" class="guide-quicknav-item">
+        <div class="gnav-icon">✓</div>
+        <div class="gnav-text">
+          <div class="gnav-label">Pre-Trip</div>
+          <div class="gnav-desc">Checklist</div>
+        </div>
+        <span class="gnav-arrow">→</span>
+      </a>
+      <a href="#tutorials" class="guide-quicknav-item">
+        <div class="gnav-icon">▶</div>
+        <div class="gnav-text">
+          <div class="gnav-label">Tutorials</div>
+          <div class="gnav-desc">Video Guides</div>
+        </div>
+        <span class="gnav-arrow">→</span>
+      </a>
+      <a href="#safety" class="guide-quicknav-item">
+        <div class="gnav-icon">⚠</div>
+        <div class="gnav-text">
+          <div class="gnav-label">Safety</div>
+          <div class="gnav-desc">Compliance Guide</div>
+        </div>
+        <span class="gnav-arrow">→</span>
+      </a>
+      <a href="#maintenance" class="guide-quicknav-item">
+        <div class="gnav-icon">🔧</div>
+        <div class="gnav-text">
+          <div class="gnav-label">Maintenance</div>
+          <div class="gnav-desc">Schedule</div>
+        </div>
+        <span class="gnav-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- GUIDE SIDE NAV -->
+  <div class="guide-sidenav" id="guideSidenav">
+    <a href="#quickstart" class="guide-sidenav-item">
+      <span class="guide-sidenav-label">Pre-Trip</span>
+      <span class="guide-sidenav-dot"></span>
+    </a>
+    <a href="#tutorials" class="guide-sidenav-item">
+      <span class="guide-sidenav-label">Tutorials</span>
+      <span class="guide-sidenav-dot"></span>
+    </a>
+    <a href="#safety" class="guide-sidenav-item">
+      <span class="guide-sidenav-label">Safety</span>
+      <span class="guide-sidenav-dot"></span>
+    </a>
+    <a href="#maintenance" class="guide-sidenav-item">
+      <span class="guide-sidenav-label">Maintenance</span>
+      <span class="guide-sidenav-dot"></span>
+    </a>
+  </div>
 
   <!-- QUICK START -->
   <section class="section" id="quickstart">
@@ -1165,7 +1285,7 @@
         <ul class="footer-links">
           <li><a href="about.html">About Us</a></li>
           <li><a href="dealer_program.html">Dealer Program</a></li>
-          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Community</a></li>
           <li><a href="owners_guide.html">Owner's Guide</a></li>
         </ul>
       </div>
@@ -1194,8 +1314,8 @@
     (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
 
     function toggleAccordion(btn){
-      const sub=btn.nextElementSibling;
-      const group=btn.parentElement;
+      const sub=btn.closest('.mob-group').querySelector('.mob-sub');
+      const group=btn.closest('.mob-group');
       const isOpen=btn.classList.contains('open');
       closeAccordion();
       if(!isOpen){
@@ -1208,9 +1328,9 @@
     }
     function closeAccordion(){
       document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
-      document.querySelectorAll('.mob-group-btn').forEach(b=>{
+      document.querySelectorAll('.mob-group-btn,.mob-group-toggle').forEach(b=>{
         b.classList.remove('open');
-        b.nextElementSibling.classList.remove('open');
+        b.closest('.mob-group').querySelector('.mob-sub').classList.remove('open');
       });
     }
     function openMenu(){
@@ -1271,6 +1391,37 @@
         pill.classList.add('active');
       });
     });
+
+    // ── GUIDE SIDE NAV ──
+    const guideSidenav = document.getElementById('guideSidenav');
+    const guideSections = ['quickstart','tutorials','safety','maintenance'];
+
+    // Show sidenav after scrolling past the hero
+    const heroSection = document.querySelector('.page-hero');
+    const heroObs = new IntersectionObserver(entries=>{
+      guideSidenav.classList.toggle('visible', !entries[0].isIntersecting);
+    },{threshold:0.1});
+    if(heroSection) heroObs.observe(heroSection);
+
+    // Track active section
+    const secObs = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        const navItem = guideSidenav.querySelector(`a[href="#${entry.target.id}"]`);
+        if(navItem && entry.isIntersecting){
+          guideSidenav.querySelectorAll('.guide-sidenav-item').forEach(i=>i.classList.remove('active'));
+          navItem.classList.add('active');
+        }
+      });
+    },{rootMargin:'-35% 0px -55% 0px',threshold:0});
+
+    guideSections.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) secObs.observe(el);
+    });
+
+    // Set first section active on load
+    const firstNavItem = guideSidenav.querySelector('.guide-sidenav-item');
+    if(firstNavItem) firstNavItem.classList.add('active');
   </script>
 </body>
 </html>
