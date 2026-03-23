@@ -14,8 +14,8 @@
     html{scroll-behavior:smooth;}
     body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
     /* ── Cursor ── */
-    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
-    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:10002;transform:translate(-50%,-50%); }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:10001;transform:translate(-50%,-50%); }
 
     /* ── NAV ── */
     nav {
@@ -587,12 +587,39 @@
       .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
       .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
     }
+
+    /* LIGHTBOX */
+    #lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+    #lightbox.open{opacity:1;pointer-events:all;}
+    .lb-img-wrap{position:relative;max-width:90vw;max-height:85vh;display:flex;align-items:center;justify-content:center;}
+    .lb-img-wrap img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.7);display:block;}
+    .lb-arrow{position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s,border-color .2s;z-index:10000;}
+    .lb-arrow:hover{background:rgba(232,184,0,.18);border-color:rgba(232,184,0,.5);}
+    .lb-prev{left:24px;}
+    .lb-next{right:24px;}
+    .lb-close{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s;z-index:10000;}
+    .lb-close:hover{background:rgba(255,80,60,.25);border-color:rgba(255,80,60,.4);}
+    .lb-counter{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.2em;color:rgba(255,255,255,.45);z-index:10000;}
+    .lb-dots{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10000;}
+    .lb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.3);transition:background .2s,transform .2s;cursor:none;}
+    .lb-dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.5);}
+    .exp-img-main img{cursor:zoom-in;}
   </style>
 </head>
 <body>
   <script>if(localStorage.getItem('sg-theme')==='light')document.body.classList.add('light');</script>
   <div id="cur"></div>
   <div id="ring"></div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="lbClickOutside(event)">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <button class="lb-arrow lb-prev" onclick="lbNav(-1,event)">‹</button>
+    <div class="lb-img-wrap"><img id="lb-img" src="" alt=""/></div>
+    <button class="lb-arrow lb-next" onclick="lbNav(1,event)">›</button>
+    <div class="lb-dots" id="lb-dots"></div>
+    <div class="lb-counter" id="lb-counter"></div>
+  </div>
 
   <!-- FLOATING LOGO (desktop only) -->
   <a href="index.html" class="nav-floating-logo">
@@ -956,7 +983,7 @@
       const thumbs=m.photos.map((p,i)=>`<div class="exp-thumb${i===0?' active':''}" onclick="switchPhoto(event,'${key}','${p}',this)"><img src="${p}" alt="${key}"/></div>`).join('');
       return `
         <div>
-          <div class="exp-img-main" id="exp-main-${key}"><img src="${m.photos[0]}" alt="${key}"/></div>
+          <div class="exp-img-main" id="exp-main-${key}" onclick="openLightbox('${key}',currentPhotoIndex['${key}']||0,event)"><img src="${m.photos[0]}" alt="${key}"/></div>
           <div class="exp-thumbs">${thumbs}</div>
         </div>
         <div>
@@ -1004,7 +1031,7 @@
     function selectSize(e,key,price){e.stopPropagation();state.prices[key]=price;document.querySelectorAll('#expand-inner-'+key+' .size-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');updateTotal(key);}
     function toggleAcc(e,el,key,price){e.stopPropagation();el.classList.toggle('selected');state.accTotals[key]+=el.classList.contains('selected')?price:-price;updateTotal(key);}
     function updateTotal(key){const t=state.prices[key]+state.accTotals[key];const pe=document.getElementById('eprice-'+key),te=document.getElementById('etotal-'+key);if(pe)pe.textContent=fmt(state.prices[key]);if(te)te.textContent=fmt(t);}
-    function switchPhoto(e,key,src,thumb){e.stopPropagation();const main=document.getElementById('exp-main-'+key);if(main){const img=main.querySelector('img');if(img)img.src=src;}document.querySelectorAll('#expand-inner-'+key+' .exp-thumb').forEach(t=>t.classList.remove('active'));thumb.classList.add('active');}
+    function switchPhoto(e,key,src,thumb){e.stopPropagation();const main=document.getElementById('exp-main-'+key);if(main){const img=main.querySelector('img');if(img)img.src=src;}document.querySelectorAll('#expand-inner-'+key+' .exp-thumb').forEach((t,i)=>{t.classList.remove('active');if(t===thumb)currentPhotoIndex[key]=i;});thumb.classList.add('active');}
 
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
       if(e.isIntersecting) e.target.classList.add('visible');
@@ -1141,6 +1168,50 @@
       });
       document.querySelectorAll('.mob-group,.mobile-menu-links > a').forEach(el=>el.classList.remove('mob-dimmed'));
     }
+
+    /* LIGHTBOX */
+    const currentPhotoIndex={};
+    function openLightbox(key,idx,e){
+      if(e) e.stopPropagation();
+      const photos=models[key].photos;
+      currentPhotoIndex[key]=idx;
+      const lb=document.getElementById('lightbox');
+      const img=document.getElementById('lb-img');
+      img.src=photos[idx];
+      img.alt=key;
+      document.getElementById('lb-counter').textContent=(idx+1)+' / '+photos.length;
+      const dots=document.getElementById('lb-dots');
+      dots.innerHTML=photos.map((_,i)=>`<span class="lb-dot${i===idx?' active':''}" onclick="lbGoTo('${key}',${i},event)"></span>`).join('');
+      lb.dataset.key=key;
+      lb.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeLightbox(){
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    function lbNav(dir,e){
+      if(e) e.stopPropagation();
+      const lb=document.getElementById('lightbox');
+      const key=lb.dataset.key;
+      const photos=models[key].photos;
+      const idx=(currentPhotoIndex[key]+dir+photos.length)%photos.length;
+      openLightbox(key,idx,null);
+    }
+    function lbGoTo(key,idx,e){
+      if(e) e.stopPropagation();
+      openLightbox(key,idx,null);
+    }
+    function lbClickOutside(e){
+      if(e.target===document.getElementById('lightbox')) closeLightbox();
+    }
+    document.addEventListener('keydown',e=>{
+      const lb=document.getElementById('lightbox');
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLightbox();
+      if(e.key==='ArrowLeft') lbNav(-1,null);
+      if(e.key==='ArrowRight') lbNav(1,null);
+    });
   </script>
 </body>
 </html>
