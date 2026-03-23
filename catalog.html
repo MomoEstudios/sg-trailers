@@ -603,6 +603,14 @@
     .lb-dots{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10000;}
     .lb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.3);transition:background .2s,transform .2s;cursor:none;}
     .lb-dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.5);}
+    .lb-zoom-controls{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;z-index:10000;background:rgba(20,19,18,.75);border:1px solid rgba(255,255,255,.14);border-radius:100px;backdrop-filter:blur(16px);overflow:hidden;}
+    .lb-zoom-btn{width:44px;height:40px;background:transparent;border:none;color:rgba(255,255,255,.7);font-size:20px;font-weight:300;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s,color .2s;flex-shrink:0;}
+    .lb-zoom-btn:hover:not(:disabled){background:rgba(232,184,0,.15);color:var(--gold);}
+    .lb-zoom-btn:disabled{opacity:.25;pointer-events:none;}
+    .lb-zoom-level{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.12em;color:rgba(255,255,255,.5);padding:0 10px;min-width:46px;text-align:center;border-left:1px solid rgba(255,255,255,.1);border-right:1px solid rgba(255,255,255,.1);}
+    .lb-img-wrap{overflow:hidden;}
+    .lb-img-wrap img{transition:transform .25s ease;transform-origin:center center;}
+    .lb-img-wrap.zoomed img{cursor:move;}
     .exp-img-main img{cursor:zoom-in;}
   </style>
 </head>
@@ -614,8 +622,13 @@
   <!-- LIGHTBOX -->
   <div id="lightbox" onclick="lbClickOutside(event)">
     <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="lb-zoom-controls">
+      <button class="lb-zoom-btn" id="lb-zoom-out" onclick="lbZoom(-1,event)" disabled>−</button>
+      <span class="lb-zoom-level" id="lb-zoom-level">100%</span>
+      <button class="lb-zoom-btn" id="lb-zoom-in" onclick="lbZoom(1,event)">+</button>
+    </div>
     <button class="lb-arrow lb-prev" onclick="lbNav(-1,event)">‹</button>
-    <div class="lb-img-wrap"><img id="lb-img" src="" alt=""/></div>
+    <div class="lb-img-wrap" id="lb-img-wrap"><img id="lb-img" src="" alt=""/></div>
     <button class="lb-arrow lb-next" onclick="lbNav(1,event)">›</button>
     <div class="lb-dots" id="lb-dots"></div>
     <div class="lb-counter" id="lb-counter"></div>
@@ -1170,6 +1183,24 @@
     }
 
     /* LIGHTBOX */
+    const lbZoomSteps=[1,1.5,2,3];
+    let lbZoomIdx=0;
+    function lbApplyZoom(){
+      const img=document.getElementById('lb-img');
+      const wrap=document.getElementById('lb-img-wrap');
+      const scale=lbZoomSteps[lbZoomIdx];
+      img.style.transform=`scale(${scale})`;
+      wrap.classList.toggle('zoomed',scale>1);
+      document.getElementById('lb-zoom-level').textContent=Math.round(scale*100)+'%';
+      document.getElementById('lb-zoom-in').disabled=lbZoomIdx>=lbZoomSteps.length-1;
+      document.getElementById('lb-zoom-out').disabled=lbZoomIdx<=0;
+    }
+    function lbZoom(dir,e){
+      if(e) e.stopPropagation();
+      lbZoomIdx=Math.max(0,Math.min(lbZoomSteps.length-1,lbZoomIdx+dir));
+      lbApplyZoom();
+    }
+    function lbResetZoom(){lbZoomIdx=0;lbApplyZoom();}
     const currentPhotoIndex={};
     function openLightbox(key,idx,e){
       if(e) e.stopPropagation();
@@ -1185,6 +1216,7 @@
       lb.dataset.key=key;
       lb.classList.add('open');
       document.body.style.overflow='hidden';
+      lbResetZoom();
     }
     function closeLightbox(){
       document.getElementById('lightbox').classList.remove('open');
@@ -1211,6 +1243,8 @@
       if(e.key==='Escape') closeLightbox();
       if(e.key==='ArrowLeft') lbNav(-1,null);
       if(e.key==='ArrowRight') lbNav(1,null);
+      if(e.key==='+'||e.key==='=') lbZoom(1,null);
+      if(e.key==='-') lbZoom(-1,null);
     });
   </script>
 </body>
