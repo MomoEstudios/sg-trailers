@@ -612,6 +612,15 @@
     .lb-img-wrap img{transition:transform .25s ease;transform-origin:center center;}
     .lb-img-wrap.zoomed img{cursor:move;}
     .exp-img-main img{cursor:zoom-in;}
+    .exp-thumb-video{position:relative;}
+    .exp-thumb-video video{width:100%;height:100%;object-fit:cover;display:block;}
+    .exp-thumb-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);font-size:18px;color:#fff;pointer-events:none;transition:background .2s;}
+    .exp-thumb-video:hover .exp-thumb-play{background:rgba(232,184,0,.35);}
+    .exp-main-video{width:100%;height:100%;object-fit:contain;border-radius:4px;display:block;}
+    #lb-video-wrap{display:none;align-items:center;justify-content:center;max-width:90vw;max-height:80vh;}
+    #lb-video-wrap.active{display:flex;}
+    #lb-video{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.7);outline:none;}
+    .lb-img-wrap.hidden{display:none;}
   </style>
 </head>
 <body>
@@ -629,6 +638,7 @@
     </div>
     <button class="lb-arrow lb-prev" onclick="lbNav(-1,event)">‹</button>
     <div class="lb-img-wrap" id="lb-img-wrap"><img id="lb-img" src="" alt=""/></div>
+    <div id="lb-video-wrap"><video id="lb-video" controls playsinline></video></div>
     <button class="lb-arrow lb-next" onclick="lbNav(1,event)">›</button>
     <div class="lb-dots" id="lb-dots"></div>
     <div class="lb-counter" id="lb-counter"></div>
@@ -979,10 +989,10 @@
     (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     const models={
-      apolo:{nameHtml:'Apolo',tier:'Entry Level · Car Hauler',photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
-      anubis:{nameHtml:'Anubis',tier:'Mid Range · Car Hauler',photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
-      nemesis:{nameHtml:'Nemesis',tier:'Upper Mid · Car Hauler',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
-      apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
+      apolo:{nameHtml:'Apolo',tier:'Entry Level · Car Hauler',video:'img/apolo_v-1.mp4',photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
+      anubis:{nameHtml:'Anubis',tier:'Mid Range · Car Hauler',video:'img/anubis_v-1.mp4',photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
+      nemesis:{nameHtml:'Nemesis',tier:'Upper Mid · Car Hauler',video:'img/nemesis_v-1.mp4',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
+      apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',video:'img/apocalypse_v-1.mp4',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
     };
 
     const state={active:null,prices:{apolo:8500,anubis:12800,nemesis:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,nemesis:0,apocalypse:0}};
@@ -993,11 +1003,12 @@
       const sizes=m.sizes.map((s,i)=>`<button class="size-btn${i===0?' active':''}" onclick="selectSize(event,'${key}',${s.price})">${s.ft} ft</button>`).join('');
       const specs=m.specs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
       const accs=m.acc.map(a=>`<div class="acc-item" onclick="toggleAcc(event,this,'${key}',${a.price})"><div class="acc-left"><div class="acc-icon">${a.icon}</div><div class="acc-name">${a.name}</div></div><div class="acc-right"><div class="acc-price">+${fmt(a.price)}</div><div class="acc-check">✓</div></div></div>`).join('');
-      const thumbs=m.photos.map((p,i)=>`<div class="exp-thumb${i===0?' active':''}" onclick="switchPhoto(event,'${key}','${p}',this)"><img src="${p}" alt="${key}"/></div>`).join('');
+      const thumbs=m.photos.map((p,i)=>`<div class="exp-thumb${i===0?' active':''}" onclick="switchPhoto(event,'${key}','${p}',this,false)"><img src="${p}" alt="${key}"/></div>`).join('');
+      const videoThumb=m.video?`<div class="exp-thumb exp-thumb-video" onclick="switchPhoto(event,'${key}','${m.video}',this,true)"><video src="${m.video}" preload="metadata" muted playsinline></video><div class="exp-thumb-play">▶</div></div>`:'';
       return `
         <div>
           <div class="exp-img-main" id="exp-main-${key}" onclick="openLightbox('${key}',currentPhotoIndex['${key}']||0,event)"><img src="${m.photos[0]}" alt="${key}"/></div>
-          <div class="exp-thumbs">${thumbs}</div>
+          <div class="exp-thumbs">${thumbs}${videoThumb}</div>
         </div>
         <div>
           <div class="exp-model-name">${m.nameHtml}</div>
@@ -1044,7 +1055,24 @@
     function selectSize(e,key,price){e.stopPropagation();state.prices[key]=price;document.querySelectorAll('#expand-inner-'+key+' .size-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');updateTotal(key);}
     function toggleAcc(e,el,key,price){e.stopPropagation();el.classList.toggle('selected');state.accTotals[key]+=el.classList.contains('selected')?price:-price;updateTotal(key);}
     function updateTotal(key){const t=state.prices[key]+state.accTotals[key];const pe=document.getElementById('eprice-'+key),te=document.getElementById('etotal-'+key);if(pe)pe.textContent=fmt(state.prices[key]);if(te)te.textContent=fmt(t);}
-    function switchPhoto(e,key,src,thumb){e.stopPropagation();const main=document.getElementById('exp-main-'+key);if(main){const img=main.querySelector('img');if(img)img.src=src;}document.querySelectorAll('#expand-inner-'+key+' .exp-thumb').forEach((t,i)=>{t.classList.remove('active');if(t===thumb)currentPhotoIndex[key]=i;});thumb.classList.add('active');}
+    function switchPhoto(e,key,src,thumb,isVideo){
+      e.stopPropagation();
+      const main=document.getElementById('exp-main-'+key);
+      if(main){
+        if(isVideo){
+          main.innerHTML=`<video class="exp-main-video" src="${src}" controls playsinline autoplay muted></video>`;
+          currentPhotoIndex[key]=models[key].photos.length;
+        } else {
+          main.innerHTML=`<img src="${src}" alt="${key}"/>`;
+          main.onclick=ev=>openLightbox(key,currentPhotoIndex[key]||0,ev);
+        }
+      }
+      document.querySelectorAll('#expand-inner-'+key+' .exp-thumb').forEach((t,i)=>{
+        t.classList.remove('active');
+        if(t===thumb&&!isVideo) currentPhotoIndex[key]=i;
+      });
+      thumb.classList.add('active');
+    }
 
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
       if(e.isIntersecting) e.target.classList.add('visible');
@@ -1249,21 +1277,43 @@
     const currentPhotoIndex={};
     function openLightbox(key,idx,e){
       if(e) e.stopPropagation();
-      const photos=models[key].photos;
+      const m=models[key];
+      const total=m.photos.length+(m.video?1:0);
+      const isVideo=m.video&&idx===m.photos.length;
       currentPhotoIndex[key]=idx;
       const lb=document.getElementById('lightbox');
-      const img=document.getElementById('lb-img');
-      img.src=photos[idx];
-      img.alt=key;
-      document.getElementById('lb-counter').textContent=(idx+1)+' / '+photos.length;
+      const imgWrap=document.getElementById('lb-img-wrap');
+      const vidWrap=document.getElementById('lb-video-wrap');
+      const lbVideo=document.getElementById('lb-video');
+      const zoomControls=document.querySelector('.lb-zoom-controls');
+      if(isVideo){
+        imgWrap.classList.add('hidden');
+        vidWrap.classList.add('active');
+        lbVideo.src=m.video;
+        lbVideo.load();
+        zoomControls.style.display='none';
+      } else {
+        imgWrap.classList.remove('hidden');
+        vidWrap.classList.remove('active');
+        lbVideo.pause();lbVideo.src='';
+        document.getElementById('lb-img').src=m.photos[idx];
+        document.getElementById('lb-img').alt=key;
+        zoomControls.style.display='';
+        lbResetZoom();
+      }
+      document.getElementById('lb-counter').textContent=(idx+1)+' / '+total;
       const dots=document.getElementById('lb-dots');
-      dots.innerHTML=photos.map((_,i)=>`<span class="lb-dot${i===idx?' active':''}" onclick="lbGoTo('${key}',${i},event)"></span>`).join('');
+      dots.innerHTML=Array.from({length:total},(_,i)=>{
+        const isVid=m.video&&i===m.photos.length;
+        return `<span class="lb-dot${i===idx?' active':''}" style="${isVid?'font-size:8px;display:flex;align-items:center;justify-content:center;':''}" onclick="lbGoTo('${key}',${i},event)">${isVid?'▶':''}</span>`;
+      }).join('');
       lb.dataset.key=key;
       lb.classList.add('open');
       document.body.style.overflow='hidden';
-      lbResetZoom();
     }
     function closeLightbox(){
+      const lbVideo=document.getElementById('lb-video');
+      lbVideo.pause();lbVideo.src='';
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow='';
     }
@@ -1271,8 +1321,9 @@
       if(e) e.stopPropagation();
       const lb=document.getElementById('lightbox');
       const key=lb.dataset.key;
-      const photos=models[key].photos;
-      const idx=(currentPhotoIndex[key]+dir+photos.length)%photos.length;
+      const m=models[key];
+      const total=m.photos.length+(m.video?1:0);
+      const idx=(currentPhotoIndex[key]+dir+total)%total;
       openLightbox(key,idx,null);
     }
     function lbGoTo(key,idx,e){
