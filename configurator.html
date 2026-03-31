@@ -369,7 +369,8 @@
     .size-pick-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--black);}
 
     /* ── OPTION CATEGORIES (Step 3) ── */
-    .cfg-category{margin-bottom:32px;opacity:.25;pointer-events:none;transition:opacity .4s;}
+    .cfg-category{margin-bottom:0;padding:36px 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:.25;pointer-events:none;transition:opacity .4s;}
+    .cfg-category:last-child{border-bottom:none;}
     .cfg-category.active{opacity:1;pointer-events:all;}
     .cfg-category.done{opacity:1;pointer-events:all;}
     .cfg-cat-header{
@@ -586,6 +587,23 @@
     }
     .modal-submit:hover{background:#D42800;}
     .modal-disclaimer{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;line-height:1.6;}
+
+    /* ── COLOR DOT (Design section) ── */
+    .cfg-color-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.12);}
+
+    /* ── DESIGN EXTRA (Logo / CNC input) ── */
+    .cfg-design-extra{margin-top:16px;padding:16px;background:var(--black-s);border:1px solid rgba(255,255,255,.06);}
+    .cfg-design-extra-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+    .cfg-design-extra-label span{color:var(--gray-md);font-size:10px;letter-spacing:.1em;text-transform:none;font-family:'Barlow',sans-serif;}
+    .cfg-design-input{width:100%;background:var(--black-c);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:11px 14px;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;cursor:text;}
+    .cfg-design-input:focus{border-color:var(--gold);}
+    .cfg-design-hint{font-size:12px;color:rgba(255,255,255,.25);margin-top:8px;line-height:1.6;}
+
+    /* ── TRAILER PREVIEW SVG ── */
+    .cfg-trailer-preview{background:linear-gradient(180deg,var(--black-s) 0%,var(--black-d) 100%);border:1px solid rgba(255,255,255,.07);padding:28px 20px 16px;margin-bottom:24px;}
+    .cfg-preview-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gray-md);text-align:center;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:12px;}
+    .cfg-preview-label::before,.cfg-preview-label::after{content:'';width:24px;height:1px;background:rgba(255,255,255,.1);}
+    .cfg-trailer-svg{width:100%;height:auto;display:block;}
 
     /* ── REVEAL ── */
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;}
@@ -869,250 +887,547 @@
         </div>
         <div class="cfg-section-body">
 
-        <!-- Category: Axles & Brakes -->
-        <div class="cfg-category active" id="cfgcat-axles">
-          <div class="cfg-cat-header">
-            <div class="cfg-cat-icon">⚙️</div>
-            <div class="cfg-cat-title">Axles &amp; Brakes</div>
-            <div class="cfg-cat-selection" id="sel-axles">—</div>
-          </div>
-          <div class="cfg-options" id="cat-axles">
-            <div class="cfg-option" onclick="selectOption(this,'axles',0,'Single Axle (3,500 lbs)')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Single Axle</div>
-                  <div class="cfg-option-desc">3,500 lbs — ideal for light loads</div>
-                </div>
-              </div>
-              <div class="cfg-option-price included">Included</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'axles',0,'Tandem Axle — No Brakes')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Tandem Axle — No Brakes</div>
-                  <div class="cfg-option-desc">2 × 3,500 lbs — balanced load distribution</div>
-                </div>
-              </div>
-              <div class="cfg-option-price included">Included</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'axles',350,'Tandem Axle — 1 Axle Braked')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Tandem Axle — 1 Axle Braked</div>
-                  <div class="cfg-option-desc">Electric brakes on rear axle</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$350</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'axles',600,'Tandem Axle — Both Axles Braked')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Tandem Axle — Both Axles Braked</div>
-                  <div class="cfg-option-desc">Electric brakes on both axles — maximum control</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$600</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Category: Floor & Structure -->
-        <div class="cfg-category" id="cfgcat-floor">
-          <div class="cfg-cat-header">
-            <div class="cfg-cat-icon">🪵</div>
-            <div class="cfg-cat-title">Floor &amp; Structure</div>
-            <div class="cfg-cat-selection" id="sel-floor">—</div>
-          </div>
-          <div class="cfg-options" id="cat-floor">
-            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Treated Wood 2×6\"')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Treated Wood 2×6"</div>
-                  <div class="cfg-option-desc">Standard — pressure treated pine</div>
-                </div>
-              </div>
-              <div class="cfg-option-price included">Included</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'floor',200,'Treated Wood 2×8\"')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Treated Wood 2×8"</div>
-                  <div class="cfg-option-desc">Heavier gauge — extra rigidity</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$200</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'floor',480,'Diamond Aluminum Plate')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Diamond Aluminum Plate</div>
-                  <div class="cfg-option-desc">Non-slip aluminum — easy to clean</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$480</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'floor',360,'Expanded Metal')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Expanded Metal</div>
-                  <div class="cfg-option-desc">Maximum airflow — ideal for livestock</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$360</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Category: Hitch Type -->
-        <div class="cfg-category" id="cfgcat-hitch">
+        <!-- Category 1: Jalón / Hitch -->
+        <div class="cfg-category active" id="cfgcat-hitch">
           <div class="cfg-cat-header">
             <div class="cfg-cat-icon">🔗</div>
-            <div class="cfg-cat-title">Hitch Type</div>
+            <div class="cfg-cat-title">Jalón / Hitch</div>
             <div class="cfg-cat-selection" id="sel-hitch">—</div>
           </div>
           <div class="cfg-options" id="cat-hitch">
-            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'Ball Hitch 2-5/16\"')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Ball Hitch 2-5/16"</div>
-                  <div class="cfg-option-desc">Standard — compatible with most trucks</div>
-                </div>
-              </div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'Ball Hitch — Base Ajustable')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Ball Hitch — Base Ajustable</div>
+                <div class="cfg-option-desc">Estándar · altura ajustable · compatible con la mayoría de camionetas</div>
+              </div></div>
               <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'hitch',750,'Gooseneck')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Gooseneck</div>
-                  <div class="cfg-option-desc">Higher capacity — better weight distribution</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$750</div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'Ball Hitch — Base Fija')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Ball Hitch — Base Fija</div>
+                <div class="cfg-option-desc">Altura fija · instalación rígida</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'hitch',950,'5th Wheel')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">5th Wheel</div>
-                  <div class="cfg-option-desc">Heavy duty — for maximum towing capacity</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$950</div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'Gooseneck')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Gooseneck</div>
+                <div class="cfg-option-desc">Mayor capacidad de carga · mejor distribución de peso</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'5th Wheel / Fifthwheel')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">5th Wheel / Fifthwheel</div>
+                <div class="cfg-option-desc">Heavy duty · máxima capacidad de jale</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
           </div>
         </div>
 
-        <!-- Category: Electrical -->
+        <!-- Category 2: Gato / Jack -->
+        <div class="cfg-category" id="cfgcat-jack">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🔩</div>
+            <div class="cfg-cat-title">Gato / Jack</div>
+            <div class="cfg-cat-selection" id="sel-jack">—</div>
+          </div>
+          <div class="cfg-options" id="cat-jack">
+            <div class="cfg-option" onclick="selectOption(this,'jack',0,'Estándar 7K')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Estándar 7K</div>
+                <div class="cfg-option-desc">Gato manual · 7,000 lbs de capacidad</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'jack',0,'Hidráulico RAM 7K')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Hidráulico RAM 7K</div>
+                <div class="cfg-option-desc">Gato hidráulico marca RAM · operación fácil con un solo movimiento</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3: Suspensión & Muelles -->
+        <div class="cfg-category" id="cfgcat-springs">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🔄</div>
+            <div class="cfg-cat-title">Suspensión &amp; Muelles</div>
+            <div class="cfg-cat-selection" id="sel-springs">—</div>
+          </div>
+          <div class="cfg-options" id="cat-springs">
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'4 Hojas — 1,750 lbs D/E')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">4 Hojas — 1,750 lbs D/E</div>
+                <div class="cfg-option-desc">Suspensión base · cargas ligeras</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'4 Hojas — 2,400 lbs D/E')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">4 Hojas — 2,400 lbs D/E</div>
+                <div class="cfg-option-desc">Mayor capacidad de carga por eje</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'5 Hojas — 2,900 lbs D/E')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">5 Hojas — 2,900 lbs D/E</div>
+                <div class="cfg-option-desc">Suspensión reforzada · cargas medianas</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'5 Hojas — 5,000 lbs')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">5 Hojas — 5,000 lbs</div>
+                <div class="cfg-option-desc">Alta capacidad · para cargas pesadas</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'6 Hojas Normal D/E')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">6 Hojas Normal D/E</div>
+                <div class="cfg-option-desc">Máxima suspensión estándar · cargas muy pesadas</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'springs',0,'6 Hojas Slip 29.5')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">6 Hojas Slip 29.5</div>
+                <div class="cfg-option-desc">Suspensión deslizante · mejor absorción de impacto en terrenos irregulares</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 4: Ejes & Frenos -->
+        <div class="cfg-category" id="cfgcat-axles">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">⚙️</div>
+            <div class="cfg-cat-title">Ejes &amp; Frenos</div>
+            <div class="cfg-cat-selection" id="sel-axles">—</div>
+          </div>
+          <div class="cfg-options" id="cat-axles">
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'1 Eje — Sin Frenos')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">1 Eje — Sin Frenos</div>
+                <div class="cfg-option-desc">Eje sencillo · cargas ligeras</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'2 Ejes — Sin Frenos')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">2 Ejes — Sin Frenos</div>
+                <div class="cfg-option-desc">Tándem · mejor distribución de carga</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'2 Ejes — Frenos en 1 Eje')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">2 Ejes — Frenos en 1 Eje</div>
+                <div class="cfg-option-desc">Frenos eléctricos en eje trasero</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'2 Ejes — Frenos en Ambos')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">2 Ejes — Frenos en Ambos</div>
+                <div class="cfg-option-desc">Frenos eléctricos en ambos ejes · máximo control</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'3 Ejes — Con Frenos')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">3 Ejes — Con Frenos</div>
+                <div class="cfg-option-desc">Triple axle · cargas extremas · máxima estabilidad</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 5: Rines & Llantas -->
+        <div class="cfg-category" id="cfgcat-wheels">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🛞</div>
+            <div class="cfg-cat-title">Rines &amp; Llantas</div>
+            <div class="cfg-cat-selection" id="sel-wheels">—</div>
+          </div>
+          <div class="cfg-options" id="cat-wheels">
+            <div class="cfg-option" onclick="selectOption(this,'wheels',0,'15&quot; Acero — 205/75R15-10ply')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">15" Acero — 205/75R15</div>
+                <div class="cfg-option-desc">Rin de acero estándar · 10 ply · 4 llantas</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'wheels',0,'15&quot; Acero — 205/75R15 Con Refacción')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">15" Acero — Con Refacción</div>
+                <div class="cfg-option-desc">205/75R15 · 10 ply · + llanta de repuesto montada</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'wheels',0,'16&quot; Acero — 205/75R16')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">16" Acero — 205/75R16</div>
+                <div class="cfg-option-desc">Mayor diámetro · mayor capacidad de carga</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'wheels',0,'17.5&quot; Modular — 205/75R17.5')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">17.5" Modular — 205/75R17.5</div>
+                <div class="cfg-option-desc">Rin modular de alto rendimiento · heavy duty</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'wheels',0,'Sendel / Modelo Especial')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Sendel / Modelo Especial</div>
+                <div class="cfg-option-desc">Rines Sendel o modelo a especificar en notas</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 6: Guardafangos -->
+        <div class="cfg-category" id="cfgcat-fenders">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🛡️</div>
+            <div class="cfg-cat-title">Guardafangos</div>
+            <div class="cfg-cat-selection" id="sel-fenders">—</div>
+          </div>
+          <div class="cfg-options" id="cat-fenders">
+            <div class="cfg-option" onclick="selectOption(this,'fenders',0,'Lámina Lisa')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Lámina Lisa</div>
+                <div class="cfg-option-desc">Guardafango estándar de lámina lisa</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'fenders',0,'Lámina Antiderrapante')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Lámina Antiderrapante</div>
+                <div class="cfg-option-desc">Acabado tread plate · mayor durabilidad</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'fenders',0,'Aluminio Antiderrapante')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Aluminio Antiderrapante</div>
+                <div class="cfg-option-desc">Diamond plate aluminio · más ligero y resistente a la corrosión</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'fenders',0,'Con Overfender — Lámina')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Con Overfender — Lámina</div>
+                <div class="cfg-option-desc">Guardafango extendido de lámina · para ruedas más anchas</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'fenders',0,'Con Overfender — Aluminio')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Con Overfender — Aluminio</div>
+                <div class="cfg-option-desc">Overfender de aluminio premium · acabado pulido</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 7: Piso & Estructura -->
+        <div class="cfg-category" id="cfgcat-floor">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🪵</div>
+            <div class="cfg-cat-title">Piso &amp; Estructura</div>
+            <div class="cfg-cat-selection" id="sel-floor">—</div>
+          </div>
+          <div class="cfg-options" id="cat-floor">
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Open Center')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Open Center</div>
+                <div class="cfg-option-desc">Piso abierto al centro · configuración estándar · fácil limpieza</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Madera Tratada 2×6&quot;')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Madera Tratada 2×6"</div>
+                <div class="cfg-option-desc">Pino tratado · tablas 2"×12"×16'</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Madera Tratada 2×8&quot;')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Madera Tratada 2×8"</div>
+                <div class="cfg-option-desc">Calibre más grueso · mayor rigidez estructural</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Piso Corrido Diamante 1/8&quot;')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Piso Corrido Diamante 1/8"</div>
+                <div class="cfg-option-desc">Placa aluminio antiderrapante · fácil de limpiar</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Piso Corrido Diamante 1/4&quot;')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Piso Corrido Diamante 1/4"</div>
+                <div class="cfg-option-desc">Placa diamante gruesa · máxima durabilidad industrial</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 8: Electricidad & Accesorios -->
         <div class="cfg-category" id="cfgcat-electrical">
           <div class="cfg-cat-header">
             <div class="cfg-cat-icon">⚡</div>
-            <div class="cfg-cat-title">Electrical &amp; Solar</div>
+            <div class="cfg-cat-title">Electricidad &amp; Accesorios</div>
             <div class="cfg-cat-selection" id="sel-electrical">—</div>
           </div>
           <div class="cfg-options" id="cat-electrical">
-            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Standard Wiring Only')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Standard Wiring Only</div>
-                  <div class="cfg-option-desc">7-pin connector, running lights</div>
-                </div>
-              </div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Básico — Luces de Reglamento')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Básico — Luces de Reglamento</div>
+                <div class="cfg-option-desc">Conector 7-pin · luces de corrida · cinta reflectante rojo/blanco · break-away</div>
+              </div></div>
               <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'electrical',450,'LED Light Package')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">LED Light Package</div>
-                  <div class="cfg-option-desc">Full LED interior and exterior lighting</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$450</div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Kit LED SG')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Kit LED SG</div>
+                <div class="cfg-option-desc">LED interior y exterior completo · logos de iluminación · break-away</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'electrical',730,'LED + 12V Battery')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">LED + 12V Battery</div>
-                  <div class="cfg-option-desc">LED lighting + sealed 55Ah battery</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$730</div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Kit LED + Rock Light + Winch')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Kit LED + Rock Light + Pop-up Winch</div>
+                <div class="cfg-option-desc">LED completo + rock lights + winch 5K emergencia + backup light</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'electrical',1200,'Full Solar System')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
-                <div>
-                  <div class="cfg-option-name">Full Solar System</div>
-                  <div class="cfg-option-desc">200W solar + LiFePO4 battery + LED — off-grid ready</div>
-                </div>
-              </div>
-              <div class="cfg-option-price">+$1,200</div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Kit Solar 100W + Batería AGM')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Kit Solar 100W + Batería AGM</div>
+                <div class="cfg-option-desc">Panel solar 100W + batería AGM + LED — autónomo</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Kit Solar 200W + LiFePO4 + Rock Light')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Kit Solar 200W + LiFePO4 + Rock Light</div>
+                <div class="cfg-option-desc">Panel 200W + batería litio + LED + rock light · máximo setup</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
           </div>
         </div>
 
-        <!-- Category: Storage -->
-        <div class="cfg-category" id="cfgcat-storage">
+        <!-- Category 9: Adicionales -->
+        <div class="cfg-category" id="cfgcat-extras">
           <div class="cfg-cat-header">
-            <div class="cfg-cat-icon">🔧</div>
-            <div class="cfg-cat-title">Storage &amp; Accessories</div>
-            <div class="cfg-cat-selection" id="sel-storage">—</div>
+            <div class="cfg-cat-icon">➕</div>
+            <div class="cfg-cat-title">Adicionales</div>
+            <div class="cfg-cat-selection" id="sel-extras">—</div>
           </div>
-          <div class="cfg-options" id="cat-storage">
-            <div class="cfg-option" onclick="selectOption(this,'storage',0,'No Storage')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
+          <div class="cfg-options" id="cat-extras">
+            <div class="cfg-option" onclick="selectOption(this,'extras',0,'Sin Adicionales')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Sin Adicionales</div>
+                <div class="cfg-option-desc">Configuración base</div>
+              </div></div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'extras',0,'Tilt / Volteo Hidráulico')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Tilt / Volteo Hidráulico</div>
+                <div class="cfg-option-desc">Plataforma inclinable hidráulica · carga y descarga fácil</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'extras',0,'Rampa Hidráulica')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Rampa Hidráulica</div>
+                <div class="cfg-option-desc">Rampa de carga hidráulica · para vehículos y equipo pesado</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'extras',0,'Chassi Reforzado 3/16&quot;')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div><div>
+                <div class="cfg-option-name">Chassi Reforzado 3/16"</div>
+                <div class="cfg-option-desc">Espesor de chassi aumentado a 3/16" · mayor resistencia estructural</div>
+              </div></div>
+              <div class="cfg-option-price">Consultar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 10: Diseño & Color -->
+        <div class="cfg-category" id="cfgcat-design">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🎨</div>
+            <div class="cfg-cat-title">Diseño &amp; Color</div>
+            <div class="cfg-cat-selection" id="sel-design">—</div>
+          </div>
+          <!-- TRAILER PREVIEW -->
+          <div class="cfg-trailer-preview">
+            <div class="cfg-preview-label">Vista previa en tiempo real</div>
+            <svg viewBox="0 0 800 210" xmlns="http://www.w3.org/2000/svg" class="cfg-trailer-svg" id="trailerSVG">
+              <defs>
+                <linearGradient id="tg-top" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.13)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </linearGradient>
+                <clipPath id="clip-pl"><rect x="158" y="72" width="106" height="42"/></clipPath>
+                <clipPath id="clip-pr"><rect x="487" y="72" width="106" height="42"/></clipPath>
+              </defs>
+
+              <!-- Ground shadow -->
+              <ellipse cx="400" cy="207" rx="360" ry="5" fill="rgba(0,0,0,0.45)"/>
+
+              <!-- TONGUE / HITCH -->
+              <polygon id="t-tongue" points="14,152 148,125 148,144 14,162" fill="#1C1C1C"/>
+              <polygon points="14,152 148,125 148,131 14,158" fill="url(#tg-top)"/>
+              <rect x="6" y="148" width="15" height="14" rx="2" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1"/>
+              <ellipse cx="13" cy="165" rx="8" ry="8" fill="#4a4a4a" stroke="#333" stroke-width="1.5"/>
+              <ellipse cx="13" cy="165" rx="4" ry="4" fill="#2a2a2a"/>
+
+              <!-- MAIN DECK -->
+              <rect id="t-deck" x="143" y="112" width="542" height="16" fill="#1C1C1C"/>
+              <rect x="143" y="112" width="542" height="5" fill="url(#tg-top)"/>
+              <rect x="143" y="124" width="542" height="4" fill="rgba(0,0,0,0.35)"/>
+              <!-- Cross members -->
+              <rect x="250" y="112" width="7" height="16" fill="rgba(0,0,0,0.45)"/>
+              <rect x="360" y="112" width="7" height="16" fill="rgba(0,0,0,0.45)"/>
+              <rect x="470" y="112" width="7" height="16" fill="rgba(0,0,0,0.45)"/>
+              <rect x="580" y="112" width="7" height="16" fill="rgba(0,0,0,0.45)"/>
+              <!-- Badge -->
+              <text x="303" y="122.5" font-family="Oswald,sans-serif" font-size="6.5" font-weight="700" letter-spacing="0.22em" fill="rgba(232,184,0,0.22)" text-anchor="middle">SG TRAILERS</text>
+
+              <!-- PORTILLO LEFT -->
+              <rect id="t-portillo-l" x="158" y="72" width="106" height="42" fill="#1C1C1C"/>
+              <rect x="158" y="72" width="106" height="2.5" fill="rgba(232,184,0,0.45)"/>
+              <rect x="158" y="72" width="106" height="42" fill="url(#tg-top)" opacity="0.7"/>
+              <rect x="194" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
+              <rect x="228" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
+
+              <!-- PORTILLO RIGHT -->
+              <rect id="t-portillo-r" x="487" y="72" width="106" height="42" fill="#1C1C1C"/>
+              <rect x="487" y="72" width="106" height="2.5" fill="rgba(232,184,0,0.45)"/>
+              <rect x="487" y="72" width="106" height="42" fill="url(#tg-top)" opacity="0.7"/>
+              <rect x="523" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
+              <rect x="557" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
+
+              <!-- FENDER 1 (front axle, cx=418) -->
+              <path id="t-fender-1" d="M 378,128 H 458 V 148 Q 458,158 418,158 Q 378,158 378,148 Z" fill="#1C1C1C"/>
+              <path d="M 378,128 H 458 V 133 Q 458,133 418,133 Q 378,133 378,133 Z" fill="url(#tg-top)"/>
+
+              <!-- FENDER 2 (rear axle, cx=508) -->
+              <path id="t-fender-2" d="M 468,128 H 548 V 148 Q 548,158 508,158 Q 468,158 468,148 Z" fill="#1C1C1C"/>
+              <path d="M 468,128 H 548 V 133 Q 548,133 508,133 Q 468,133 468,133 Z" fill="url(#tg-top)"/>
+
+              <!-- RAMP -->
+              <polygon id="t-ramp" points="685,112 768,188 768,198 685,128" fill="#1C1C1C"/>
+              <line x1="695" y1="118" x2="764" y2="191" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
+              <line x1="707" y1="117" x2="765" y2="181" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
+              <line x1="720" y1="116" x2="765" y2="170" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
+              <line x1="733" y1="115" x2="765" y2="160" stroke="rgba(0,0,0,0.35)" stroke-width="4"/>
+              <line x1="685" y1="112" x2="768" y2="188" stroke="rgba(255,255,255,0.05)" stroke-width="1.5"/>
+
+              <!-- WHEELS (always dark, drawn last to appear over fenders) -->
+              <circle cx="418" cy="177" r="29" fill="#0C0C0C" stroke="#242424" stroke-width="3"/>
+              <circle cx="418" cy="177" r="18" fill="#151515"/>
+              <circle cx="418" cy="177" r="6" fill="#202020"/>
+              <circle cx="418" cy="163" r="2.2" fill="#262626"/>
+              <circle cx="430" cy="170" r="2.2" fill="#262626"/>
+              <circle cx="430" cy="184" r="2.2" fill="#262626"/>
+              <circle cx="418" cy="191" r="2.2" fill="#262626"/>
+              <circle cx="406" cy="184" r="2.2" fill="#262626"/>
+              <circle cx="406" cy="170" r="2.2" fill="#262626"/>
+
+              <circle cx="508" cy="177" r="29" fill="#0C0C0C" stroke="#242424" stroke-width="3"/>
+              <circle cx="508" cy="177" r="18" fill="#151515"/>
+              <circle cx="508" cy="177" r="6" fill="#202020"/>
+              <circle cx="508" cy="163" r="2.2" fill="#262626"/>
+              <circle cx="520" cy="170" r="2.2" fill="#262626"/>
+              <circle cx="520" cy="184" r="2.2" fill="#262626"/>
+              <circle cx="508" cy="191" r="2.2" fill="#262626"/>
+              <circle cx="496" cy="184" r="2.2" fill="#262626"/>
+              <circle cx="496" cy="170" r="2.2" fill="#262626"/>
+
+              <!-- Axle bar -->
+              <rect x="418" y="174" width="90" height="6" rx="3" fill="#181818" stroke="#222" stroke-width="1"/>
+
+              <!-- LIVE TEXT: Logo on portillos -->
+              <text id="preview-logo-l" x="211" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pl)"></text>
+              <text id="preview-logo-r" x="540" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pr)"></text>
+
+              <!-- LIVE TEXT: CNC on ramp -->
+              <text id="preview-ramp-text" transform="translate(722,164) rotate(-44)" font-family="Oswald,sans-serif" font-size="8" font-weight="600" letter-spacing="0.1em" fill="rgba(232,184,0,0.8)" text-anchor="middle"></text>
+            </svg>
+          </div>
+
+          <div class="cfg-options" id="cat-design">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Negro Mate')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#1A1A1A;"></div>
                 <div>
-                  <div class="cfg-option-name">No Storage</div>
-                  <div class="cfg-option-desc">Base configuration</div>
+                  <div class="cfg-option-name">Negro Mate</div>
+                  <div class="cfg-option-desc">Black matte — elegante y resistente</div>
                 </div>
               </div>
               <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'storage',190,'Tool Box')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Gris Nardo')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#848484;"></div>
                 <div>
-                  <div class="cfg-option-name">Tool Box</div>
-                  <div class="cfg-option-desc">Standard lockable aluminum tool box</div>
+                  <div class="cfg-option-name">Gris Nardo</div>
+                  <div class="cfg-option-desc">Nardo Gray — tono premium gris perla</div>
                 </div>
               </div>
-              <div class="cfg-option-price">+$190</div>
+              <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'storage',290,'XL Tool Box')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Blanco')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#E0DDD9;border:1px solid rgba(255,255,255,.2);"></div>
                 <div>
-                  <div class="cfg-option-name">XL Tool Box</div>
-                  <div class="cfg-option-desc">Oversized lockable aluminum tool box</div>
+                  <div class="cfg-option-name">Blanco</div>
+                  <div class="cfg-option-desc">White — clásico y limpio</div>
                 </div>
               </div>
-              <div class="cfg-option-price">+$290</div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'storage',420,'Tool Box + E-Track System')">
-              <div class="cfg-option-left">
-                <div class="cfg-option-radio"></div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Color Personalizado')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:conic-gradient(#E8B800,#B52200,#5BB8F5,#E8B800);"></div>
                 <div>
-                  <div class="cfg-option-name">Tool Box + E-Track System</div>
-                  <div class="cfg-option-desc">Full e-track rails for tie-down flexibility</div>
+                  <div class="cfg-option-name">Color Personalizado</div>
+                  <div class="cfg-option-desc">Especifica tu color en notas — cotizamos por separado</div>
                 </div>
               </div>
-              <div class="cfg-option-price">+$420</div>
+              <div class="cfg-option-price">Consultar</div>
             </div>
           </div>
+          <!-- Logo / CNC Text Input -->
+          <div class="cfg-design-extra">
+            <div class="cfg-design-extra-label">Logo / Texto CNC en Rampa <span>(Opcional)</span></div>
+            <input type="text" class="cfg-design-input" id="cfgLogoText" placeholder="Ej: PORTILLOS TRAILERS · Tu nombre o logo aquí..." maxlength="60"/>
+            <div class="cfg-design-hint">Tu texto o logo personalizado en CNC sobre la rampa. Se cotiza según el diseño.</div>
+          </div>
         </div>
+
         </div><!-- /cfg-section-body -->
       </div><!-- /cfg-step-3 -->
 
@@ -1133,11 +1448,16 @@
       </div>
 
       <div class="cfg-summary-items" id="summaryItems">
-        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Axles</span><span class="cfg-summary-item-val" id="s-axles">—</span></div>
-        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Floor</span><span class="cfg-summary-item-val" id="s-floor">—</span></div>
-        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Hitch</span><span class="cfg-summary-item-val" id="s-hitch">—</span></div>
-        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Electrical</span><span class="cfg-summary-item-val" id="s-electrical">—</span></div>
-        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Storage</span><span class="cfg-summary-item-val" id="s-storage">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Jalón</span><span class="cfg-summary-item-val" id="s-hitch">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Gato</span><span class="cfg-summary-item-val" id="s-jack">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Muelles</span><span class="cfg-summary-item-val" id="s-springs">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Ejes</span><span class="cfg-summary-item-val" id="s-axles">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Rines</span><span class="cfg-summary-item-val" id="s-wheels">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Guardafangos</span><span class="cfg-summary-item-val" id="s-fenders">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Piso</span><span class="cfg-summary-item-val" id="s-floor">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Eléctrico</span><span class="cfg-summary-item-val" id="s-electrical">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Adicionales</span><span class="cfg-summary-item-val" id="s-extras">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Color</span><span class="cfg-summary-item-val" id="s-design">—</span></div>
       </div>
 
       <div class="cfg-total-row">
@@ -1158,11 +1478,16 @@
 <div class="cfg-sidenav" id="cfgSidenav">
   <a class="cfg-sidenav-item" data-target="cfg-step-1"><span class="cfg-sidenav-label">Model</span><span class="cfg-sidenav-dot"></span></a>
   <a class="cfg-sidenav-item" data-target="cfg-step-2"><span class="cfg-sidenav-label">Size</span><span class="cfg-sidenav-dot"></span></a>
-  <a class="cfg-sidenav-item" data-target="cfgcat-axles"><span class="cfg-sidenav-label">Axles</span><span class="cfg-sidenav-dot"></span></a>
-  <a class="cfg-sidenav-item" data-target="cfgcat-floor"><span class="cfg-sidenav-label">Floor</span><span class="cfg-sidenav-dot"></span></a>
-  <a class="cfg-sidenav-item" data-target="cfgcat-hitch"><span class="cfg-sidenav-label">Hitch</span><span class="cfg-sidenav-dot"></span></a>
-  <a class="cfg-sidenav-item" data-target="cfgcat-electrical"><span class="cfg-sidenav-label">Electrical</span><span class="cfg-sidenav-dot"></span></a>
-  <a class="cfg-sidenav-item" data-target="cfgcat-storage"><span class="cfg-sidenav-label">Storage</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-hitch"><span class="cfg-sidenav-label">Jalón</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-jack"><span class="cfg-sidenav-label">Gato</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-springs"><span class="cfg-sidenav-label">Muelles</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-axles"><span class="cfg-sidenav-label">Ejes</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-wheels"><span class="cfg-sidenav-label">Rines</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-fenders"><span class="cfg-sidenav-label">Guardafangos</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-floor"><span class="cfg-sidenav-label">Piso</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-electrical"><span class="cfg-sidenav-label">Eléctrico</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-extras"><span class="cfg-sidenav-label">Extras</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-design"><span class="cfg-sidenav-label">Diseño</span><span class="cfg-sidenav-dot"></span></a>
 </div>
 
 <!-- ORDER MODAL -->
@@ -1329,8 +1654,8 @@
   const cfg={
     model:null, modelName:null, modelImg:null,
     basePrice:0, sizePrice:0, sizeFt:null,
-    options:{axles:0,floor:0,hitch:0,electrical:0,storage:0},
-    optionNames:{axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'}
+    options:{hitch:0,jack:0,springs:0,axles:0,wheels:0,fenders:0,floor:0,electrical:0,extras:0,design:0},
+    optionNames:{hitch:'—',jack:'—',springs:'—',axles:'—',wheels:'—',fenders:'—',floor:'—',electrical:'—',extras:'—',design:'—'}
   };
 
   const fmt=n=>'$'+n.toLocaleString('en-US');
@@ -1341,14 +1666,10 @@
     cfg.modelName=key.charAt(0).toUpperCase()+key.slice(1);
     cfg.modelImg=img;
     cfg.sizePrice=0;cfg.sizeFt=null;
-    cfg.options={axles:0,floor:0,hitch:0,electrical:0,storage:0};
-    cfg.optionNames={axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'};
-    // Reset step 3 options visually
+    cfg.options={hitch:0,jack:0,springs:0,axles:0,wheels:0,fenders:0,floor:0,electrical:0,extras:0,design:0};
+    cfg.optionNames={hitch:'—',jack:'—',springs:'—',axles:'—',wheels:'—',fenders:'—',floor:'—',electrical:'—',extras:'—',design:'—'};
+    // Reset step 3 options visually — no pre-selection
     document.querySelectorAll('.cfg-option').forEach(o=>o.classList.remove('selected'));
-    ['axles','floor','hitch','electrical','storage'].forEach(cat=>{
-      const first=document.querySelector('#cat-'+cat+' .cfg-option');
-      if(first) first.classList.add('selected');
-    });
     document.getElementById('cfg-step-3').classList.remove('active','done');
     document.getElementById('step-ind-3').classList.remove('active','done');
     document.getElementById('step-ind-4').classList.remove('active','done');
@@ -1384,28 +1705,31 @@
     document.getElementById('step-ind-2').classList.add('done');
     document.getElementById('step-ind-3').classList.add('active');
     // Reset category states
-    const catOrder=['axles','floor','hitch','electrical','storage'];
     catOrder.forEach((cat,i)=>{
       const el=document.getElementById('cfgcat-'+cat);
       el.classList.remove('active','done');
       if(i===0) el.classList.add('active');
     });
     // Reset options — no defaults, user must select
-    cfg.optionNames={axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'};
-    cfg.options={axles:0,floor:0,hitch:0,electrical:0,storage:0};
+    document.querySelectorAll('.cfg-option').forEach(o=>o.classList.remove('selected'));
+    cfg.optionNames={hitch:'—',jack:'—',springs:'—',axles:'—',wheels:'—',fenders:'—',floor:'—',electrical:'—',extras:'—',design:'—'};
+    cfg.options={hitch:0,jack:0,springs:0,axles:0,wheels:0,fenders:0,floor:0,electrical:0,extras:0,design:0};
     catOrder.forEach(cat=>{ document.getElementById('sel-'+cat).textContent='—'; });
+    const logoInput=document.getElementById('cfgLogoText');
+    if(logoInput) logoInput.value='';
     updateSummaryItems();
     updateTotal();
-    scrollToEl('cfgcat-axles');
+    scrollToEl('cfgcat-hitch');
   }
 
-  const catOrder=['axles','floor','hitch','electrical','storage'];
+  const catOrder=['hitch','jack','springs','axles','wheels','fenders','floor','electrical','extras','design'];
   function selectOption(el,category,price,name){
     el.closest('.cfg-options').querySelectorAll('.cfg-option').forEach(o=>o.classList.remove('selected'));
     el.classList.add('selected');
     cfg.options[category]=price;
     cfg.optionNames[category]=name;
     document.getElementById('sel-'+category).textContent=name;
+    if(category==='design') updateTrailerColor(name);
     // Mark current category done, unlock next
     const currentCat=document.getElementById('cfgcat-'+category);
     currentCat.classList.remove('active');
@@ -1421,7 +1745,7 @@
   }
 
   function updateSummaryItems(){
-    ['axles','floor','hitch','electrical','storage'].forEach(cat=>{
+    catOrder.forEach(cat=>{
       const el=document.getElementById('s-'+cat);
       if(el) el.textContent=cfg.optionNames[cat]||'—';
     });
@@ -1446,13 +1770,20 @@
     // Build modal summary
     const optTotal=Object.values(cfg.options).reduce((a,b)=>a+b,0);
     const total=cfg.basePrice+optTotal;
+    const logoText=(document.getElementById('cfgLogoText')||{}).value||'';
     let rows=`
-      <div class="modal-summary-row"><span>Model</span><span>${cfg.modelName} — ${cfg.sizeFt} ft</span></div>
-      <div class="modal-summary-row"><span>Axles</span><span>${cfg.optionNames.axles}</span></div>
-      <div class="modal-summary-row"><span>Floor</span><span>${cfg.optionNames.floor}</span></div>
-      <div class="modal-summary-row"><span>Hitch</span><span>${cfg.optionNames.hitch}</span></div>
-      <div class="modal-summary-row"><span>Electrical</span><span>${cfg.optionNames.electrical}</span></div>
-      <div class="modal-summary-row"><span>Storage</span><span>${cfg.optionNames.storage}</span></div>
+      <div class="modal-summary-row"><span>Modelo</span><span>${cfg.modelName} — ${cfg.sizeFt} ft</span></div>
+      <div class="modal-summary-row"><span>Jalón</span><span>${cfg.optionNames.hitch}</span></div>
+      <div class="modal-summary-row"><span>Gato</span><span>${cfg.optionNames.jack}</span></div>
+      <div class="modal-summary-row"><span>Muelles</span><span>${cfg.optionNames.springs}</span></div>
+      <div class="modal-summary-row"><span>Ejes</span><span>${cfg.optionNames.axles}</span></div>
+      <div class="modal-summary-row"><span>Rines</span><span>${cfg.optionNames.wheels}</span></div>
+      <div class="modal-summary-row"><span>Guardafangos</span><span>${cfg.optionNames.fenders}</span></div>
+      <div class="modal-summary-row"><span>Piso</span><span>${cfg.optionNames.floor}</span></div>
+      <div class="modal-summary-row"><span>Eléctrico</span><span>${cfg.optionNames.electrical}</span></div>
+      <div class="modal-summary-row"><span>Adicionales</span><span>${cfg.optionNames.extras}</span></div>
+      <div class="modal-summary-row"><span>Color</span><span>${cfg.optionNames.design}</span></div>
+      ${logoText?`<div class="modal-summary-row"><span>Logo / CNC</span><span>${logoText}</span></div>`:''}
       <div class="modal-summary-total"><span>Estimated Total</span><span>${fmt(total)}</span></div>
     `;
     document.getElementById('modalSummary').innerHTML=rows;
@@ -1509,19 +1840,46 @@
     });
   },{rootMargin:'-30% 0px -60% 0px',threshold:0});
 
-  ['cfg-step-1','cfg-step-2','cfgcat-axles','cfgcat-floor','cfgcat-hitch','cfgcat-electrical','cfgcat-storage'].forEach(id=>{
+  ['cfg-step-1','cfg-step-2','cfgcat-hitch','cfgcat-jack','cfgcat-springs','cfgcat-axles','cfgcat-wheels','cfgcat-fenders','cfgcat-floor','cfgcat-electrical','cfgcat-extras','cfgcat-design'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) sideNavObs.observe(el);
   });
+
+  /* ── TRAILER PREVIEW ── */
+  const trailerPaintIds=['t-tongue','t-deck','t-portillo-l','t-portillo-r','t-fender-1','t-fender-2','t-ramp'];
+  const trailerColorMap={
+    'Negro Mate':          {fill:'#1C1C1C',light:false},
+    'Gris Nardo':          {fill:'#9B9B9B',light:true},
+    'Blanco':              {fill:'#DEDAD6',light:true},
+    'Color Personalizado': {fill:'#4A4744',light:false}
+  };
+  function updateTrailerColor(name){
+    const c=trailerColorMap[name]||trailerColorMap['Negro Mate'];
+    trailerPaintIds.forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('fill',c.fill);});
+    const textFill=c.light?'rgba(20,18,16,0.65)':'rgba(255,255,255,0.6)';
+    ['preview-logo-l','preview-logo-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('fill',textFill);});
+  }
+  // Logo text → portillos + ramp live
+  const cfgLogoInput=document.getElementById('cfgLogoText');
+  if(cfgLogoInput){
+    cfgLogoInput.addEventListener('input',function(){
+      const t=this.value.toUpperCase();
+      ['preview-logo-l','preview-logo-r','preview-ramp-text'].forEach(id=>{
+        const el=document.getElementById(id);if(el)el.textContent=t;
+      });
+    });
+  }
 
   // Smooth scroll with offset for sticky nav + step bar
   function scrollToEl(id){
     const el=document.getElementById(id);
     if(!el) return;
     setTimeout(()=>{
-      const offset=130;
-      const top=el.getBoundingClientRect().top+window.scrollY-offset;
-      window.scrollTo({top,behavior:'smooth'});
+      const navH=110;
+      const rect=el.getBoundingClientRect();
+      const usableH=window.innerHeight-navH;
+      const top=window.scrollY+rect.top-navH-Math.max(0,(usableH-rect.height)/2);
+      window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
     },150);
   }
 </script>
