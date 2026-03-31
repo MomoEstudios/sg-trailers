@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Trailers — Configure Your Trailer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;
+      --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
+
+    /* ── Cursor ── */
+    #cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:10002;transform:translate(-50%,-50%);}
+    #ring{width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:10001;transform:translate(-50%,-50%);}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9997;display:flex;justify-content:space-between;align-items:center;padding:0 18px;height:52px;width:calc(100% - 48px);max-width:870px;background:rgba(14,13,12,.68);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(232,184,0,.22);border-radius:100px;box-shadow:0 8px 32px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);}
+    .nav-logo{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:.18em;color:var(--white);text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+    @media(min-width:769px){.nav-logo{display:none;}nav{justify-content:center;gap:0;}.nav-links{position:static;transform:none;left:auto;display:flex;gap:22px;}.nav-right{margin-left:20px;padding-right:14px;}}
+    .nav-logo span{color:var(--gold);}
+    .nav-links{display:flex;gap:28px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-links a{color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative;padding-bottom:3px;white-space:nowrap;}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+    .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;padding-right:10px;}
+    .nav-cta{background:var(--red);color:var(--white);border:none;padding:9px 20px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s,box-shadow .3s;border-radius:100px;}
+    .nav-cta:hover{background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25);}
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);padding:0;cursor:none;transition:border-color .3s,background .3s;}
+    .nav-hamburger:hover{border-color:var(--gold);background:rgba(232,184,0,.1);}
+    .nav-hamburger span{display:block;width:20px;height:2px;background:var(--white);transition:background .3s;}
+    .nav-hamburger:hover span{background:var(--gold);}
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu{position:fixed;inset:0;z-index:9997;background:rgba(10,9,8,.68);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+    .mobile-menu.open{transform:translateX(0);}
+    .mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding:0 20px;height:70px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;}
+    .mobile-menu-logo img{height:40px;width:auto;}
+    .mobile-menu-close{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:var(--white);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .3s,background .3s;}
+    .mobile-menu-close:hover{border-color:var(--gold);background:rgba(232,184,0,.12);}
+    .mobile-menu-links{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+    .mobile-menu-links>a{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,background .3s,opacity .3s;}
+    .mobile-menu-links>a:hover{color:var(--gold);background:rgba(232,184,0,.04);}
+    .mobile-menu-links>a::after{content:none !important;}
+    .mob-dimmed{opacity:0.22;transition:opacity .3s;}
+    .mob-group{border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;transition:opacity .3s;}
+    .mob-group-btn{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);cursor:none;transition:color .3s,background .3s;text-align:left;}
+    .mob-group-btn:hover,.mob-group-btn.open{color:var(--gold);background:rgba(232,184,0,.04);}
+    .mob-group-arrow{font-size:18px;color:var(--gray-dk);transition:transform .3s,color .3s;flex-shrink:0;}
+    .mob-group-btn.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
+    .mob-sub{max-height:0;overflow:hidden;transition:max-height .4s ease;background:rgba(0,0,0,.15);}
+    .mob-sub.open{max-height:600px;}
+    .mob-sub a{display:block;padding:13px 20px 13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .3s,background .3s;}
+    .mob-sub a:last-child{border-bottom:none;}
+    .mob-sub a:hover{color:var(--gold);background:rgba(232,184,0,.05);}
+    .mob-header-actions{display:flex;align-items:center;gap:10px;}
+    .mobile-theme-toggle{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;transition:border-color .3s,background .3s;}
+    .mobile-theme-toggle:hover{border-color:var(--gold);background:rgba(232,184,0,.1);}
+    .mobile-menu-footer{padding:14px;border-top:1px solid rgba(255,255,255,.07);}
+    .mobile-menu-cta{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s,box-shadow .3s;border-radius:100px;}
+    .mobile-menu-cta:hover{background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25);}
+
+    /* ── DROPDOWNS ── */
+    .nav-links li{position:relative;}
+    .nav-links li .dropdown{position:absolute;top:100%;left:0;background:var(--black-d);border:1px solid rgba(232,184,0,.15);border-top:2px solid var(--gold);min-width:200px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:300;}
+    .nav-links li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+    .nav-links li .dropdown a{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .25s,background .25s;width:100%;}
+    .nav-links li .dropdown a:last-child{border-bottom:none;}
+    .nav-links li .dropdown a:hover{color:var(--gold);background:rgba(232,184,0,.04);}
+
+    /* ── FLOATING LOGO + THEME BUBBLE ── */
+    .nav-floating-logo{position:fixed;top:10px;z-index:9999;left:max(20px,calc(50% - 470px));display:flex;align-items:center;text-decoration:none;filter:drop-shadow(0 3px 12px rgba(0,0,0,.6));opacity:1;transition:opacity .5s ease;}
+    .nav-floating-logo.hidden{opacity:0;pointer-events:none;}
+    .nav-floating-logo:hover{opacity:.82;}
+    .nav-floating-logo img{height:82px;width:auto;}
+    @media(max-width:960px){.nav-floating-logo{display:none;}}
+    .nav-theme-bubble{position:fixed;top:22px;z-index:9999;right:max(24px,calc(50% - 490px));width:46px;height:46px;border-radius:50%;background:rgba(14,13,12,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(232,184,0,.22);box-shadow:0 4px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;transition:border-color .3s,background .3s,transform .5s cubic-bezier(.34,1.56,.64,1);}
+    .nav-theme-bubble:hover{border-color:rgba(232,184,0,.5);background:rgba(232,184,0,.1);transform:rotate(20deg) scale(1.08);}
+    @media(max-width:960px){.nav-theme-bubble{display:none;}}
+
+    /* ── LIGHT MODE ── */
+    body.light{--gold:#A67C00;--black:#F0EDEA;--black-s:#E8E5E2;--black-c:#FFFFFF;--black-d:#DEDAD6;--white:#141312;--gray-dk:#8A8480;--gray-md:#4A4744;}
+    body.light nav{background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3);}
+    body.light .nav-theme-bubble{background:rgba(240,237,234,.82);border-color:rgba(232,184,0,.3);}
+    body.light .nav-hamburger{border-color:rgba(0,0,0,.2);}
+    body.light .nav-hamburger span{background:var(--white);}
+    body.light .mobile-menu{background:var(--black-d);}
+    body.light #cur{background:var(--gold);}
+    body.light #ring{border-color:rgba(232,184,0,.5);}
+
+    /* ── RESPONSIVE NAV ── */
+    @media(max-width:768px){
+      #cur,#ring{display:none;}
+      body{cursor:auto;}
+      nav{top:0;left:0;right:0;width:100%;transform:none;max-width:none;border-radius:0;height:60px;padding:0 16px;border:none;border-bottom:1px solid rgba(232,184,0,.15);box-shadow:0 2px 24px rgba(0,0,0,.4);}
+      .nav-links{display:none;}
+      .nav-cta{display:none;}
+      .nav-logo img{height:36px;}
+      .nav-hamburger{display:flex;}
+    }
+    @media(max-width:375px){
+      .mobile-menu-links>a{font-size:14px;padding:13px 16px;}
+      .mob-group-btn{font-size:14px;padding:13px 16px;}
+      .mob-sub a{font-size:12px;padding:11px 16px 11px 28px;}
+      .mobile-menu-header{height:60px;}
+      .mobile-menu-logo img{height:32px;}
+    }
+
+    /* ── SCROLLED STATE ── */
+    @media(min-width:769px){
+      body.scrolled nav{justify-content:space-between;}
+      body.scrolled .nav-logo{display:flex !important;}
+      body.scrolled .nav-links{position:absolute !important;left:50% !important;transform:translateX(-50%) !important;}
+    }
+
+    /* ══════════════════════════════
+       CONFIGURATOR LAYOUT
+    ══════════════════════════════ */
+
+    .cfg-page{
+      min-height:100vh;
+      padding-top:90px;
+    }
+
+    /* ── HERO HEADER ── */
+    .cfg-header{
+      background:linear-gradient(160deg,rgba(232,184,0,.07) 0%,transparent 50%),var(--black-d);
+      border-bottom:1px solid rgba(232,184,0,.12);
+      padding:60px 60px 48px;
+      text-align:center;
+    }
+    .cfg-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:14px;justify-content:center;}
+    .cfg-eyebrow::before,.cfg-eyebrow::after{content:'';width:36px;height:1px;background:var(--gold);}
+    .cfg-header h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);letter-spacing:.02em;text-transform:uppercase;line-height:1;}
+    .cfg-header h1 em{font-style:normal;color:var(--gold);}
+    .cfg-header p{margin-top:14px;font-size:15px;color:var(--gray-md);max-width:500px;margin-left:auto;margin-right:auto;}
+
+    /* ── STEP INDICATOR ── */
+    .cfg-steps{
+      display:flex;align-items:center;justify-content:center;
+      gap:0;padding:28px 40px;
+      background:var(--black-s);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      position:sticky;top:52px;z-index:100;
+    }
+    @media(max-width:768px){.cfg-steps{top:60px;}}
+    .cfg-step{
+      display:flex;align-items:center;gap:10px;
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(255,255,255,.3);
+      transition:color .3s;
+    }
+    .cfg-step.active{color:var(--white);}
+    .cfg-step.done{color:var(--gold);}
+    .cfg-step-num{
+      width:28px;height:28px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;font-size:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      flex-shrink:0;transition:background .3s,border-color .3s,color .3s;
+    }
+    .cfg-step.active .cfg-step-num{background:var(--white);border-color:var(--white);color:var(--black);}
+    .cfg-step.done .cfg-step-num{background:var(--gold);border-color:var(--gold);color:var(--black);}
+    .cfg-step-label{white-space:nowrap;}
+    @media(max-width:600px){.cfg-step-label{display:none;}}
+    .cfg-step-line{width:40px;height:1px;background:rgba(255,255,255,.1);flex-shrink:0;margin:0 4px;}
+    @media(max-width:600px){.cfg-step-line{width:16px;}}
+
+    /* ── MEGA MENU ── */
+    .has-mega{position:static !important;}
+    .mega-menu{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9996;background:var(--black-d);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .35s,visibility .35s;pointer-events:none;overflow-y:auto;}
+    .mega-menu.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:all;}
+    .mega-menu-inner{max-width:1200px;margin:0 auto;padding:96px 60px 60px;}
+    .mega-menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);}
+    .mega-menu-header span:first-child{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+    .mega-close{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);text-transform:uppercase;cursor:none;transition:color .3s;background:transparent;border:none;}
+    .mega-close:hover{color:var(--gold);}
+    .mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .mega-card{display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;}
+    .mega-card:hover{border-color:var(--gold);background:#272523;}
+    .mega-card-img{width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s);}
+    .mega-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85);}
+    .mega-card:hover .mega-card-img img{transform:scale(1.04);filter:brightness(1);}
+    .mega-card-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s;}
+    .mega-card:hover .mega-card-name{color:var(--gold);}
+    .mega-card-tier{font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:12px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px;}
+    @media(max-width:768px){.mega-menu-inner{padding:80px 20px 40px;}.mega-grid{grid-template-columns:1fr 1fr;gap:10px;}}
+
+    /* ── MAIN LAYOUT ── */
+    .cfg-body{
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:0;
+      max-width:1400px;
+      margin:0 auto;
+      padding:0 40px 120px;
+      align-items:start;
+    }
+    @media(max-width:1100px){
+      .cfg-body{grid-template-columns:1fr;padding:0 20px 160px;}
+    }
+
+    /* ── SECTIONS ── */
+    .cfg-section{
+      padding:48px 40px 48px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      transition:opacity .4s;
+    }
+    @media(max-width:1100px){.cfg-section{padding:36px 0;}}
+
+    /* Section header always visible */
+    .cfg-section-head{
+      display:flex;align-items:center;gap:16px;
+      margin-bottom:28px;
+    }
+    .cfg-section-num{
+      width:36px;height:36px;border-radius:50%;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.3);
+      transition:background .4s,border-color .4s,color .4s;
+    }
+    .cfg-section.active .cfg-section-num{
+      background:var(--white);border-color:var(--white);color:var(--black);
+    }
+    .cfg-section.done .cfg-section-num{
+      background:var(--gold);border-color:var(--gold);color:var(--black);
+    }
+    .cfg-section-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:400;
+      font-size:11px;letter-spacing:.4em;text-transform:uppercase;
+      color:rgba(255,255,255,.25);margin-bottom:3px;
+      transition:color .4s;
+    }
+    .cfg-section.active .cfg-section-title{ color:var(--gold); }
+    .cfg-section.done .cfg-section-title{ color:var(--gold); }
+    .cfg-section-label{
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:clamp(20px,2.5vw,28px);text-transform:uppercase;
+      letter-spacing:.02em;
+      color:rgba(255,255,255,.2);
+      transition:color .4s;
+    }
+    .cfg-section.active .cfg-section-label{ color:var(--white); }
+    .cfg-section.done .cfg-section-label{ color:rgba(255,255,255,.5); }
+
+    /* Content area locked/unlocked */
+    .cfg-section-body{
+      position:relative;
+      pointer-events:none;
+      opacity:.28;
+      transition:opacity .4s;
+    }
+    .cfg-section.active .cfg-section-body{
+      pointer-events:all;
+      opacity:1;
+    }
+    .cfg-section.done .cfg-section-body{
+      pointer-events:all;
+      opacity:.55;
+    }
+
+    /* Hide lock element (removed from design) */
+    .cfg-lock{ display:none !important; }
+
+    /* Done checkmark badge */
+    .cfg-done-badge{
+      display:none;
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.1em;text-transform:uppercase;
+      color:var(--gold);margin-left:auto;padding:4px 12px;
+      border:1px solid rgba(232,184,0,.3);border-radius:100px;
+      flex-shrink:0;
+    }
+    .cfg-section.done .cfg-done-badge{ display:block; }
+
+    /* ── SIDE DOT NAV ── */
+    .cfg-sidenav{
+      position:fixed;right:24px;top:50%;transform:translateY(-50%);
+      z-index:200;display:flex;flex-direction:column;gap:8px;
+      opacity:0;pointer-events:none;transition:opacity .4s;
+    }
+    .cfg-sidenav.visible{opacity:1;pointer-events:all;}
+    .cfg-sidenav-item{
+      display:flex;align-items:center;gap:10px;
+      text-decoration:none;cursor:none;justify-content:flex-end;padding:3px 0;
+    }
+    .cfg-sidenav-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.14em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);opacity:0;
+      transform:translateX(6px);
+      transition:opacity .2s,transform .2s,color .25s;white-space:nowrap;
+    }
+    .cfg-sidenav-item:hover .cfg-sidenav-label,
+    .cfg-sidenav-item.active .cfg-sidenav-label{opacity:1;transform:translateX(0);}
+    .cfg-sidenav-item.active .cfg-sidenav-label{color:var(--gold);}
+    .cfg-sidenav-dot{
+      width:6px;height:6px;border-radius:50%;flex-shrink:0;
+      background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);
+      transition:background .3s,border-color .3s,transform .3s;
+    }
+    .cfg-sidenav-item:hover .cfg-sidenav-dot{border-color:rgba(232,184,0,.6);}
+    .cfg-sidenav-item.active .cfg-sidenav-dot{
+      background:var(--gold);border-color:var(--gold);transform:scale(1.6);
+    }
+    .cfg-sidenav-item.done .cfg-sidenav-dot{
+      background:rgba(232,184,0,.4);border-color:rgba(232,184,0,.5);
+    }
+    @media(max-width:1100px){.cfg-sidenav{display:none;}}
+
+    /* ── MODEL CARDS (Step 1) ── */
+    .model-pick-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+    }
+    @media(max-width:900px){.model-pick-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.model-pick-grid{grid-template-columns:1fr 1fr;gap:8px;}}
+
+    .model-pick-card{
+      background:var(--black-c);
+      border:1px solid rgba(255,255,255,.07);
+      overflow:hidden;cursor:none;
+      transition:border-color .25s,background .25s,transform .2s;
+      position:relative;
+    }
+    .model-pick-card:hover{border-color:rgba(232,184,0,.4);background:#272523;transform:translateY(-2px);}
+    .model-pick-card.selected{border-color:var(--gold);background:#272523;}
+    .model-pick-card.selected::after{
+      content:'✓';
+      position:absolute;top:10px;right:10px;
+      width:22px;height:22px;border-radius:50%;
+      background:var(--gold);color:var(--black);
+      font-size:12px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Barlow',sans-serif;
+    }
+    .model-pick-img{width:100%;height:140px;overflow:hidden;background:var(--black-s);}
+    .model-pick-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.85);}
+    .model-pick-card:hover .model-pick-img img,.model-pick-card.selected .model-pick-img img{transform:scale(1.04);filter:brightness(1);}
+    .model-pick-info{padding:14px 14px 16px;}
+    .model-pick-tier{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.35em;color:var(--gray-md);text-transform:uppercase;margin-bottom:4px;}
+    .model-pick-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;transition:color .25s;}
+    .model-pick-card:hover .model-pick-name,.model-pick-card.selected .model-pick-name{color:var(--gold);}
+    .model-pick-price{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.08em;color:rgba(255,255,255,.45);}
+    .model-pick-price span{color:var(--white);font-weight:600;}
+
+    /* ── SIZE BUTTONS (Step 2) ── */
+    .size-pick-grid{display:flex;flex-wrap:wrap;gap:10px;}
+    .size-pick-btn{
+      font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;
+      letter-spacing:.12em;text-transform:uppercase;
+      padding:12px 28px;border-radius:100px;cursor:none;
+      background:var(--black-c);border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.6);
+      transition:border-color .25s,background .25s,color .25s;
+    }
+    .size-pick-btn:hover{border-color:rgba(232,184,0,.4);color:var(--white);}
+    .size-pick-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--black);}
+
+    /* ── OPTION CATEGORIES (Step 3) ── */
+    .cfg-category{margin-bottom:32px;opacity:.25;pointer-events:none;transition:opacity .4s;}
+    .cfg-category.active{opacity:1;pointer-events:all;}
+    .cfg-category.done{opacity:1;pointer-events:all;}
+    .cfg-cat-header{
+      display:flex;align-items:center;gap:14px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      margin-bottom:16px;
+    }
+    .cfg-cat-icon{
+      width:36px;height:36px;border-radius:8px;
+      background:rgba(232,184,0,.1);border:1px solid rgba(232,184,0,.25);
+      display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+    }
+    .cfg-cat-title{
+      font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;
+      letter-spacing:.1em;text-transform:uppercase;
+    }
+    .cfg-cat-selection{
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.1em;color:var(--gold);
+      margin-left:auto;text-transform:uppercase;flex-shrink:0;
+    }
+
+    .cfg-options{display:flex;flex-direction:column;gap:8px;}
+    .cfg-option{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:14px 18px;
+      background:var(--black-c);border:1px solid rgba(255,255,255,.06);
+      cursor:none;transition:border-color .2s,background .2s;
+      position:relative;
+    }
+    .cfg-option:hover{border-color:rgba(232,184,0,.25);background:#272523;}
+    .cfg-option.selected{border-color:var(--gold);background:#252321;}
+    .cfg-option-left{display:flex;align-items:center;gap:14px;}
+    .cfg-option-radio{
+      width:18px;height:18px;border-radius:50%;
+      border:1.5px solid rgba(255,255,255,.2);
+      flex-shrink:0;transition:border-color .2s,background .2s;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .cfg-option.selected .cfg-option-radio{border-color:var(--gold);background:var(--gold);}
+    .cfg-option.selected .cfg-option-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--black);}
+    .cfg-option-name{font-family:'Barlow',sans-serif;font-size:14px;font-weight:500;color:var(--white);}
+    .cfg-option-desc{font-size:13px;color:var(--gray-md);margin-top:2px;}
+    .cfg-option-price{
+      font-family:'Barlow Condensed',sans-serif;font-size:13px;
+      letter-spacing:.06em;color:rgba(255,255,255,.4);
+      flex-shrink:0;
+    }
+    .cfg-option.selected .cfg-option-price{color:var(--gold);}
+    .cfg-option-price.included{color:rgba(232,184,0,.5);}
+
+    /* ── SUMMARY SIDEBAR ── */
+    .cfg-sidebar{
+      position:sticky;top:120px;
+      padding:32px;
+      background:var(--black-c);
+      border:1px solid rgba(232,184,0,.15);
+      margin-top:52px;
+      align-self:start;
+    }
+    @media(max-width:1100px){
+      .cfg-sidebar{
+        position:fixed;bottom:0;left:0;right:0;top:auto;
+        margin-top:0;
+        padding:16px 20px;
+        border:none;border-top:1px solid rgba(232,184,0,.2);
+        background:rgba(14,13,12,.95);
+        backdrop-filter:blur(24px);
+        z-index:200;
+        display:flex;align-items:center;gap:16px;
+      }
+    }
+
+    .cfg-summary-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.4em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:20px;
+    }
+    @media(max-width:1100px){.cfg-summary-label{display:none;}}
+
+    .cfg-summary-model{
+      display:flex;gap:12px;align-items:center;
+      padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.07);
+      margin-bottom:20px;
+    }
+    @media(max-width:1100px){.cfg-summary-model{border:none;padding:0;margin:0;flex:1;}}
+    .cfg-summary-model-img{
+      width:64px;height:44px;background:var(--black-s);overflow:hidden;flex-shrink:0;
+    }
+    .cfg-summary-model-img img{width:100%;height:100%;object-fit:cover;}
+    .cfg-summary-model-name{
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    .cfg-summary-model-size{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.15em;color:var(--gray-md);text-transform:uppercase;margin-top:3px;
+    }
+
+    .cfg-summary-items{
+      display:flex;flex-direction:column;gap:8px;
+      margin-bottom:24px;
+    }
+    @media(max-width:1100px){.cfg-summary-items{display:none;}}
+    .cfg-summary-item{
+      display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+      font-size:13px;
+    }
+    .cfg-summary-item-name{
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.08em;text-transform:uppercase;color:var(--gray-md);
+      flex:1;
+    }
+    .cfg-summary-item-val{
+      font-family:'Barlow Condensed',sans-serif;font-size:12px;
+      letter-spacing:.06em;color:var(--white);text-align:right;flex-shrink:0;
+    }
+
+    .cfg-total-row{
+      display:flex;justify-content:space-between;align-items:baseline;
+      padding-top:16px;border-top:1px solid rgba(255,255,255,.07);
+      margin-bottom:20px;
+    }
+    @media(max-width:1100px){.cfg-total-row{border:none;padding:0;margin:0;}}
+    .cfg-total-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.35em;text-transform:uppercase;color:var(--gray-md);
+    }
+    @media(max-width:1100px){.cfg-total-label{display:none;}}
+    .cfg-total-price{
+      font-family:'Oswald',sans-serif;font-weight:700;
+      font-size:28px;letter-spacing:.02em;color:var(--gold);
+    }
+    @media(max-width:1100px){.cfg-total-price{font-size:22px;}}
+
+    .cfg-order-btn{
+      display:block;width:100%;text-align:center;
+      background:var(--red);color:var(--white);border:none;
+      padding:16px;font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      cursor:none;transition:background .3s,box-shadow .3s;border-radius:100px;
+    }
+    .cfg-order-btn:hover{background:#D42800;box-shadow:0 0 0 3px rgba(181,34,0,.25);}
+    .cfg-order-btn:disabled{opacity:.4;pointer-events:none;}
+    .cfg-order-note{
+      font-size:11px;color:rgba(255,255,255,.25);
+      text-align:center;margin-top:10px;line-height:1.6;
+    }
+    @media(max-width:1100px){.cfg-order-note{display:none;}}
+
+    /* ── ORDER MODAL ── */
+    #orderModal{
+      position:fixed;inset:0;z-index:9998;
+      background:rgba(0,0,0,.85);backdrop-filter:blur(16px);
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;pointer-events:none;transition:opacity .3s;
+      padding:20px;
+    }
+    #orderModal.open{opacity:1;pointer-events:all;}
+    .modal-box{
+      background:var(--black-c);
+      border:1px solid rgba(232,184,0,.2);
+      max-width:560px;width:100%;
+      padding:40px;
+      position:relative;
+      max-height:90vh;overflow-y:auto;
+    }
+    .modal-close{
+      position:absolute;top:16px;right:16px;
+      width:36px;height:36px;border-radius:50%;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+      color:var(--white);font-size:16px;cursor:none;
+      display:flex;align-items:center;justify-content:center;
+      transition:background .2s;
+    }
+    .modal-close:hover{background:rgba(255,80,60,.2);}
+    .modal-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+    .modal-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+    .modal-subtitle{font-size:14px;color:var(--gray-md);margin-bottom:28px;line-height:1.6;}
+
+    .modal-summary{
+      background:var(--black-s);border:1px solid rgba(255,255,255,.06);
+      padding:16px 20px;margin-bottom:28px;
+    }
+    .modal-summary-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;}
+    .modal-summary-row span:first-child{color:var(--gray-md);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:12px;}
+    .modal-summary-row span:last-child{color:var(--white);font-weight:500;}
+    .modal-summary-total{display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);margin-top:6px;}
+    .modal-summary-total span:first-child{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray-md);}
+    .modal-summary-total span:last-child{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;color:var(--gold);}
+
+    .form-group{margin-bottom:16px;}
+    .form-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gray-md);display:block;margin-bottom:6px;}
+    .form-input,.form-select,.form-textarea{
+      width:100%;background:var(--black-s);
+      border:1px solid rgba(255,255,255,.1);
+      color:var(--white);padding:12px 16px;
+      font-family:'Barlow',sans-serif;font-size:14px;
+      transition:border-color .2s;outline:none;
+    }
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);}
+    .form-textarea{resize:vertical;min-height:80px;}
+    .form-select{cursor:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23737870' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+
+    .modal-submit{
+      display:block;width:100%;text-align:center;
+      background:var(--red);color:var(--white);border:none;
+      padding:16px;font-family:'Barlow Condensed',sans-serif;
+      font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      cursor:none;transition:background .3s;border-radius:100px;margin-top:24px;
+    }
+    .modal-submit:hover{background:#D42800;}
+    .modal-disclaimer{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;line-height:1.6;}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* ── FOOTER ── */
+    footer{background:var(--black-d);border-top:1px solid rgba(255,255,255,.06);padding:60px 60px 32px;}
+    .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+    .footer-brand img{height:56px;width:auto;margin-bottom:16px;}
+    .footer-tagline{font-size:14px;color:var(--gray-md);line-height:1.75;max-width:220px;}
+    .footer-social{display:flex;gap:10px;margin-top:20px;}
+    .footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--gray-md);font-size:14px;text-decoration:none;transition:background .3s,border-color .3s,color .3s;}
+    .footer-social a:hover{background:rgba(232,184,0,.12);border-color:rgba(232,184,0,.4);color:var(--gold);}
+    .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+    .footer-col ul{list-style:none;}
+    .footer-col ul li{margin-bottom:10px;}
+    .footer-col ul li a{font-size:14px;color:var(--gray-md);text-decoration:none;transition:color .3s;}
+    .footer-col ul li a:hover{color:var(--white);}
+    .footer-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:24px;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+    .footer-copy,.footer-made{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.2);text-transform:uppercase;}
+    @media(max-width:768px){
+      footer{padding:40px 20px 100px;}
+      .footer-top{grid-template-columns:1fr;gap:32px;}
+      .footer-top>div:first-child{display:grid;grid-template-columns:80px 1fr;grid-template-areas:"logo tag" "soc soc";column-gap:20px;row-gap:16px;}
+      .footer-top>div:first-child .footer-brand{grid-area:logo;align-self:center;margin-bottom:0;}
+      .footer-top>div:first-child .footer-brand img{height:72px !important;width:auto !important;display:block;}
+      .footer-top>div:first-child .footer-tagline{grid-area:tag;font-size:13px;line-height:1.65;margin-bottom:0;align-self:center;}
+      .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
+      .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
+      .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+<script>
+  (function(){
+    try{
+      var t=localStorage.getItem('sg-theme');
+      if(t==='light') document.body.classList.add('light');
+    }catch(e){}
+  })();
+</script>
+
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- FLOATING LOGO -->
+<a href="index.html" class="nav-floating-logo" id="floatingLogo">
+  <img src="img/logo.webp" alt="SG Trailers"/>
+</a>
+
+<!-- THEME BUBBLE -->
+<button class="nav-theme-bubble" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/logo.webp" alt="SG" style="height:36px;width:auto;"/>
+  </a>
+  <ul class="nav-links">
+    <li class="has-mega"><a href="#" onmouseenter="openMega()" onclick="return false;">Trailers</a></li>
+    <li class="has-dropdown"><a href="#">Company</a>
+      <div class="dropdown">
+        <a href="about.html">About Us →</a>
+        <a href="community.html">Community →</a>
+      </div>
+    </li>
+    <li class="has-dropdown"><a href="#">Shop</a>
+      <div class="dropdown">
+        <a href="financing.html">Financing →</a>
+        <a href="parts_accessories.html">Parts & Accessories →</a>
+        <a href="dealer_locations.html">Dealers →</a>
+      </div>
+    </li>
+    <li><a href="owners_guide.html">Owner's Guide</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="contact.html" class="nav-cta">Get a Quote</a>
+  </div>
+  <button class="nav-hamburger" onclick="openMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MEGA MENU -->
+<div class="mega-menu" id="megaMenu">
+  <div class="mega-menu-inner">
+    <div class="mega-menu-header">
+      <span>Our Trailers</span>
+      <button class="mega-close" onclick="closeMega()">Close ✕</button>
+    </div>
+    <div class="mega-grid">
+      <a href="catalog.html?model=anubis" class="mega-card" onclick="closeMega()">
+        <div class="mega-card-img"><img src="img/anubis-2.webp" alt="Anubis"/></div>
+        <div class="mega-card-name">Anubis</div>
+        <div class="mega-card-tier">Entry Level</div>
+      </a>
+      <a href="catalog.html?model=apolo" class="mega-card" onclick="closeMega()">
+        <div class="mega-card-img"><img src="img/apolo-2.webp" alt="Apolo"/></div>
+        <div class="mega-card-name">Apolo</div>
+        <div class="mega-card-tier">Mid Range</div>
+      </a>
+      <a href="catalog.html?model=armagedon" class="mega-card" onclick="closeMega()">
+        <div class="mega-card-img"><img src="img/armagedon-1.webp" alt="Armagedon"/></div>
+        <div class="mega-card-name">Armagedon</div>
+        <div class="mega-card-tier">Upper Mid</div>
+      </a>
+      <a href="catalog.html?model=apocalypse" class="mega-card" onclick="closeMega()">
+        <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+        <div class="mega-card-name">Apocalypse</div>
+        <div class="mega-card-tier">Top of Line</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="mobile-menu-logo"><img src="img/logo.webp" alt="SG Trailers"/></div>
+    <div class="mob-header-actions">
+      <button class="mobile-theme-toggle" id="themeToggleMobile" onclick="toggleTheme()">🌙</button>
+      <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+  </div>
+  <div class="mobile-menu-links">
+    <div class="mob-group">
+      <button class="mob-group-btn" onclick="toggleAccordion(this)">Trailers <span class="mob-group-arrow">›</span></button>
+      <div class="mob-sub">
+        <a href="catalog.html?model=anubis" onclick="closeMenu()">Anubis — Entry Level</a>
+        <a href="catalog.html?model=apolo" onclick="closeMenu()">Apolo — Mid Range</a>
+        <a href="catalog.html?model=armagedon" onclick="closeMenu()">Armagedon — Upper Mid</a>
+        <a href="catalog.html?model=apocalypse" onclick="closeMenu()">Apocalypse — Top of Line</a>
+        <a href="catalog.html" onclick="closeMenu()">View All →</a>
+      </div>
+    </div>
+    <div class="mob-group">
+      <button class="mob-group-btn" onclick="toggleAccordion(this)">Company <span class="mob-group-arrow">›</span></button>
+      <div class="mob-sub">
+        <a href="about.html" onclick="closeMenu()">About Us</a>
+        <a href="community.html" onclick="closeMenu()">Community</a>
+      </div>
+    </div>
+    <div class="mob-group">
+      <button class="mob-group-btn" onclick="toggleAccordion(this)">Shop <span class="mob-group-arrow">›</span></button>
+      <div class="mob-sub">
+        <a href="financing.html" onclick="closeMenu()">Financing</a>
+        <a href="parts_accessories.html" onclick="closeMenu()">Parts & Accessories</a>
+        <a href="dealer_locations.html" onclick="closeMenu()">Dealers</a>
+      </div>
+    </div>
+    <a href="owners_guide.html" onclick="closeMenu()">Owner's Guide</a>
+    <div class="mob-group">
+      <button class="mob-group-btn" onclick="toggleAccordion(this)">Community <span class="mob-group-arrow">›</span></button>
+      <div class="mob-sub">
+        <a href="community.html" onclick="closeMenu()">Success Stories</a>
+        <a href="community.html" onclick="closeMenu()">Partners & Finance</a>
+      </div>
+    </div>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+  </div>
+  <div class="mobile-menu-footer">
+    <a href="contact.html" class="mobile-menu-cta" onclick="closeMenu()">Get a Quote →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CONFIGURATOR PAGE
+══════════════════════════════ -->
+<div class="cfg-page">
+
+  <!-- HEADER -->
+  <div class="cfg-header">
+    <div class="cfg-eyebrow">Build Yours</div>
+    <h1>Configure Your <em>SG Trailer</em></h1>
+    <p>Select your model, size, and options. We'll send you a quote in under 24 hours.</p>
+  </div>
+
+  <!-- STEP INDICATOR -->
+  <div class="cfg-steps" id="cfgSteps">
+    <div class="cfg-step active" id="step-ind-1">
+      <div class="cfg-step-num">1</div>
+      <span class="cfg-step-label">Model</span>
+    </div>
+    <div class="cfg-step-line"></div>
+    <div class="cfg-step" id="step-ind-2">
+      <div class="cfg-step-num">2</div>
+      <span class="cfg-step-label">Size</span>
+    </div>
+    <div class="cfg-step-line"></div>
+    <div class="cfg-step" id="step-ind-3">
+      <div class="cfg-step-num">3</div>
+      <span class="cfg-step-label">Options</span>
+    </div>
+    <div class="cfg-step-line"></div>
+    <div class="cfg-step" id="step-ind-4">
+      <div class="cfg-step-num">4</div>
+      <span class="cfg-step-label">Summary</span>
+    </div>
+  </div>
+
+  <div class="cfg-body">
+
+    <!-- LEFT: STEPS -->
+    <div>
+
+      <!-- STEP 1: MODEL -->
+      <div class="cfg-section active" id="cfg-step-1">
+        <div class="cfg-section-head">
+          <div class="cfg-section-num">1</div>
+          <div>
+            <div class="cfg-section-title">Step 1</div>
+            <div class="cfg-section-label">Choose Your Model</div>
+          </div>
+          <div class="cfg-done-badge">✓ Selected</div>
+        </div>
+        <div class="cfg-section-body">
+        <div class="model-pick-grid">
+          <div class="model-pick-card" onclick="selectModel('anubis',12800,'img/anubis-2.webp')" id="mcard-anubis">
+            <div class="model-pick-img"><img src="img/anubis-2.webp" alt="Anubis"/></div>
+            <div class="model-pick-info">
+              <div class="model-pick-tier">Entry Level</div>
+              <div class="model-pick-name">Anubis</div>
+              <div class="model-pick-price">From <span>$12,800</span></div>
+            </div>
+          </div>
+          <div class="model-pick-card" onclick="selectModel('apolo',8500,'img/apolo-2.webp')" id="mcard-apolo">
+            <div class="model-pick-img"><img src="img/apolo-2.webp" alt="Apolo"/></div>
+            <div class="model-pick-info">
+              <div class="model-pick-tier">Mid Range</div>
+              <div class="model-pick-name">Apolo</div>
+              <div class="model-pick-price">From <span>$8,500</span></div>
+            </div>
+          </div>
+          <div class="model-pick-card" onclick="selectModel('armagedon',18500,'img/armagedon-1.webp')" id="mcard-armagedon">
+            <div class="model-pick-img"><img src="img/armagedon-1.webp" alt="Armagedon"/></div>
+            <div class="model-pick-info">
+              <div class="model-pick-tier">Upper Mid</div>
+              <div class="model-pick-name">Armagedon</div>
+              <div class="model-pick-price">From <span>$18,500</span></div>
+            </div>
+          </div>
+          <div class="model-pick-card" onclick="selectModel('apocalypse',28000,'img/apocalypse-1.webp')" id="mcard-apocalypse">
+            <div class="model-pick-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+            <div class="model-pick-info">
+              <div class="model-pick-tier">Top of Line</div>
+              <div class="model-pick-name">Apocalypse</div>
+              <div class="model-pick-price">From <span>$28,000</span></div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /cfg-section-body -->
+      </div>
+
+      <!-- STEP 2: SIZE -->
+      <div class="cfg-section" id="cfg-step-2">
+        <div class="cfg-section-head">
+          <div class="cfg-section-num">2</div>
+          <div>
+            <div class="cfg-section-title">Step 2</div>
+            <div class="cfg-section-label">Choose Your Size</div>
+          </div>
+          <div class="cfg-done-badge">✓ Selected</div>
+        </div>
+        <div class="cfg-section-body">
+          <div class="size-pick-grid" id="sizeGrid"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: OPTIONS -->
+      <div class="cfg-section" id="cfg-step-3">
+        <div class="cfg-section-head">
+          <div class="cfg-section-num">3</div>
+          <div>
+            <div class="cfg-section-title">Step 3</div>
+            <div class="cfg-section-label">Configure Options</div>
+          </div>
+          <div class="cfg-done-badge">✓ Configured</div>
+        </div>
+        <div class="cfg-section-body">
+
+        <!-- Category: Axles & Brakes -->
+        <div class="cfg-category active" id="cfgcat-axles">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">⚙️</div>
+            <div class="cfg-cat-title">Axles &amp; Brakes</div>
+            <div class="cfg-cat-selection" id="sel-axles">—</div>
+          </div>
+          <div class="cfg-options" id="cat-axles">
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'Single Axle (3,500 lbs)')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Single Axle</div>
+                  <div class="cfg-option-desc">3,500 lbs — ideal for light loads</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',0,'Tandem Axle — No Brakes')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Tandem Axle — No Brakes</div>
+                  <div class="cfg-option-desc">2 × 3,500 lbs — balanced load distribution</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',350,'Tandem Axle — 1 Axle Braked')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Tandem Axle — 1 Axle Braked</div>
+                  <div class="cfg-option-desc">Electric brakes on rear axle</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$350</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'axles',600,'Tandem Axle — Both Axles Braked')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Tandem Axle — Both Axles Braked</div>
+                  <div class="cfg-option-desc">Electric brakes on both axles — maximum control</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$600</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Floor & Structure -->
+        <div class="cfg-category" id="cfgcat-floor">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🪵</div>
+            <div class="cfg-cat-title">Floor &amp; Structure</div>
+            <div class="cfg-cat-selection" id="sel-floor">—</div>
+          </div>
+          <div class="cfg-options" id="cat-floor">
+            <div class="cfg-option" onclick="selectOption(this,'floor',0,'Treated Wood 2×6\"')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Treated Wood 2×6"</div>
+                  <div class="cfg-option-desc">Standard — pressure treated pine</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',200,'Treated Wood 2×8\"')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Treated Wood 2×8"</div>
+                  <div class="cfg-option-desc">Heavier gauge — extra rigidity</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$200</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',480,'Diamond Aluminum Plate')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Diamond Aluminum Plate</div>
+                  <div class="cfg-option-desc">Non-slip aluminum — easy to clean</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$480</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'floor',360,'Expanded Metal')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Expanded Metal</div>
+                  <div class="cfg-option-desc">Maximum airflow — ideal for livestock</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$360</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Hitch Type -->
+        <div class="cfg-category" id="cfgcat-hitch">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🔗</div>
+            <div class="cfg-cat-title">Hitch Type</div>
+            <div class="cfg-cat-selection" id="sel-hitch">—</div>
+          </div>
+          <div class="cfg-options" id="cat-hitch">
+            <div class="cfg-option" onclick="selectOption(this,'hitch',0,'Ball Hitch 2-5/16\"')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Ball Hitch 2-5/16"</div>
+                  <div class="cfg-option-desc">Standard — compatible with most trucks</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',750,'Gooseneck')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Gooseneck</div>
+                  <div class="cfg-option-desc">Higher capacity — better weight distribution</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$750</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'hitch',950,'5th Wheel')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">5th Wheel</div>
+                  <div class="cfg-option-desc">Heavy duty — for maximum towing capacity</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$950</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Electrical -->
+        <div class="cfg-category" id="cfgcat-electrical">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">⚡</div>
+            <div class="cfg-cat-title">Electrical &amp; Solar</div>
+            <div class="cfg-cat-selection" id="sel-electrical">—</div>
+          </div>
+          <div class="cfg-options" id="cat-electrical">
+            <div class="cfg-option" onclick="selectOption(this,'electrical',0,'Standard Wiring Only')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Standard Wiring Only</div>
+                  <div class="cfg-option-desc">7-pin connector, running lights</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',450,'LED Light Package')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">LED Light Package</div>
+                  <div class="cfg-option-desc">Full LED interior and exterior lighting</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$450</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',730,'LED + 12V Battery')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">LED + 12V Battery</div>
+                  <div class="cfg-option-desc">LED lighting + sealed 55Ah battery</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$730</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'electrical',1200,'Full Solar System')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Full Solar System</div>
+                  <div class="cfg-option-desc">200W solar + LiFePO4 battery + LED — off-grid ready</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$1,200</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Storage -->
+        <div class="cfg-category" id="cfgcat-storage">
+          <div class="cfg-cat-header">
+            <div class="cfg-cat-icon">🔧</div>
+            <div class="cfg-cat-title">Storage &amp; Accessories</div>
+            <div class="cfg-cat-selection" id="sel-storage">—</div>
+          </div>
+          <div class="cfg-options" id="cat-storage">
+            <div class="cfg-option" onclick="selectOption(this,'storage',0,'No Storage')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">No Storage</div>
+                  <div class="cfg-option-desc">Base configuration</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'storage',190,'Tool Box')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Tool Box</div>
+                  <div class="cfg-option-desc">Standard lockable aluminum tool box</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$190</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'storage',290,'XL Tool Box')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">XL Tool Box</div>
+                  <div class="cfg-option-desc">Oversized lockable aluminum tool box</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$290</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'storage',420,'Tool Box + E-Track System')">
+              <div class="cfg-option-left">
+                <div class="cfg-option-radio"></div>
+                <div>
+                  <div class="cfg-option-name">Tool Box + E-Track System</div>
+                  <div class="cfg-option-desc">Full e-track rails for tie-down flexibility</div>
+                </div>
+              </div>
+              <div class="cfg-option-price">+$420</div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /cfg-section-body -->
+      </div><!-- /cfg-step-3 -->
+
+    </div><!-- /left column -->
+
+    <!-- RIGHT: STICKY SUMMARY -->
+    <div class="cfg-sidebar" id="cfgSidebar">
+      <div class="cfg-summary-label">Your Configuration</div>
+
+      <div class="cfg-summary-model" id="summaryModel">
+        <div class="cfg-summary-model-img" id="summaryImg">
+          <img src="img/apolo-2.webp" alt="" id="summaryImgEl" style="display:none;"/>
+        </div>
+        <div>
+          <div class="cfg-summary-model-name" id="summaryModelName">Select a model</div>
+          <div class="cfg-summary-model-size" id="summarySize">—</div>
+        </div>
+      </div>
+
+      <div class="cfg-summary-items" id="summaryItems">
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Axles</span><span class="cfg-summary-item-val" id="s-axles">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Floor</span><span class="cfg-summary-item-val" id="s-floor">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Hitch</span><span class="cfg-summary-item-val" id="s-hitch">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Electrical</span><span class="cfg-summary-item-val" id="s-electrical">—</span></div>
+        <div class="cfg-summary-item"><span class="cfg-summary-item-name">Storage</span><span class="cfg-summary-item-val" id="s-storage">—</span></div>
+      </div>
+
+      <div class="cfg-total-row">
+        <div class="cfg-total-label">Est. Total</div>
+        <div class="cfg-total-price" id="cfgTotalPrice">$—</div>
+      </div>
+
+      <button class="cfg-order-btn" id="cfgOrderBtn" onclick="openOrderModal()" disabled>
+        Request Quote →
+      </button>
+      <div class="cfg-order-note">No payment required. We'll review your configuration and contact you within 24 hours.</div>
+    </div>
+
+  </div><!-- /cfg-body -->
+</div><!-- /cfg-page -->
+
+<!-- SIDE DOT NAV -->
+<div class="cfg-sidenav" id="cfgSidenav">
+  <a class="cfg-sidenav-item" data-target="cfg-step-1"><span class="cfg-sidenav-label">Model</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfg-step-2"><span class="cfg-sidenav-label">Size</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-axles"><span class="cfg-sidenav-label">Axles</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-floor"><span class="cfg-sidenav-label">Floor</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-hitch"><span class="cfg-sidenav-label">Hitch</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-electrical"><span class="cfg-sidenav-label">Electrical</span><span class="cfg-sidenav-dot"></span></a>
+  <a class="cfg-sidenav-item" data-target="cfgcat-storage"><span class="cfg-sidenav-label">Storage</span><span class="cfg-sidenav-dot"></span></a>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="orderModal" onclick="modalClickOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    <div class="modal-eyebrow">Request a Quote</div>
+    <div class="modal-title">Almost There</div>
+    <div class="modal-subtitle">Your configuration is ready. Fill in your details and we'll send a personalized quote.</div>
+
+    <div class="modal-summary" id="modalSummary"></div>
+
+    <form onsubmit="submitOrder(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" placeholder="John" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" placeholder="Smith" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="john@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-input" type="tel" placeholder="(555) 000-0000"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">State / Location</label>
+        <input class="form-input" type="text" placeholder="Arizona"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">How did you hear about us?</label>
+        <select class="form-select">
+          <option value="">Select...</option>
+          <option>Google Search</option>
+          <option>Social Media</option>
+          <option>Dealer Referral</option>
+          <option>Word of Mouth</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Additional Notes (optional)</label>
+        <textarea class="form-textarea" placeholder="Any specific requirements or questions..."></textarea>
+      </div>
+      <button type="submit" class="modal-submit">Send Quote Request →</button>
+      <div class="modal-disclaimer">By submitting you agree to be contacted by SG Trailers LLC regarding your request. No payment is required at this stage.</div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand"><img src="img/logo.webp" alt="SG Trailers"/></div>
+      <div class="footer-tagline">American-made car haulers. Built in Yuma, AZ since 2019.</div>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Trailers</h4>
+      <ul>
+        <li><a href="catalog.html?model=anubis">Anubis</a></li>
+        <li><a href="catalog.html?model=apolo">Apolo</a></li>
+        <li><a href="catalog.html?model=armagedon">Armagedon</a></li>
+        <li><a href="catalog.html?model=apocalypse">Apocalypse</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="dealer_program.html">Dealer Program</a></li>
+        <li><a href="dealer_locations.html">Find a Dealer</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="owners_guide.html">Owner's Guide</a></li>
+        <li><a href="financing.html">Financing</a></li>
+        <li><a href="parts_accessories.html">Parts &amp; Accessories</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
+    <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+  </div>
+</footer>
+
+<script>
+  /* ── CURSOR ── */
+  const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+  /* ── NAV ── */
+  const floatingLogo=document.getElementById('floatingLogo');
+  window.addEventListener('scroll',()=>{const _sc=window.scrollY>60;floatingLogo.classList.toggle('hidden',_sc);document.body.classList.toggle('scrolled',_sc);});
+  (function(){if(window.scrollY>60){document.body.classList.add('scrolled');floatingLogo.classList.add('hidden');}})();
+
+  function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';}
+  function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';closeAccordion();}
+  function toggleAccordion(btn){
+    const sub=btn.closest('.mob-group').querySelector('.mob-sub');
+    const group=btn.closest('.mob-group');
+    const isOpen=btn.classList.contains('open');
+    closeAccordion();
+    if(!isOpen){
+      document.querySelectorAll('.mobile-menu-links > *').forEach(el=>{if(el!==group)el.classList.add('mob-dimmed');});
+      btn.classList.add('open');sub.classList.add('open');
+    }
+  }
+  function closeAccordion(){
+    document.querySelectorAll('.mob-dimmed').forEach(el=>el.classList.remove('mob-dimmed'));
+    document.querySelectorAll('.mob-group-btn,.mob-group-toggle').forEach(b=>{
+      b.classList.remove('open');
+      b.closest('.mob-group').querySelector('.mob-sub').classList.remove('open');
+    });
+  }
+  function openMega(){document.getElementById('megaMenu').classList.add('open');document.body.style.overflow='hidden';}
+  function closeMega(){document.getElementById('megaMenu').classList.remove('open');document.body.style.overflow='';}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMega();closeMenu();closeOrderModal();}});
+
+  /* ── THEME ── */
+  function toggleTheme(){
+    document.body.classList.toggle('light');
+    const isLight=document.body.classList.contains('light');
+    localStorage.setItem('sg-theme',isLight?'light':'dark');
+    document.getElementById('themeToggle').textContent=isLight?'☀️':'🌙';
+    document.getElementById('themeToggleMobile').textContent=isLight?'☀️':'🌙';
+  }
+  (function(){
+    const isLight=document.body.classList.contains('light');
+    document.getElementById('themeToggle').textContent=isLight?'☀️':'🌙';
+    document.getElementById('themeToggleMobile').textContent=isLight?'☀️':'🌙';
+  })();
+
+  /* ══════════════════════════════
+     CONFIGURATOR LOGIC
+  ══════════════════════════════ */
+
+  const models={
+    apolo:{sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}]},
+    anubis:{sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}]},
+    armagedon:{sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}]},
+    apocalypse:{sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}]}
+  };
+
+  const cfg={
+    model:null, modelName:null, modelImg:null,
+    basePrice:0, sizePrice:0, sizeFt:null,
+    options:{axles:0,floor:0,hitch:0,electrical:0,storage:0},
+    optionNames:{axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'}
+  };
+
+  const fmt=n=>'$'+n.toLocaleString('en-US');
+
+  function selectModel(key,basePrice,img){
+    cfg.model=key;
+    cfg.basePrice=basePrice;
+    cfg.modelName=key.charAt(0).toUpperCase()+key.slice(1);
+    cfg.modelImg=img;
+    cfg.sizePrice=0;cfg.sizeFt=null;
+    cfg.options={axles:0,floor:0,hitch:0,electrical:0,storage:0};
+    cfg.optionNames={axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'};
+    // Reset step 3 options visually
+    document.querySelectorAll('.cfg-option').forEach(o=>o.classList.remove('selected'));
+    ['axles','floor','hitch','electrical','storage'].forEach(cat=>{
+      const first=document.querySelector('#cat-'+cat+' .cfg-option');
+      if(first) first.classList.add('selected');
+    });
+    document.getElementById('cfg-step-3').classList.remove('active','done');
+    document.getElementById('step-ind-3').classList.remove('active','done');
+    document.getElementById('step-ind-4').classList.remove('active','done');
+    // UI
+    document.querySelectorAll('.model-pick-card').forEach(c=>c.classList.remove('selected'));
+    document.getElementById('mcard-'+key).classList.add('selected');
+    // Summary
+    document.getElementById('summaryModelName').textContent=cfg.modelName;
+    document.getElementById('summarySize').textContent='Select size';
+    document.getElementById('summaryImgEl').src=img;
+    document.getElementById('summaryImgEl').style.display='block';
+    // Build size grid
+    const grid=document.getElementById('sizeGrid');
+    grid.innerHTML=models[key].sizes.map(s=>`<button class="size-pick-btn" onclick="selectSize(this,${s.price},${s.ft})">${s.ft} ft</button>`).join('');
+    // Activate step 2
+    document.getElementById('cfg-step-2').classList.add('active');
+    document.getElementById('step-ind-1').classList.remove('active');
+    document.getElementById('step-ind-1').classList.add('done');
+    document.getElementById('step-ind-2').classList.add('active');
+    updateTotal();
+    scrollToEl('cfg-step-2');
+  }
+
+  function selectSize(btn,price,ft){
+    cfg.sizePrice=price;cfg.sizeFt=ft;
+    cfg.basePrice=price;
+    document.querySelectorAll('.size-pick-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('summarySize').textContent=ft+' ft';
+    // Activate step 3 — reset all categories, only first active
+    document.getElementById('cfg-step-3').classList.add('active');
+    document.getElementById('step-ind-2').classList.remove('active');
+    document.getElementById('step-ind-2').classList.add('done');
+    document.getElementById('step-ind-3').classList.add('active');
+    // Reset category states
+    const catOrder=['axles','floor','hitch','electrical','storage'];
+    catOrder.forEach((cat,i)=>{
+      const el=document.getElementById('cfgcat-'+cat);
+      el.classList.remove('active','done');
+      if(i===0) el.classList.add('active');
+    });
+    // Reset options — no defaults, user must select
+    cfg.optionNames={axles:'—',floor:'—',hitch:'—',electrical:'—',storage:'—'};
+    cfg.options={axles:0,floor:0,hitch:0,electrical:0,storage:0};
+    catOrder.forEach(cat=>{ document.getElementById('sel-'+cat).textContent='—'; });
+    updateSummaryItems();
+    updateTotal();
+    scrollToEl('cfgcat-axles');
+  }
+
+  const catOrder=['axles','floor','hitch','electrical','storage'];
+  function selectOption(el,category,price,name){
+    el.closest('.cfg-options').querySelectorAll('.cfg-option').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    cfg.options[category]=price;
+    cfg.optionNames[category]=name;
+    document.getElementById('sel-'+category).textContent=name;
+    // Mark current category done, unlock next
+    const currentCat=document.getElementById('cfgcat-'+category);
+    currentCat.classList.remove('active');
+    currentCat.classList.add('done');
+    const nextIdx=catOrder.indexOf(category)+1;
+    if(nextIdx<catOrder.length){
+      const nextCat=document.getElementById('cfgcat-'+catOrder[nextIdx]);
+      nextCat.classList.add('active');
+      scrollToEl('cfgcat-'+catOrder[nextIdx]);
+    }
+    updateSummaryItems();
+    updateTotal();
+  }
+
+  function updateSummaryItems(){
+    ['axles','floor','hitch','electrical','storage'].forEach(cat=>{
+      const el=document.getElementById('s-'+cat);
+      if(el) el.textContent=cfg.optionNames[cat]||'—';
+    });
+  }
+
+  function updateTotal(){
+    const optTotal=Object.values(cfg.options).reduce((a,b)=>a+b,0);
+    const total=cfg.basePrice+optTotal;
+    document.getElementById('cfgTotalPrice').textContent=cfg.model?fmt(total):'$—';
+    // Enable order button only when model + size selected
+    document.getElementById('cfgOrderBtn').disabled=!(cfg.model&&cfg.sizeFt);
+    // Activate step 4 indicator when all done
+    if(cfg.model&&cfg.sizeFt){
+      document.getElementById('step-ind-3').classList.remove('active');
+      document.getElementById('step-ind-3').classList.add('done');
+      document.getElementById('step-ind-4').classList.add('active');
+    }
+  }
+
+  /* ── ORDER MODAL ── */
+  function openOrderModal(){
+    // Build modal summary
+    const optTotal=Object.values(cfg.options).reduce((a,b)=>a+b,0);
+    const total=cfg.basePrice+optTotal;
+    let rows=`
+      <div class="modal-summary-row"><span>Model</span><span>${cfg.modelName} — ${cfg.sizeFt} ft</span></div>
+      <div class="modal-summary-row"><span>Axles</span><span>${cfg.optionNames.axles}</span></div>
+      <div class="modal-summary-row"><span>Floor</span><span>${cfg.optionNames.floor}</span></div>
+      <div class="modal-summary-row"><span>Hitch</span><span>${cfg.optionNames.hitch}</span></div>
+      <div class="modal-summary-row"><span>Electrical</span><span>${cfg.optionNames.electrical}</span></div>
+      <div class="modal-summary-row"><span>Storage</span><span>${cfg.optionNames.storage}</span></div>
+      <div class="modal-summary-total"><span>Estimated Total</span><span>${fmt(total)}</span></div>
+    `;
+    document.getElementById('modalSummary').innerHTML=rows;
+    document.getElementById('orderModal').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeOrderModal(){
+    document.getElementById('orderModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function modalClickOutside(e){
+    if(e.target===document.getElementById('orderModal')) closeOrderModal();
+  }
+  function submitOrder(e){
+    e.preventDefault();
+    // Placeholder — connect to Formspree or backend
+    alert('Quote request submitted! We\'ll contact you within 24 hours.');
+    closeOrderModal();
+  }
+
+  /* ── REVEAL ── */
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  /* ── SIDE DOT NAV ── */
+  const cfgSidenav=document.getElementById('cfgSidenav');
+  const sideNavItems=cfgSidenav.querySelectorAll('.cfg-sidenav-item');
+
+  // Click → scroll to target
+  sideNavItems.forEach(item=>{
+    item.addEventListener('click',e=>{
+      e.preventDefault();
+      const target=document.getElementById(item.dataset.target);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  });
+
+  // Show sidenav after scrolling past header
+  const cfgHeader=document.querySelector('.cfg-header');
+  new IntersectionObserver(entries=>{
+    cfgSidenav.classList.toggle('visible',!entries[0].isIntersecting);
+  },{threshold:0}).observe(cfgHeader);
+
+  // Track active dot via IntersectionObserver
+  const sideNavObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id=entry.target.id;
+        sideNavItems.forEach(item=>{
+          item.classList.remove('active');
+          if(item.dataset.target===id) item.classList.add('active');
+        });
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px',threshold:0});
+
+  ['cfg-step-1','cfg-step-2','cfgcat-axles','cfgcat-floor','cfgcat-hitch','cfgcat-electrical','cfgcat-storage'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) sideNavObs.observe(el);
+  });
+
+  // Smooth scroll with offset for sticky nav + step bar
+  function scrollToEl(id){
+    const el=document.getElementById(id);
+    if(!el) return;
+    setTimeout(()=>{
+      const offset=130;
+      const top=el.getBoundingClientRect().top+window.scrollY-offset;
+      window.scrollTo({top,behavior:'smooth'});
+    },150);
+  }
+</script>
+</body>
+</html>

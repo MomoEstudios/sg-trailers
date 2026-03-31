@@ -704,19 +704,19 @@
         <button class="mega-close" onclick="closeMega()">✕ Close</button>
       </div>
       <div class="mega-grid">
-        <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('apolo'),400)">
-          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
-          <div class="mega-card-name">Apolo</div>
-          <div class="mega-card-tier">Entry Level</div>
-        </a>
         <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('anubis'),400)">
           <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
           <div class="mega-card-name">Anubis</div>
+          <div class="mega-card-tier">Entry Level</div>
+        </a>
+        <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('apolo'),400)">
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-name">Apolo</div>
           <div class="mega-card-tier">Mid Range</div>
         </a>
-        <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('nemesis'),400)">
-          <div class="mega-card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/></div>
-          <div class="mega-card-name">Nemesis</div>
+        <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('armagedon'),400)">
+          <div class="mega-card-img"><img src="img/armagedon-1.webp" alt="Armagedon"/></div>
+          <div class="mega-card-name">Armagedon</div>
           <div class="mega-card-tier">Upper Mid</div>
         </a>
         <a href="#" class="mega-card" onclick="closeMega();setTimeout(()=>openFromMenu('apocalypse'),400)">
@@ -784,32 +784,12 @@
   <div class="catalog-section">
     <div class="models-list">
 
-      <div class="model-card reveal" id="card-apolo" onclick="toggleModel('apolo')">
-        <div class="card-inner">
-          <div class="card-img"><img src="img/apolo-1.webp" alt="apolo"/><div class="card-tier">Entry Level</div></div>
-          <div class="card-info">
-            <div class="card-name">Apolo</div>
-            <div class="card-tagline">The gateway to the SG family. Uncompromised quality at an accessible price point.</div>
-            <div class="card-specs-bar">
-              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">7,000 lbs</div></div>
-              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">16–22 ft</div></div>
-              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem</div></div>
-            </div>
-          </div>
-          <div class="card-cta-col">
-            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$8,500 <span class="card-msrp-currency">USD</span></div></div>
-            <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="expand-row" id="expand-row-apolo"><div class="expand-inner" id="expand-inner-apolo"></div></div>
-
       <div class="model-card reveal" id="card-anubis" onclick="toggleModel('anubis')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/anubis-1.webp" alt="Anubis"/><div class="card-tier">Mid Range</div></div>
+          <div class="card-img"><img src="img/anubis-1.webp" alt="Anubis"/><div class="card-tier">Entry Level</div></div>
           <div class="card-info">
             <div class="card-name">Anubis</div>
-            <div class="card-tagline">The perfect balance. Higher payload and superior finishes for the demanding user.</div>
+            <div class="card-tagline">The gateway to the SG family. Uncompromised quality at an accessible price point.</div>
             <div class="card-specs-bar">
               <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">10,000 lbs</div></div>
               <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">18–24 ft</div></div>
@@ -824,11 +804,31 @@
       </div>
       <div class="expand-row" id="expand-row-anubis"><div class="expand-inner" id="expand-inner-anubis"></div></div>
 
-      <div class="model-card reveal" id="card-nemesis" onclick="toggleModel('nemesis')">
+      <div class="model-card reveal" id="card-apolo" onclick="toggleModel('apolo')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/nemesis-1.webp" alt="Nemesis"/><div class="card-tier">Upper Mid</div></div>
+          <div class="card-img"><img src="img/apolo-1.webp" alt="apolo"/><div class="card-tier">Mid Range</div></div>
           <div class="card-info">
-            <div class="card-name">Nemesis</div>
+            <div class="card-name">Apolo</div>
+            <div class="card-tagline">The perfect balance. Higher payload and superior finishes for the demanding user.</div>
+            <div class="card-specs-bar">
+              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">7,000 lbs</div></div>
+              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">16–22 ft</div></div>
+              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem</div></div>
+            </div>
+          </div>
+          <div class="card-cta-col">
+            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$8,500 <span class="card-msrp-currency">USD</span></div></div>
+            <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="expand-row" id="expand-row-apolo"><div class="expand-inner" id="expand-inner-apolo"></div></div>
+
+      <div class="model-card reveal" id="card-armagedon" onclick="toggleModel('armagedon')">
+        <div class="card-inner">
+          <div class="card-img"><img src="img/armagedon-1.webp" alt="Armagedon"/><div class="card-tier">Upper Mid</div></div>
+          <div class="card-info">
+            <div class="card-name">Armagedon</div>
             <div class="card-tagline">For the demanding professional. Premium-grade materials and extended structural capacity.</div>
             <div class="card-specs-bar">
               <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">14,000 lbs</div></div>
@@ -842,7 +842,7 @@
           </div>
         </div>
       </div>
-      <div class="expand-row" id="expand-row-nemesis"><div class="expand-inner" id="expand-inner-nemesis"></div></div>
+      <div class="expand-row" id="expand-row-armagedon"><div class="expand-inner" id="expand-inner-armagedon"></div></div>
 
       <div class="model-card reveal" id="card-apocalypse" onclick="toggleModel('apocalypse')">
         <div class="card-inner">
@@ -951,9 +951,9 @@
       <div>
         <div class="footer-col-title">Trailers</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="toggleModel('apolo')">Apolo</a></li>
           <li><a href="#" onclick="toggleModel('anubis')">Anubis</a></li>
-          <li><a href="#" onclick="toggleModel('nemesis')">Nemesis</a></li>
+          <li><a href="#" onclick="toggleModel('apolo')">Apolo</a></li>
+          <li><a href="#" onclick="toggleModel('armagedon')">Armagedon</a></li>
           <li><a href="#" onclick="toggleModel('apocalypse')">Apocalypse</a></li>
         </ul>
       </div>
@@ -989,13 +989,13 @@
     (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     const models={
-      apolo:{nameHtml:'Apolo',tier:'Entry Level · Car Hauler',video:'img/apolo_v-1.mp4',photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
-      anubis:{nameHtml:'Anubis',tier:'Mid Range · Car Hauler',video:'img/anubis_v-1.mp4',photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
-      nemesis:{nameHtml:'Nemesis',tier:'Upper Mid · Car Hauler',video:'img/nemesis_v-1.mp4',photos:['img/nemesis-1.webp','img/nemesis-2.png','img/nemesis-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
+      apolo:{nameHtml:'Apolo',tier:'Mid Range · Car Hauler',video:'img/apolo_v-1.mp4',photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
+      anubis:{nameHtml:'Anubis',tier:'Entry Level · Car Hauler',video:'img/anubis_v-1.mp4',photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
+      armagedon:{nameHtml:'Armagedon',tier:'Upper Mid · Car Hauler',video:'img/armagedon_v-1.mp4',photos:['img/armagedon-1.webp','img/armagedon-2.png','img/armagedon-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
       apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',video:'img/apocalypse_v-1.mp4',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
     };
 
-    const state={active:null,prices:{apolo:8500,anubis:12800,nemesis:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,nemesis:0,apocalypse:0}};
+    const state={active:null,prices:{apolo:8500,anubis:12800,armagedon:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,armagedon:0,apocalypse:0}};
     const fmt=n=>'$'+n.toLocaleString('en-US');
 
     function buildHTML(key){
