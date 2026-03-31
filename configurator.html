@@ -617,9 +617,25 @@
     /* ── COLOR DOT (Design section) ── */
     .cfg-color-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.12);}
 
-    /* ── DESIGN EXTRA (Logo / CNC input) ── */
+    /* ── DESIGN EXTRA (Branding) ── */
     .cfg-design-extra{margin-top:16px;padding:16px;background:var(--black-s);border:1px solid rgba(255,255,255,.06);}
-    .cfg-design-extra-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+    .cfg-design-extra-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+    .cfg-brand-default{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .cfg-brand-badge{display:flex;align-items:center;gap:7px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.07em;color:rgba(255,255,255,.55);}
+    .cfg-brand-badge-dot{width:7px;height:7px;border-radius:50%;background:#4CAF50;flex-shrink:0;}
+    .cfg-brand-toggle{background:none;border:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);cursor:none;opacity:.8;transition:opacity .2s;padding:0;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;}
+    .cfg-brand-toggle:hover{opacity:1;}
+    .cfg-brand-zones{margin-top:14px;display:flex;flex-direction:column;gap:10px;}
+    .cfg-brand-zone{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 14px;border-radius:4px;}
+    .cfg-brand-zone-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+    .cfg-brand-radios{display:flex;flex-direction:column;gap:6px;}
+    .cfg-brand-radio{display:flex;align-items:center;gap:8px;cursor:pointer;}
+    .cfg-brand-radio input[type=radio]{accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
+    .cfg-brand-radio-text{font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,.75);}
+    .cfg-brand-call{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--gold);margin-left:3px;opacity:.8;}
+    .cfg-brand-text{margin-top:8px;width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:var(--white);font-family:'Barlow',sans-serif;font-size:13px;padding:8px 10px;border-radius:3px;outline:none;transition:border-color .2s;}
+    .cfg-brand-text:focus{border-color:rgba(232,184,0,.4);}
+    .cfg-brand-hint{margin-top:8px;font-size:11px;color:rgba(255,255,255,.3);line-height:1.6;font-style:italic;}
     .cfg-design-extra-label span{color:var(--gray-md);font-size:10px;letter-spacing:.1em;text-transform:none;font-family:'Barlow',sans-serif;}
     .cfg-design-input{width:100%;background:var(--black-c);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:11px 14px;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;cursor:text;}
     .cfg-design-input:focus{border-color:var(--gold);}
@@ -1332,6 +1348,7 @@
                   <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
                 </linearGradient>
                 <clipPath id="clip-pl"><rect x="158" y="72" width="106" height="42"/></clipPath>
+                <clipPath id="clip-pc"><rect x="272" y="72" width="210" height="42"/></clipPath>
                 <clipPath id="clip-pr"><rect x="487" y="72" width="106" height="42"/></clipPath>
               </defs>
 
@@ -1357,15 +1374,22 @@
               <!-- Badge -->
               <text x="303" y="122.5" font-family="Oswald,sans-serif" font-size="6.5" font-weight="700" letter-spacing="0.22em" fill="rgba(232,184,0,0.22)" text-anchor="middle">SG TRAILERS</text>
 
-              <!-- PORTILLO LEFT -->
-              <rect id="t-portillo-l" x="158" y="72" width="106" height="42" fill="#1C1C1C"/>
+              <!-- HEADBOARD LEFT -->
+              <rect id="t-headboard-l" x="158" y="72" width="106" height="42" fill="#1C1C1C"/>
               <rect x="158" y="72" width="106" height="2.5" fill="rgba(232,184,0,0.45)"/>
               <rect x="158" y="72" width="106" height="42" fill="url(#tg-top)" opacity="0.7"/>
               <rect x="194" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
               <rect x="228" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
 
-              <!-- PORTILLO RIGHT -->
-              <rect id="t-portillo-r" x="487" y="72" width="106" height="42" fill="#1C1C1C"/>
+              <!-- FRONT TOOLBOX (center) -->
+              <rect id="t-toolbox" x="272" y="72" width="210" height="42" fill="#181614"/>
+              <rect x="272" y="72" width="210" height="2.5" fill="rgba(232,184,0,0.3)"/>
+              <rect x="272" y="72" width="210" height="42" fill="url(#tg-top)" opacity="0.5"/>
+              <rect x="272" y="108" width="210" height="3" fill="rgba(0,0,0,0.4)"/>
+              <rect x="360" y="78" width="60" height="28" rx="2" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+              <!-- HEADBOARD RIGHT -->
+              <rect id="t-headboard-r" x="487" y="72" width="106" height="42" fill="#1C1C1C"/>
               <rect x="487" y="72" width="106" height="2.5" fill="rgba(232,184,0,0.45)"/>
               <rect x="487" y="72" width="106" height="42" fill="url(#tg-top)" opacity="0.7"/>
               <rect x="523" y="75" width="2" height="37" fill="rgba(0,0,0,0.3)"/>
@@ -1411,62 +1435,101 @@
               <!-- Axle bar -->
               <rect x="418" y="174" width="90" height="6" rx="3" fill="#181818" stroke="#222" stroke-width="1"/>
 
-              <!-- LIVE TEXT: Logo on portillos -->
-              <text id="preview-logo-l" x="211" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pl)"></text>
-              <text id="preview-logo-r" x="540" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pr)"></text>
-
-              <!-- LIVE TEXT: CNC on ramp -->
-              <text id="preview-ramp-text" transform="translate(722,164) rotate(-44)" font-family="Oswald,sans-serif" font-size="8" font-weight="600" letter-spacing="0.1em" fill="rgba(232,184,0,0.8)" text-anchor="middle"></text>
+              <!-- LIVE TEXT: Logo on headboards + toolbox -->
+              <text id="preview-logo-l" x="211" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pl)">SG TRAILERS</text>
+              <text id="preview-logo-c" x="377" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.5)" text-anchor="middle" clip-path="url(#clip-pc)">SG TRAILERS</text>
+              <text id="preview-logo-r" x="540" y="98" font-family="Barlow Condensed,sans-serif" font-size="9" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.6)" text-anchor="middle" clip-path="url(#clip-pr)">SG TRAILERS</text>
             </svg>
           </div>
 
           <div class="cfg-options" id="cat-design">
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Negro Mate')">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Matte Black')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
                 <div class="cfg-color-dot" style="background:#1A1A1A;"></div>
                 <div>
-                  <div class="cfg-option-name">Negro Mate</div>
-                  <div class="cfg-option-desc">Black matte — sleek and durable</div>
+                  <div class="cfg-option-name">Matte Black</div>
+                  <div class="cfg-option-desc">Sleek and durable — standard finish</div>
                 </div>
               </div>
               <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Gris Nardo')">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Nardo Gray')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
                 <div class="cfg-color-dot" style="background:#848484;"></div>
                 <div>
-                  <div class="cfg-option-name">Gris Nardo</div>
-                  <div class="cfg-option-desc">Nardo Gray — premium pearl gray tone</div>
+                  <div class="cfg-option-name">Nardo Gray</div>
+                  <div class="cfg-option-desc">Premium pearl gray tone</div>
                 </div>
               </div>
               <div class="cfg-option-price included">Included</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Blanco')">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'White')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
                 <div class="cfg-color-dot" style="background:#E0DDD9;border:1px solid rgba(255,255,255,.2);"></div>
                 <div>
-                  <div class="cfg-option-name">Blanco</div>
-                  <div class="cfg-option-desc">White — classic and clean</div>
+                  <div class="cfg-option-name">White</div>
+                  <div class="cfg-option-desc">Classic and clean</div>
                 </div>
               </div>
-              <div class="cfg-option-price">Consultar</div>
+              <div class="cfg-option-price">Call for Pricing</div>
             </div>
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Color Personalizado')">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Custom Color')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
                 <div class="cfg-color-dot" style="background:conic-gradient(#E8B800,#B52200,#5BB8F5,#E8B800);"></div>
                 <div>
-                  <div class="cfg-option-name">Color Personalizado</div>
+                  <div class="cfg-option-name">Custom Color</div>
                   <div class="cfg-option-desc">Specify your color in notes — quoted separately</div>
                 </div>
               </div>
-              <div class="cfg-option-price">Consultar</div>
+              <div class="cfg-option-price">Call for Pricing</div>
             </div>
           </div>
-          <!-- Logo / CNC Text Input -->
+          <!-- Trailer Branding: 3-zone Apple-style -->
           <div class="cfg-design-extra">
-            <div class="cfg-design-extra-label">Logo / CNC Text on Ramp <span>(Optional)</span></div>
-            <input type="text" class="cfg-design-input" id="cfgLogoText" placeholder="Ex: SG TRAILERS · Your name or brand here..." maxlength="60"/>
-            <div class="cfg-design-hint">Your custom text or logo CNC-cut on the ramp. Pricing depends on design complexity. File must be delivered in .AI or .DXF vector format.</div>
+            <div class="cfg-design-extra-label">Trailer Branding</div>
+            <div class="cfg-brand-default">
+              <div class="cfg-brand-badge">
+                <div class="cfg-brand-badge-dot"></div>
+                <span>SG Trailers logo on all 3 sections — included</span>
+              </div>
+              <button class="cfg-brand-toggle" id="cfgBrandToggleBtn" onclick="toggleBrandCustomizer()">Customize →</button>
+            </div>
+            <div class="cfg-brand-zones" id="cfgBrandZones" style="display:none;">
+              <!-- Left Headboard -->
+              <div class="cfg-brand-zone">
+                <div class="cfg-brand-zone-label">Left Headboard</div>
+                <div class="cfg-brand-radios">
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-l" value="sg" checked onchange="updateBrandZone('l',this.value)"><span class="cfg-brand-radio-text">SG Trailers logo — included</span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-l" value="custom-logo" onchange="updateBrandZone('l',this.value)"><span class="cfg-brand-radio-text">Custom logo<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-l" value="custom-text" onchange="updateBrandZone('l',this.value)"><span class="cfg-brand-radio-text">Custom text<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-l" value="none" onchange="updateBrandZone('l',this.value)"><span class="cfg-brand-radio-text">Leave blank — included</span></label>
+                </div>
+                <input type="text" class="cfg-brand-text" id="brand-l-text" placeholder="Your text here..." maxlength="40" style="display:none;" oninput="updateBrandPreview()"/>
+              </div>
+              <!-- Front Toolbox -->
+              <div class="cfg-brand-zone">
+                <div class="cfg-brand-zone-label">Front Toolbox</div>
+                <div class="cfg-brand-radios">
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-c" value="sg" checked onchange="updateBrandZone('c',this.value)"><span class="cfg-brand-radio-text">SG Trailers logo — included</span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-c" value="custom-logo" onchange="updateBrandZone('c',this.value)"><span class="cfg-brand-radio-text">Custom logo<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-c" value="custom-text" onchange="updateBrandZone('c',this.value)"><span class="cfg-brand-radio-text">Custom text<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-c" value="none" onchange="updateBrandZone('c',this.value)"><span class="cfg-brand-radio-text">Leave blank — included</span></label>
+                </div>
+                <input type="text" class="cfg-brand-text" id="brand-c-text" placeholder="Your text here..." maxlength="40" style="display:none;" oninput="updateBrandPreview()"/>
+              </div>
+              <!-- Right Headboard -->
+              <div class="cfg-brand-zone">
+                <div class="cfg-brand-zone-label">Right Headboard</div>
+                <div class="cfg-brand-radios">
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-r" value="sg" checked onchange="updateBrandZone('r',this.value)"><span class="cfg-brand-radio-text">SG Trailers logo — included</span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-r" value="custom-logo" onchange="updateBrandZone('r',this.value)"><span class="cfg-brand-radio-text">Custom logo<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-r" value="custom-text" onchange="updateBrandZone('r',this.value)"><span class="cfg-brand-radio-text">Custom text<span class="cfg-brand-call"> · Call for Pricing</span></span></label>
+                  <label class="cfg-brand-radio"><input type="radio" name="brand-r" value="none" onchange="updateBrandZone('r',this.value)"><span class="cfg-brand-radio-text">Leave blank — included</span></label>
+                </div>
+                <input type="text" class="cfg-brand-text" id="brand-r-text" placeholder="Your text here..." maxlength="40" style="display:none;" oninput="updateBrandPreview()"/>
+              </div>
+              <div class="cfg-brand-hint">Custom logo files must be in .AI or .DXF vector format. Pricing depends on design complexity.</div>
+            </div>
           </div>
         </div>
 
@@ -1757,8 +1820,18 @@
     cfg.optionNames={hitch:'—',jack:'—',springs:'—',axles:'—',wheels:'—',fenders:'—',floor:'—',electrical:'—',extras:'—',design:'—'};
     cfg.options={hitch:0,jack:0,springs:0,axles:0,wheels:0,fenders:0,floor:0,electrical:0,extras:0,design:0};
     catOrder.forEach(cat=>{ document.getElementById('sel-'+cat).textContent='—'; });
-    const logoInput=document.getElementById('cfgLogoText');
-    if(logoInput) logoInput.value='';
+    // Reset branding zones
+    ['l','c','r'].forEach(z=>{
+      const radios=document.querySelectorAll(`input[name="brand-${z}"]`);
+      if(radios.length) radios[0].checked=true;
+      const txt=document.getElementById(`brand-${z}-text`);
+      if(txt){txt.value='';txt.style.display='none';}
+    });
+    const zones=document.getElementById('cfgBrandZones');
+    if(zones) zones.style.display='none';
+    const toggleBtn=document.getElementById('cfgBrandToggleBtn');
+    if(toggleBtn) toggleBtn.textContent='Customize →';
+    updateBrandPreview();
     updateSummaryItems();
     updateTotal();
     scrollToEl('cfgcat-hitch');
@@ -1812,7 +1885,21 @@
     // Build modal summary
     const optTotal=Object.values(cfg.options).reduce((a,b)=>a+b,0);
     const total=cfg.basePrice+optTotal;
-    const logoText=(document.getElementById('cfgLogoText')||{}).value||'';
+    function getBrandSummary(zone,label){
+      const sel=document.querySelector(`input[name="brand-${zone}"]:checked`);
+      const val=sel?sel.value:'sg';
+      if(val==='sg') return `${label}: SG Trailers logo`;
+      if(val==='none') return `${label}: Blank`;
+      if(val==='custom-logo') return `${label}: Custom logo (Call for Pricing)`;
+      if(val==='custom-text'){
+        const txt=(document.getElementById(`brand-${zone}-text`)||{}).value||'';
+        return `${label}: "${txt||'—'}" (Call for Pricing)`;
+      }
+      return `${label}: SG Trailers logo`;
+    }
+    const brandL=getBrandSummary('l','Left Headboard');
+    const brandC=getBrandSummary('c','Front Toolbox');
+    const brandR=getBrandSummary('r','Right Headboard');
     let rows=`
       <div class="modal-summary-row"><span>Model</span><span>${cfg.modelName} — ${cfg.sizeFt} ft</span></div>
       <div class="modal-summary-row"><span>Hitch</span><span>${cfg.optionNames.hitch}</span></div>
@@ -1825,7 +1912,7 @@
       <div class="modal-summary-row"><span>Electrical</span><span>${cfg.optionNames.electrical}</span></div>
       <div class="modal-summary-row"><span>Add-Ons</span><span>${cfg.optionNames.extras}</span></div>
       <div class="modal-summary-row"><span>Color</span><span>${cfg.optionNames.design}</span></div>
-      ${logoText?`<div class="modal-summary-row"><span>Logo / CNC</span><span>${logoText}</span></div>`:''}
+      <div class="modal-summary-row"><span>Branding</span><span>${brandL} / ${brandC} / ${brandR}</span></div>
       <div class="modal-summary-total"><span>Estimated Total</span><span>${fmt(total)}</span></div>
     `;
     document.getElementById('modalSummary').innerHTML=rows;
@@ -1888,27 +1975,47 @@
   });
 
   /* ── TRAILER PREVIEW ── */
-  const trailerPaintIds=['t-tongue','t-deck','t-portillo-l','t-portillo-r','t-fender-1','t-fender-2','t-ramp'];
+  const trailerPaintIds=['t-tongue','t-deck','t-headboard-l','t-headboard-r','t-toolbox','t-fender-1','t-fender-2','t-ramp'];
   const trailerColorMap={
-    'Negro Mate':          {fill:'#1C1C1C',light:false},
-    'Gris Nardo':          {fill:'#9B9B9B',light:true},
-    'Blanco':              {fill:'#DEDAD6',light:true},
-    'Color Personalizado': {fill:'#4A4744',light:false}
+    'Matte Black':   {fill:'#1C1C1C',light:false},
+    'Nardo Gray':    {fill:'#9B9B9B',light:true},
+    'White':         {fill:'#DEDAD6',light:true},
+    'Custom Color':  {fill:'#4A4744',light:false}
   };
   function updateTrailerColor(name){
-    const c=trailerColorMap[name]||trailerColorMap['Negro Mate'];
+    const c=trailerColorMap[name]||trailerColorMap['Matte Black'];
     trailerPaintIds.forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('fill',c.fill);});
     const textFill=c.light?'rgba(20,18,16,0.65)':'rgba(255,255,255,0.6)';
-    ['preview-logo-l','preview-logo-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('fill',textFill);});
+    ['preview-logo-l','preview-logo-c','preview-logo-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('fill',textFill);});
   }
-  // Logo text → portillos + ramp live
-  const cfgLogoInput=document.getElementById('cfgLogoText');
-  if(cfgLogoInput){
-    cfgLogoInput.addEventListener('input',function(){
-      const t=this.value.toUpperCase();
-      ['preview-logo-l','preview-logo-r','preview-ramp-text'].forEach(id=>{
-        const el=document.getElementById(id);if(el)el.textContent=t;
-      });
+
+  /* ── BRANDING SYSTEM ── */
+  function toggleBrandCustomizer(){
+    const zones=document.getElementById('cfgBrandZones');
+    const btn=document.getElementById('cfgBrandToggleBtn');
+    const isOpen=zones.style.display!=='none';
+    zones.style.display=isOpen?'none':'flex';
+    btn.textContent=isOpen?'Customize →':'Close ✕';
+  }
+  function updateBrandZone(zone,value){
+    const txt=document.getElementById('brand-'+zone+'-text');
+    if(txt) txt.style.display=(value==='custom-text')?'block':'none';
+    updateBrandPreview();
+  }
+  function updateBrandPreview(){
+    const zones={l:'preview-logo-l',c:'preview-logo-c',r:'preview-logo-r'};
+    Object.entries(zones).forEach(([zone,svgId])=>{
+      const el=document.getElementById(svgId);
+      if(!el) return;
+      const sel=document.querySelector(`input[name="brand-${zone}"]:checked`);
+      const val=sel?sel.value:'sg';
+      if(val==='sg') el.textContent='SG TRAILERS';
+      else if(val==='none') el.textContent='';
+      else if(val==='custom-logo') el.textContent='[ LOGO ]';
+      else if(val==='custom-text'){
+        const txt=(document.getElementById(`brand-${zone}-text`)||{}).value||'';
+        el.textContent=txt.toUpperCase()||'YOUR TEXT';
+      }
     });
   }
 
