@@ -219,6 +219,9 @@
     .mega-card-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);padding:14px 16px 4px;transition:color .3s;}
     .mega-card:hover .mega-card-name{color:var(--gold);}
     .mega-card-tier{font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:12px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;padding:0 16px 16px;}
+    .mega-footer{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:center;}
+    .mega-config-btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;padding:13px 32px;border-radius:100px;text-decoration:none;transition:background .2s,transform .2s;}
+    .mega-config-btn:hover{background:#cc2600;transform:translateY(-1px);}
     @media(max-width:768px){.mega-menu-inner{padding:80px 20px 40px;}.mega-grid{grid-template-columns:1fr 1fr;gap:10px;}}
 
     /* ── MAIN LAYOUT ── */
@@ -759,6 +762,12 @@
         <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
         <div class="mega-card-name">Apocalypse</div>
         <div class="mega-card-tier">Top of Line</div>
+      </a>
+    </div>
+    <div class="mega-footer">
+      <a href="configurator.html" class="mega-config-btn" onclick="closeMega()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+        Build Your Trailer
       </a>
     </div>
   </div>
