@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Trailers — Configurator Review</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, sans-serif; font-size: 13px; color: #1a1a1a; background: #fff; padding: 40px; max-width: 900px; margin: 0 auto; }
+
+  /* PRINT */
+  @media print {
+    body { padding: 20px; font-size: 11px; }
+    .no-print { display: none; }
+    section { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+  }
+
+  /* HEADER */
+  .doc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 3px solid #1a1a1a; }
+  .doc-logo { font-size: 24px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  .doc-logo span { color: #c9a200; }
+  .doc-meta { text-align: right; font-size: 11px; color: #666; line-height: 1.8; }
+  .doc-title { font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+
+  /* INTRO */
+  .doc-intro { background: #f9f7f2; border-left: 4px solid #c9a200; padding: 14px 18px; margin-bottom: 32px; font-size: 12px; color: #444; line-height: 1.7; }
+  .doc-intro strong { color: #1a1a1a; }
+
+  /* SECTION */
+  section { margin-bottom: 36px; }
+  h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; color: #fff; background: #1a1a1a; padding: 8px 14px; margin-bottom: 0; }
+  h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: #c9a200; background: #f5f3ee; padding: 6px 14px; border-bottom: 1px solid #e0dbd0; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #888; background: #fafafa; padding: 7px 12px; border: 1px solid #e0dbd0; text-align: left; }
+  td { padding: 8px 12px; border: 1px solid #e0dbd0; vertical-align: top; line-height: 1.5; }
+  tr:nth-child(even) td { background: #fafafa; }
+  .price-col { width: 140px; text-align: right; }
+  .notes-col { width: 160px; }
+  .included { color: #2e7d32; font-weight: 600; font-size: 11px; }
+  .call { color: #888; font-size: 11px; font-style: italic; }
+  .fill-price { background: #fffbea !important; border: 1px dashed #c9a200 !important; min-width: 100px; }
+  .name-cell { font-weight: 600; }
+  .desc-cell { color: #555; font-size: 11px; }
+
+  /* SIZES TABLE */
+  .sizes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #e0dbd0; }
+  .size-cell { padding: 8px 10px; border-right: 1px solid #e0dbd0; border-bottom: 1px solid #e0dbd0; }
+  .size-cell:nth-child(4n) { border-right: none; }
+  .size-ft { font-weight: 700; font-size: 13px; }
+  .size-note { font-size: 10px; color: #c9a200; font-weight: 600; }
+  .size-price-field { font-size: 10px; color: #aaa; margin-top: 2px; }
+  .size-jump { grid-column: 1 / -1; background: #fffbea; padding: 5px 10px; font-size: 10px; font-weight: 700; color: #c9a200; text-transform: uppercase; letter-spacing: .15em; border-bottom: 1px solid #e0dbd0; }
+
+  /* NOTES BOX */
+  .notes-box { border: 1px solid #e0dbd0; padding: 16px; margin-top: 8px; min-height: 80px; font-size: 11px; color: #aaa; font-style: italic; }
+
+  /* PRINT BTN */
+  .print-btn { display: inline-flex; align-items: center; gap: 8px; background: #1a1a1a; color: #fff; padding: 12px 28px; font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; border: none; cursor: pointer; margin-bottom: 32px; }
+  .print-btn:hover { background: #c9a200; }
+  .csv-btn { display: inline-flex; align-items: center; gap: 8px; background: #2e7d32; color: #fff; padding: 12px 28px; font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; border: none; cursor: pointer; margin-bottom: 32px; margin-left: 12px; }
+  .csv-btn:hover { background: #1b5e20; }
+
+  /* FOOTER */
+  .doc-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e0dbd0; font-size: 10px; color: #aaa; text-align: center; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">&#128438; Print / Save as PDF</button>
+<button class="csv-btn no-print" onclick="exportCSV()">&#128196; Export to CSV (Numbers / Excel)</button>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div>
+    <div class="doc-logo">SG <span>Trailers</span></div>
+    <div style="font-size:11px;color:#888;margin-top:4px;">Yuma, Arizona · Direct Manufacturer</div>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-title">Configurator Review</div>
+    <div>Document prepared for client review</div>
+    <div>Version: April 2026</div>
+    <div style="margin-top:6px;color:#c9a200;font-weight:700;">⚠ Prices marked "FILL" need to be confirmed</div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="doc-intro">
+  <strong>Purpose of this document:</strong> Review all options available in the online configurator — verify names, descriptions, and confirm pricing for each item. Yellow cells marked <strong>FILL</strong> need a price from the client. Items marked <strong>Included</strong> are part of the base price.
+</div>
+
+<!-- ── MODELS & SIZES ── -->
+<section>
+  <h2>Step 1 &amp; 2 — Models &amp; Sizes</h2>
+
+  <h3>Apolo — Mid Range · Car Hauler</h3>
+  <div style="padding:10px 14px;border:1px solid #e0dbd0;border-top:none;font-size:11px;color:#555;margin-bottom:4px;">Base price starting from 8ft. Sizes available every 2ft from 8ft to 32ft. Sizes 22ft+ are "Extended size — pricing varies."</div>
+  <div class="sizes-grid">
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Size</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Current Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Client Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Notes</div>
+    <div class="size-cell"><div class="size-ft">8 ft</div></div><div class="size-cell"><span class="call">$4,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">10 ft</div></div><div class="size-cell"><span class="call">$5,100</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">12 ft</div></div><div class="size-cell"><span class="call">$6,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">14 ft</div></div><div class="size-cell"><span class="call">$7,100</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">16 ft</div></div><div class="size-cell"><span class="call">$8,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">18 ft</div></div><div class="size-cell"><span class="call">$9,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">20 ft</div></div><div class="size-cell"><span class="call">$11,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-jump">⚡ Extended Size — Pricing varies from here (material &amp; production cost jump)</div>
+    <div class="size-cell"><div class="size-ft">22 ft</div><div class="size-note">↑ Jump</div></div><div class="size-cell"><span class="call">$14,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">24 ft</div></div><div class="size-cell"><span class="call">$16,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">26 ft</div></div><div class="size-cell"><span class="call">$18,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">28 ft</div></div><div class="size-cell"><span class="call">$20,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">30 ft</div></div><div class="size-cell"><span class="call">$22,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">32 ft</div></div><div class="size-cell"><span class="call">$25,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+  </div>
+
+  <h3 style="margin-top:16px;">Anubis — Entry Level · Car Hauler</h3>
+  <div class="sizes-grid">
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Size</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Current Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Client Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Notes</div>
+    <div class="size-cell"><div class="size-ft">8 ft</div></div><div class="size-cell"><span class="call">$5,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">10 ft</div></div><div class="size-cell"><span class="call">$6,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">12 ft</div></div><div class="size-cell"><span class="call">$8,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">14 ft</div></div><div class="size-cell"><span class="call">$10,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">16 ft</div></div><div class="size-cell"><span class="call">$11,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">18 ft</div></div><div class="size-cell"><span class="call">$12,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">20 ft</div></div><div class="size-cell"><span class="call">$14,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-jump">⚡ Extended Size — Pricing varies from here</div>
+    <div class="size-cell"><div class="size-ft">22 ft</div><div class="size-note">↑ Jump</div></div><div class="size-cell"><span class="call">$18,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">24 ft</div></div><div class="size-cell"><span class="call">$20,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">26 ft</div></div><div class="size-cell"><span class="call">$23,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">28 ft</div></div><div class="size-cell"><span class="call">$25,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">30 ft</div></div><div class="size-cell"><span class="call">$28,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">32 ft</div></div><div class="size-cell"><span class="call">$31,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+  </div>
+
+  <h3 style="margin-top:16px;">Armagedon — Upper Mid · Car Hauler</h3>
+  <div class="sizes-grid">
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Size</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Current Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Client Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Notes</div>
+    <div class="size-cell"><div class="size-ft">8 ft</div></div><div class="size-cell"><span class="call">$7,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">10 ft</div></div><div class="size-cell"><span class="call">$9,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">12 ft</div></div><div class="size-cell"><span class="call">$11,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">14 ft</div></div><div class="size-cell"><span class="call">$13,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">16 ft</div></div><div class="size-cell"><span class="call">$15,800</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">18 ft</div></div><div class="size-cell"><span class="call">$17,200</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">20 ft</div></div><div class="size-cell"><span class="call">$18,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-jump">⚡ Extended Size — Pricing varies from here</div>
+    <div class="size-cell"><div class="size-ft">22 ft</div><div class="size-note">↑ Jump</div></div><div class="size-cell"><span class="call">$23,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">24 ft</div></div><div class="size-cell"><span class="call">$26,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">26 ft</div></div><div class="size-cell"><span class="call">$29,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">28 ft</div></div><div class="size-cell"><span class="call">$32,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">30 ft</div></div><div class="size-cell"><span class="call">$35,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">32 ft</div></div><div class="size-cell"><span class="call">$39,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+  </div>
+
+  <h3 style="margin-top:16px;">Apocalypse — Top of Line · Car Hauler</h3>
+  <div class="sizes-grid">
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Size</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Current Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Client Price</div>
+    <div class="size-cell" style="background:#f5f3ee;font-size:10px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;">Notes</div>
+    <div class="size-cell"><div class="size-ft">8 ft</div></div><div class="size-cell"><span class="call">$10,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">10 ft</div></div><div class="size-cell"><span class="call">$12,500</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">12 ft</div></div><div class="size-cell"><span class="call">$15,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">14 ft</div></div><div class="size-cell"><span class="call">$18,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">16 ft</div></div><div class="size-cell"><span class="call">$21,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">18 ft</div></div><div class="size-cell"><span class="call">$24,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">20 ft</div></div><div class="size-cell"><span class="call">$27,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-jump">⚡ Extended Size — Pricing varies from here</div>
+    <div class="size-cell"><div class="size-ft">22 ft</div><div class="size-note">↑ Jump</div></div><div class="size-cell"><span class="call">$33,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">24 ft</div></div><div class="size-cell"><span class="call">$37,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">26 ft</div></div><div class="size-cell"><span class="call">$41,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">28 ft</div></div><div class="size-cell"><span class="call">$45,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">30 ft</div></div><div class="size-cell"><span class="call">$49,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+    <div class="size-cell"><div class="size-ft">32 ft</div></div><div class="size-cell"><span class="call">$54,000</span></div><div class="size-cell fill-price"></div><div class="size-cell"></div>
+  </div>
+</section>
+
+<!-- ── STEP 3: OPTIONS ── -->
+<section>
+  <h2>Step 3 — Configuration Options</h2>
+
+  <!-- HITCH -->
+  <h3>1. Hitch</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Ball Hitch — Adjustable Base</td><td class="desc-cell">Standard · adjustable height · fits most pickup trucks</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Ball Hitch — Fixed Base</td><td class="desc-cell">Fixed height · rigid mount</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Gooseneck</td><td class="desc-cell">Higher load capacity · better weight distribution</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">5th Wheel</td><td class="desc-cell">Heavy duty · maximum towing capacity</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- JACK -->
+  <h3>2. Jack</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Standard 7K</td><td class="desc-cell">Manual jack · 7,000 lbs capacity</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">RAM Hydraulic 7K</td><td class="desc-cell">RAM brand hydraulic jack · easy one-motion operation</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- SUSPENSION -->
+  <h3>3. Suspension &amp; Springs</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">4-Leaf — 1,750 lbs EA</td><td class="desc-cell">Base suspension · light loads</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">4-Leaf — 2,400 lbs EA</td><td class="desc-cell">Higher load capacity per axle</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">5-Leaf — 2,900 lbs EA</td><td class="desc-cell">Heavy-duty suspension · medium loads</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">5-Leaf — 5,000 lbs</td><td class="desc-cell">High capacity · for heavy loads</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">6-Leaf Standard EA</td><td class="desc-cell">Maximum standard suspension · very heavy loads</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">6-Leaf Slip 29.5</td><td class="desc-cell">Slip suspension · better impact absorption on rough terrain</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- AXLES -->
+  <h3>4. Axles &amp; Brakes</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Single Axle — No Brakes</td><td class="desc-cell">Single axle · light loads</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Tandem Axle — No Brakes</td><td class="desc-cell">Tandem · better load distribution</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Tandem Axle — Brakes on 1 Axle</td><td class="desc-cell">Electric brakes on rear axle</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Tandem Axle — Brakes on Both</td><td class="desc-cell">Electric brakes on both axles · maximum control</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Triple Axle — With Brakes</td><td class="desc-cell">Triple axle · extreme loads · maximum stability</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- WHEELS -->
+  <h3>5. Wheels &amp; Tires</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">15" Steel — 205/75R15</td><td class="desc-cell">Standard steel wheel · 10-ply · 4 tires</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">15" Steel — With Spare</td><td class="desc-cell">205/75R15 · 10-ply · + mounted spare tire</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">16" Steel — 205/75R16</td><td class="desc-cell">Larger diameter · higher load capacity</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">17.5" Modular — 205/75R17.5</td><td class="desc-cell">High-performance modular wheel · heavy duty</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Sendel / Special Model</td><td class="desc-cell">Sendel wheels or model to specify in notes</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- FENDERS -->
+  <h3>6. Fenders</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Smooth Steel</td><td class="desc-cell">Standard smooth steel fender</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Tread Plate Steel</td><td class="desc-cell">Tread plate finish · extra durability</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Aluminum Diamond Plate</td><td class="desc-cell">Aluminum diamond plate · lighter and corrosion-resistant</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">With Overfender — Steel</td><td class="desc-cell">Extended steel fender · for wider tires</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">With Overfender — Aluminum</td><td class="desc-cell">Premium aluminum overfender · polished finish</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- FLOOR -->
+  <h3>7. Floor &amp; Structure</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Open Center</td><td class="desc-cell">Open center floor · standard configuration · easy to clean</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Treated Wood 2×6"</td><td class="desc-cell">Treated pine · 2"×12"×16' boards</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Treated Wood 2×8"</td><td class="desc-cell">Thicker gauge · greater structural rigidity</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Full Diamond Plate 1/8"</td><td class="desc-cell">Non-slip aluminum plate · easy to clean</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Full Diamond Plate 1/4"</td><td class="desc-cell">Thick diamond plate · maximum industrial durability</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- ELECTRICAL -->
+  <h3>8. Electrical &amp; Accessories</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Basic — DOT Lighting</td><td class="desc-cell">7-pin connector · running lights · red/white reflective tape · break-away</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">SG LED Kit</td><td class="desc-cell">Full interior &amp; exterior LED · illuminated logos · break-away</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">LED Kit + Rock Light + Pop-up Winch</td><td class="desc-cell">Full LED + rock lights + 5K emergency winch + backup light</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">100W Solar Kit + AGM Battery</td><td class="desc-cell">100W solar panel + AGM battery + LED — self-sufficient</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">200W Solar Kit + LiFePO4 + Rock Light</td><td class="desc-cell">200W panel + lithium battery + LED + rock light · ultimate setup</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- ADD-ONS -->
+  <h3>9. Add-Ons</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">No Add-Ons</td><td class="desc-cell">Base configuration</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Hydraulic Tilt Deck</td><td class="desc-cell">Hydraulic tilting platform · easy loading and unloading</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Hydraulic Ramp</td><td class="desc-cell">Hydraulic loading ramp · for vehicles and heavy equipment</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Reinforced Chassis 3/16"</td><td class="desc-cell">Chassis thickness increased to 3/16" · greater structural strength</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- DESIGN & COLOR -->
+  <h3>10. Design &amp; Color</h3>
+  <table>
+    <tr><th>Option Name</th><th>Description</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Matte Black</td><td class="desc-cell">Sleek and durable — standard finish</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Nardo Gray</td><td class="desc-cell">Premium pearl gray tone</td><td><span class="included">Included</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">White</td><td class="desc-cell">Classic and clean</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Custom Color</td><td class="desc-cell">Specify your color in notes — quoted separately</td><td><span class="call">Call for Pricing</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+
+  <!-- BRANDING -->
+  <h3>10b. Trailer Branding (3 Zones)</h3>
+  <table>
+    <tr><th>Zone</th><th>Options Available</th><th>Current Price</th><th class="fill-price">Client Price</th><th>Notes</th></tr>
+    <tr><td class="name-cell">Left Headboard</td><td class="desc-cell">SG logo / Custom logo / Custom text / Leave blank</td><td><span class="included">SG logo: Included · Custom: Call</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Front Toolbox</td><td class="desc-cell">SG logo / Custom logo / Custom text / Leave blank</td><td><span class="included">SG logo: Included · Custom: Call</span></td><td class="fill-price"></td><td></td></tr>
+    <tr><td class="name-cell">Right Headboard</td><td class="desc-cell">SG logo / Custom logo / Custom text / Leave blank</td><td><span class="included">SG logo: Included · Custom: Call</span></td><td class="fill-price"></td><td></td></tr>
+  </table>
+  <div style="font-size:10px;color:#888;padding:8px 0;">* Custom logo files must be in .AI or .DXF vector format. Pricing depends on design complexity.</div>
+</section>
+
+<!-- GENERAL NOTES -->
+<section>
+  <h2>General Notes &amp; Pending Items</h2>
+  <div class="notes-box">
+    Space for client comments, corrections, or additions...
+  </div>
+</section>
+
+<div class="doc-footer">
+  SG Trailers LLC · Yuma, Arizona · Direct Manufacturer · No Dealer Markup<br>
+  Document generated from configurator.html · April 2026 · For internal review only
+</div>
+
+<script>
+function exportCSV(){
+  const rows = [];
+
+  // Header
+  rows.push(['SG Trailers — Configurator Review','','','','']);
+  rows.push(['','','','','']);
+
+  // SIZES
+  rows.push(['MODELS & SIZES','','','','']);
+  rows.push(['Model','Size (ft)','Current Price','Client Price','Notes']);
+
+  const sizeData = {
+    'Apolo — Mid Range': [
+      [8,4200],[10,5100],[12,6000],[14,7100],[16,8500],[18,9800],[20,11200],
+      ['--- EXTENDED SIZE (pricing varies) ---','','','',''],
+      [22,14800],[24,16500],[26,18200],[28,20000],[30,22500],[32,25000]
+    ],
+    'Anubis — Entry Level': [
+      [8,5500],[10,6800],[12,8200],[14,10000],[16,11500],[18,12800],[20,14500],
+      ['--- EXTENDED SIZE (pricing varies) ---','','','',''],
+      [22,18500],[24,20800],[26,23000],[28,25500],[30,28000],[32,31000]
+    ],
+    'Armagedon — Upper Mid': [
+      [8,7500],[10,9200],[12,11000],[14,13500],[16,15800],[18,17200],[20,18500],
+      ['--- EXTENDED SIZE (pricing varies) ---','','','',''],
+      [22,23500],[24,26500],[26,29000],[28,32000],[30,35500],[32,39000]
+    ],
+    'Apocalypse — Top of Line': [
+      [8,10000],[10,12500],[12,15000],[14,18000],[16,21000],[18,24000],[20,27000],
+      ['--- EXTENDED SIZE (pricing varies) ---','','','',''],
+      [22,33000],[24,37000],[26,41000],[28,45000],[30,49000],[32,54000]
+    ]
+  };
+
+  Object.entries(sizeData).forEach(([model, sizes])=>{
+    sizes.forEach((s,i)=>{
+      if(typeof s[0]==='string'){
+        rows.push(['',s[0],'','','']);
+      } else {
+        rows.push([i===0?model:'', s[0]+' ft', '$'+s[1].toLocaleString(), '', '']);
+      }
+    });
+    rows.push(['','','','','']);
+  });
+
+  // OPTIONS
+  const options = [
+    ['HITCH','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Hitch','Ball Hitch — Adjustable Base','Standard · adjustable height · fits most pickup trucks','Included',''],
+    ['Hitch','Ball Hitch — Fixed Base','Fixed height · rigid mount','Included',''],
+    ['Hitch','Gooseneck','Higher load capacity · better weight distribution','Call for Pricing',''],
+    ['Hitch','5th Wheel','Heavy duty · maximum towing capacity','Call for Pricing',''],
+    ['','','','',''],
+    ['JACK','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Jack','Standard 7K','Manual jack · 7,000 lbs capacity','Included',''],
+    ['Jack','RAM Hydraulic 7K','RAM brand hydraulic jack · easy one-motion operation','Call for Pricing',''],
+    ['','','','',''],
+    ['SUSPENSION & SPRINGS','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Springs','4-Leaf — 1,750 lbs EA','Base suspension · light loads','Included',''],
+    ['Springs','4-Leaf — 2,400 lbs EA','Higher load capacity per axle','Call for Pricing',''],
+    ['Springs','5-Leaf — 2,900 lbs EA','Heavy-duty suspension · medium loads','Call for Pricing',''],
+    ['Springs','5-Leaf — 5,000 lbs','High capacity · for heavy loads','Call for Pricing',''],
+    ['Springs','6-Leaf Standard EA','Maximum standard suspension · very heavy loads','Call for Pricing',''],
+    ['Springs','6-Leaf Slip 29.5','Slip suspension · better impact absorption on rough terrain','Call for Pricing',''],
+    ['','','','',''],
+    ['AXLES & BRAKES','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Axles','Single Axle — No Brakes','Single axle · light loads','Included',''],
+    ['Axles','Tandem Axle — No Brakes','Tandem · better load distribution','Included',''],
+    ['Axles','Tandem Axle — Brakes on 1 Axle','Electric brakes on rear axle','Call for Pricing',''],
+    ['Axles','Tandem Axle — Brakes on Both','Electric brakes on both axles · maximum control','Call for Pricing',''],
+    ['Axles','Triple Axle — With Brakes','Triple axle · extreme loads · maximum stability','Call for Pricing',''],
+    ['','','','',''],
+    ['WHEELS & TIRES','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Wheels','15" Steel — 205/75R15','Standard steel wheel · 10-ply · 4 tires','Included',''],
+    ['Wheels','15" Steel — With Spare','205/75R15 · 10-ply · + mounted spare tire','Call for Pricing',''],
+    ['Wheels','16" Steel — 205/75R16','Larger diameter · higher load capacity','Call for Pricing',''],
+    ['Wheels','17.5" Modular — 205/75R17.5','High-performance modular wheel · heavy duty','Call for Pricing',''],
+    ['Wheels','Sendel / Special Model','Sendel wheels or model to specify in notes','Call for Pricing',''],
+    ['','','','',''],
+    ['FENDERS','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Fenders','Smooth Steel','Standard smooth steel fender','Included',''],
+    ['Fenders','Tread Plate Steel','Tread plate finish · extra durability','Call for Pricing',''],
+    ['Fenders','Aluminum Diamond Plate','Aluminum diamond plate · lighter and corrosion-resistant','Call for Pricing',''],
+    ['Fenders','With Overfender — Steel','Extended steel fender · for wider tires','Call for Pricing',''],
+    ['Fenders','With Overfender — Aluminum','Premium aluminum overfender · polished finish','Call for Pricing',''],
+    ['','','','',''],
+    ['FLOOR & STRUCTURE','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Floor','Open Center','Open center floor · standard configuration · easy to clean','Included',''],
+    ['Floor','Treated Wood 2x6"','Treated pine · 2"x12"x16\' boards','Call for Pricing',''],
+    ['Floor','Treated Wood 2x8"','Thicker gauge · greater structural rigidity','Call for Pricing',''],
+    ['Floor','Full Diamond Plate 1/8"','Non-slip aluminum plate · easy to clean','Call for Pricing',''],
+    ['Floor','Full Diamond Plate 1/4"','Thick diamond plate · maximum industrial durability','Call for Pricing',''],
+    ['','','','',''],
+    ['ELECTRICAL & ACCESSORIES','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Electrical','Basic — DOT Lighting','7-pin connector · running lights · red/white reflective tape · break-away','Included',''],
+    ['Electrical','SG LED Kit','Full interior & exterior LED · illuminated logos · break-away','Call for Pricing',''],
+    ['Electrical','LED Kit + Rock Light + Pop-up Winch','Full LED + rock lights + 5K emergency winch + backup light','Call for Pricing',''],
+    ['Electrical','100W Solar Kit + AGM Battery','100W solar panel + AGM battery + LED — self-sufficient','Call for Pricing',''],
+    ['Electrical','200W Solar Kit + LiFePO4 + Rock Light','200W panel + lithium battery + LED + rock light · ultimate setup','Call for Pricing',''],
+    ['','','','',''],
+    ['ADD-ONS','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Add-Ons','No Add-Ons','Base configuration','Included',''],
+    ['Add-Ons','Hydraulic Tilt Deck','Hydraulic tilting platform · easy loading and unloading','Call for Pricing',''],
+    ['Add-Ons','Hydraulic Ramp','Hydraulic loading ramp · for vehicles and heavy equipment','Call for Pricing',''],
+    ['Add-Ons','Reinforced Chassis 3/16"','Chassis thickness increased to 3/16" · greater structural strength','Call for Pricing',''],
+    ['','','','',''],
+    ['DESIGN & COLOR','','','',''],
+    ['Category','Option Name','Description','Current Price','Client Price'],
+    ['Design','Matte Black','Sleek and durable — standard finish','Included',''],
+    ['Design','Nardo Gray','Premium pearl gray tone','Included',''],
+    ['Design','White','Classic and clean','Call for Pricing',''],
+    ['Design','Custom Color','Specify your color in notes — quoted separately','Call for Pricing',''],
+    ['','','','',''],
+    ['BRANDING (3 Zones)','','','',''],
+    ['Zone','Options','','Current Price','Client Price'],
+    ['Left Headboard','SG logo / Custom logo / Custom text / Leave blank','','SG logo: Included · Custom: Call',''],
+    ['Front Toolbox','SG logo / Custom logo / Custom text / Leave blank','','SG logo: Included · Custom: Call',''],
+    ['Right Headboard','SG logo / Custom logo / Custom text / Leave blank','','SG logo: Included · Custom: Call',''],
+  ];
+
+  options.forEach(r => rows.push(r));
+
+  // Build CSV
+  const csv = rows.map(row =>
+    row.map(cell => '"' + String(cell).replace(/"/g, '""') + '"').join(',')
+  ).join('\n');
+
+  // Download
+  const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'SG_Trailers_Configurator_Review.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

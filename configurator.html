@@ -396,6 +396,8 @@
     }
     .size-pick-btn:hover{border-color:rgba(232,184,0,.4);color:var(--white);}
     .size-pick-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--black);}
+    .size-jump-divider{width:100%;display:flex;align-items:center;gap:10px;margin:4px 0;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(232,184,0,.6);}
+    .size-jump-divider::before,.size-jump-divider::after{content:'';flex:1;height:1px;background:rgba(232,184,0,.2);}
 
     /* ── OPTION CATEGORIES (Step 3) ── */
     .cfg-category{margin-bottom:0;padding:36px 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:.25;pointer-events:none;transition:opacity .4s;}
@@ -1663,10 +1665,22 @@
   ══════════════════════════════ */
 
   const models={
-    apolo:{sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}]},
-    anubis:{sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}]},
-    armagedon:{sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}]},
-    apocalypse:{sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}]}
+    apolo:{sizes:[
+      {ft:8,price:4200},{ft:10,price:5100},{ft:12,price:6000},{ft:14,price:7100},{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},
+      {ft:22,price:14800,jump:true},{ft:24,price:16500},{ft:26,price:18200},{ft:28,price:20000},{ft:30,price:22500},{ft:32,price:25000}
+    ]},
+    anubis:{sizes:[
+      {ft:8,price:5500},{ft:10,price:6800},{ft:12,price:8200},{ft:14,price:10000},{ft:16,price:11500},{ft:18,price:12800},{ft:20,price:14500},
+      {ft:22,price:18500,jump:true},{ft:24,price:20800},{ft:26,price:23000},{ft:28,price:25500},{ft:30,price:28000},{ft:32,price:31000}
+    ]},
+    armagedon:{sizes:[
+      {ft:8,price:7500},{ft:10,price:9200},{ft:12,price:11000},{ft:14,price:13500},{ft:16,price:15800},{ft:18,price:17200},{ft:20,price:18500},
+      {ft:22,price:23500,jump:true},{ft:24,price:26500},{ft:26,price:29000},{ft:28,price:32000},{ft:30,price:35500},{ft:32,price:39000}
+    ]},
+    apocalypse:{sizes:[
+      {ft:8,price:10000},{ft:10,price:12500},{ft:12,price:15000},{ft:14,price:18000},{ft:16,price:21000},{ft:18,price:24000},{ft:20,price:27000},
+      {ft:22,price:33000,jump:true},{ft:24,price:37000},{ft:26,price:41000},{ft:28,price:45000},{ft:30,price:49000},{ft:32,price:54000}
+    ]}
   };
 
   const cfg={
@@ -1701,7 +1715,10 @@
     document.getElementById('summaryImgEl').style.display='block';
     // Build size grid
     const grid=document.getElementById('sizeGrid');
-    grid.innerHTML=models[key].sizes.map(s=>`<button class="size-pick-btn" onclick="selectSize(this,${s.price},${s.ft})">${s.ft} ft</button>`).join('');
+    grid.innerHTML=models[key].sizes.map(s=>{
+      const divider=s.jump?`<div class="size-jump-divider">Extended size — pricing varies</div>`:'';
+      return divider+`<button class="size-pick-btn" onclick="selectSize(this,${s.price},${s.ft})">${s.ft} ft</button>`;
+    }).join('');
     // Activate step 2
     document.getElementById('cfg-step-2').classList.add('active');
     document.getElementById('step-ind-1').classList.remove('active');

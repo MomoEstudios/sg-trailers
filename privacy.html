@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — SG Trailers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  try{if(localStorage.getItem('sg-theme')==='light')document.documentElement.classList.add('light-pre')}catch(e){}
+</script>
+<style>
+  :root{
+    --gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#8A8884;
+    --black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html.light-pre{background:#F0EDE8;}
+  body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;font-size:14px;font-weight:400;line-height:1.75;overflow-x:hidden;cursor:none;}
+  body.light{--gold:#A67C00;--gray-md:#6B6865;--black:#F0EDE8;--black-s:#E8E4DF;--black-c:#DEDAD6;--black-d:#D4CFC9;--white:#1C1B19;}
+  #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;}
+  #ring{position:fixed;width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:border-color .3s;}
+
+  /* NAV */
+  nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9997;display:flex;justify-content:space-between;align-items:center;padding:0 18px;height:52px;width:calc(100% - 48px);max-width:870px;background:rgba(14,13,12,.68);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(232,184,0,.22);border-radius:100px;box-shadow:0 8px 32px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);}
+  @media(min-width:769px){.nav-logo{display:none;}nav{justify-content:center;}.nav-links{position:static;transform:none;display:flex;gap:22px;}.nav-right{margin-left:20px;padding-right:14px;}}
+  .nav-links{display:flex;gap:28px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+  .nav-links a{color:var(--gray-md);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative;padding-bottom:3px;white-space:nowrap;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;padding-right:10px;}
+  .nav-logo{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:.18em;color:var(--white);text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+  .nav-logo span{color:var(--gold);}
+  .nav-cta{background:var(--red);color:var(--white);border:none;padding:9px 20px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s;border-radius:100px;text-decoration:none;}
+  .nav-cta:hover{background:#cc2600;}
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);padding:0;cursor:none;}
+  .nav-hamburger span{width:18px;height:1.5px;background:var(--white);display:block;transition:all .3s;}
+  .nav-floating-logo{position:fixed;top:10px;z-index:9999;left:max(20px,calc(50% - 470px));display:flex;align-items:center;text-decoration:none;opacity:1;transition:opacity .5s ease;}
+  .nav-floating-logo img{height:82px;width:auto;}
+  .nav-floating-logo.hidden{opacity:0;pointer-events:none;}
+  .nav-theme-bubble{position:fixed;top:22px;right:max(24px,calc(50% - 490px));z-index:9999;width:46px;height:46px;border-radius:50%;background:rgba(14,13,12,.68);backdrop-filter:blur(28px);border:1px solid rgba(232,184,0,.22);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:none;transition:border-color .3s,background .3s;}
+  @media(max-width:960px){.nav-floating-logo,.nav-theme-bubble{display:none;}}
+  @media(min-width:769px){body.scrolled nav{justify-content:space-between;}body.scrolled .nav-logo{display:flex !important;}body.scrolled .nav-links{position:absolute !important;left:50% !important;transform:translateX(-50%) !important;}}
+  @media(max-width:768px){
+    nav{top:0;left:0;right:0;width:100%;transform:none;max-width:none;border-radius:0;height:60px;padding:0 16px;border:none;border-bottom:1px solid rgba(232,184,0,.15);}
+    .nav-links,.nav-right .nav-cta{display:none;}
+    .nav-hamburger{display:flex;}
+    .nav-logo{display:flex;}
+  }
+  body.light nav{background:rgba(240,237,234,.80);border-color:rgba(232,184,0,.3);}
+
+  /* MOBILE MENU */
+  .mobile-menu{position:fixed;inset:0;z-index:9998;background:rgba(10,9,8,.68);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .mobile-menu-logo{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;letter-spacing:.18em;color:var(--white);text-transform:uppercase;}
+  .mobile-menu-logo span{color:var(--gold);}
+  .mobile-menu-actions{display:flex;gap:10px;align-items:center;}
+  .mobile-theme-toggle{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:none;}
+  .mobile-menu-close{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:var(--white);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;}
+  .mobile-menu-links{flex:1;overflow-y:auto;padding:8px 0;}
+  .mobile-menu-links>a{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s;}
+  .mobile-menu-links>a:hover{color:var(--gold);}
+  .mob-group-btn{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;width:100%;background:transparent;border:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);cursor:none;text-align:left;}
+  .mob-group-btn:hover,.mob-group-btn.open{color:var(--gold);}
+  .mob-group-arrow{font-size:18px;color:var(--gray-dk);transition:transform .3s;}
+  .mob-group-btn.open .mob-group-arrow{transform:rotate(90deg);color:var(--gold);}
+  .mob-sub{display:none;background:rgba(0,0,0,.2);}
+  .mob-sub.open{display:block;}
+  .mob-sub a{display:block;padding:13px 20px 13px 32px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-md);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);}
+  .mob-sub a:hover{color:var(--gold);}
+  .mob-dimmed{opacity:.22;transition:opacity .3s;}
+  .mobile-menu-cta{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:100px;margin:16px;}
+
+  /* PAGE */
+  .page-hero{padding:160px 60px 80px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);}
+  .page-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:14px;justify-content:center;}
+  .page-eyebrow::before,.page-eyebrow::after{content:'';width:24px;height:1px;background:var(--gold);opacity:.4;}
+  .page-hero h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px;}
+  .page-hero p{font-size:15px;color:var(--gray-md);max-width:500px;margin:0 auto;}
+
+  /* CONTENT */
+  .privacy-wrap{max-width:760px;margin:0 auto;padding:80px 60px;}
+  .privacy-section{margin-bottom:48px;}
+  .privacy-section h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(232,184,0,.2);}
+  .privacy-section h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:.15em;text-transform:uppercase;color:var(--white);margin:20px 0 8px;}
+  .privacy-section p{color:var(--gray-md);line-height:1.8;margin-bottom:12px;}
+  .privacy-section ul{color:var(--gray-md);padding-left:20px;line-height:1.8;margin-bottom:12px;}
+  .privacy-section ul li{margin-bottom:6px;}
+  .privacy-section a{color:var(--gold);text-decoration:none;}
+  .privacy-section a:hover{text-decoration:underline;}
+  .privacy-highlight{background:rgba(232,184,0,.06);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;border-radius:0 4px 4px 0;}
+  .privacy-highlight p{margin:0;color:rgba(255,255,255,.8);}
+  .privacy-date{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-md);margin-bottom:40px;}
+
+  /* FOOTER */
+  footer{background:var(--black-d);border-top:1px solid rgba(255,255,255,.06);padding:60px 60px 32px;}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+  .footer-brand img{height:56px;width:auto;margin-bottom:16px;}
+  .footer-tagline{font-size:14px;color:var(--gray-md);line-height:1.75;max-width:220px;}
+  .footer-social{display:flex;gap:10px;margin-top:20px;}
+  .footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--gray-md);font-size:14px;text-decoration:none;transition:all .3s;}
+  .footer-social a:hover{background:rgba(232,184,0,.1);border-color:var(--gold);color:var(--gold);}
+  .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gray-dk);margin-bottom:16px;}
+  .footer-col a{display:block;color:var(--gray-md);text-decoration:none;font-size:14px;margin-bottom:10px;transition:color .3s;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);}
+  .footer-copy{font-size:12px;color:var(--gray-dk);}
+  @media(max-width:768px){
+    .page-hero{padding:100px 24px 48px;}
+    .privacy-wrap{padding:48px 24px;}
+    .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+    .footer-bottom{flex-direction:column;gap:12px;text-align:center;}
+    footer{padding:40px 24px 24px;}
+  }
+  @media(max-width:768px){
+    .footer-top{grid-template-columns:1fr;}
+  }
+  @media(max-width:480px){
+    .footer-top{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    .footer-mobile{display:grid;grid-template-areas:"logo tag" "soc soc";grid-template-columns:auto 1fr;row-gap:16px;align-items:center;}
+    .footer-brand{grid-area:logo;}
+    .footer-tagline-wrap{grid-area:tag;display:flex;align-items:center;}
+    .footer-social{grid-area:soc;justify-content:center;}
+    .footer-social a{width:46px;height:46px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- FLOATING LOGO -->
+<a href="index.html" class="nav-floating-logo" id="floatingLogo">
+  <img src="img/logo.webp" alt="SG Trailers">
+</a>
+
+<!-- THEME BUBBLE -->
+<button class="nav-theme-bubble" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SG <span>Trailers</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="catalog.html">Trailers</a></li>
+    <li><a href="configurator.html">Build</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="contact.html" class="nav-cta">Get a Quote</a>
+    <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="mobile-menu-logo">SG <span>Trailers</span></div>
+    <div class="mobile-menu-actions">
+      <button class="mobile-theme-toggle" id="themeToggleMobile" onclick="toggleTheme()">🌙</button>
+      <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+  </div>
+  <div class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="catalog.html">Trailers</a>
+    <a href="configurator.html">Build Your Trailer</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html" style="color:var(--gold);">Privacy Policy</a>
+  </div>
+  <a href="contact.html" class="mobile-menu-cta">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-eyebrow">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p>How SG Trailers collects, uses, and protects your personal information.</p>
+</section>
+
+<!-- CONTENT -->
+<div class="privacy-wrap">
+
+  <div class="privacy-date">Last updated: April 13, 2026</div>
+
+  <div class="privacy-highlight">
+    <p><strong>Short version:</strong> We collect your contact information only to respond to your inquiries about our trailers. We do not sell your data to anyone, ever.</p>
+  </div>
+
+  <!-- 1 -->
+  <div class="privacy-section">
+    <h2>1. Who We Are</h2>
+    <p>SG Trailers LLC ("SG Trailers", "we", "us", or "our") is a direct trailer manufacturer based in Yuma, Arizona. This Privacy Policy explains how we handle personal information collected through our website <strong>sgtrailers.com</strong> and any related pages.</p>
+    <p>For privacy-related questions, contact us at: <a href="mailto:info@sgtrailers.com">info@sgtrailers.com</a></p>
+  </div>
+
+  <!-- 2 -->
+  <div class="privacy-section">
+    <h2>2. What Information We Collect</h2>
+    <p>We only collect information you voluntarily provide through our forms:</p>
+    <h3>Contact & Quote Forms</h3>
+    <ul>
+      <li>Full name</li>
+      <li>Email address</li>
+      <li>Phone number</li>
+      <li>Message or inquiry details</li>
+      <li>Trailer model of interest</li>
+    </ul>
+    <h3>Dealer Application Form</h3>
+    <ul>
+      <li>Full name and business name</li>
+      <li>Email address and phone number</li>
+      <li>City, state, and country</li>
+      <li>Business details (years in business, territory, etc.)</li>
+    </ul>
+    <h3>Configurator / Build Your Trailer</h3>
+    <ul>
+      <li>Name, email, and phone number (only when submitting a quote request)</li>
+      <li>Trailer configuration selections (model, size, options)</li>
+    </ul>
+    <h3>Email Notifications (Parts & Accessories)</h3>
+    <ul>
+      <li>Email address only (to notify when parts store launches)</li>
+    </ul>
+    <p>We do <strong>not</strong> collect payment information, social security numbers, government IDs, or any sensitive financial data through this website.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="privacy-section">
+    <h2>3. How We Use Your Information</h2>
+    <ul>
+      <li>To respond to your inquiry or quote request</li>
+      <li>To process dealer program applications</li>
+      <li>To send product updates or promotions — <strong>only if you explicitly opted in</strong></li>
+      <li>To improve our website and services</li>
+    </ul>
+    <p>We do <strong>not</strong> sell, rent, or share your personal information with third parties for their marketing purposes.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="privacy-section">
+    <h2>4. How We Store Your Information</h2>
+    <p>Form submissions are processed through <strong>Formspree</strong> (formspree.io), a secure form processing service. Your data is transmitted over encrypted HTTPS connections.</p>
+    <p>Formspree stores submissions on your behalf and may retain them for up to 30 days depending on the plan. You can review Formspree's privacy policy at <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.</p>
+    <p>We do not operate our own database or server that stores your personal information long-term.</p>
+  </div>
+
+  <!-- 5 -->
+  <div class="privacy-section">
+    <h2>5. Cookies & Local Storage</h2>
+    <p>Our website uses <strong>localStorage</strong> (browser storage) to remember your display preference (light or dark mode). This data:</p>
+    <ul>
+      <li>Is stored only on your device</li>
+      <li>Is never transmitted to our servers</li>
+      <li>Contains no personal information</li>
+      <li>Can be cleared at any time by clearing your browser data</li>
+    </ul>
+    <p>We do not use tracking cookies, advertising cookies, or third-party analytics cookies at this time.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="privacy-section">
+    <h2>6. Third-Party Services</h2>
+    <p>Our website uses the following third-party services:</p>
+    <ul>
+      <li><strong>Google Fonts</strong> — to load typography. Google may log font requests. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
+      <li><strong>Three.js (jsDelivr CDN)</strong> — for 3D model rendering. No personal data is shared.</li>
+      <li><strong>Formspree</strong> — for processing form submissions.</li>
+    </ul>
+  </div>
+
+  <!-- 7 -->
+  <div class="privacy-section">
+    <h2>7. Your Rights (CCPA — California Residents)</h2>
+    <p>If you are a California resident, you have the following rights under the California Consumer Privacy Act (CCPA):</p>
+    <ul>
+      <li><strong>Right to Know</strong> — Request information about what personal data we have collected about you</li>
+      <li><strong>Right to Delete</strong> — Request deletion of your personal data</li>
+      <li><strong>Right to Opt-Out</strong> — We do not sell data, so this right is already exercised</li>
+      <li><strong>Right to Non-Discrimination</strong> — We will not treat you differently for exercising your rights</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:info@sgtrailers.com">info@sgtrailers.com</a> with the subject line "Privacy Request". We will respond within 45 days.</p>
+  </div>
+
+  <!-- 8 -->
+  <div class="privacy-section">
+    <h2>8. Marketing Communications</h2>
+    <p>We only send promotional emails or product updates if you explicitly checked the opt-in box on one of our forms. You can unsubscribe at any time by:</p>
+    <ul>
+      <li>Clicking the "Unsubscribe" link in any email we send</li>
+      <li>Emailing us at <a href="mailto:info@sgtrailers.com">info@sgtrailers.com</a> with subject "Unsubscribe"</li>
+    </ul>
+  </div>
+
+  <!-- 9 -->
+  <div class="privacy-section">
+    <h2>9. Children's Privacy</h2>
+    <p>Our website is not directed to children under 13 years of age. We do not knowingly collect personal information from children. If you believe a child has submitted information through our site, contact us immediately.</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="privacy-section">
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. We encourage you to review this page periodically.</p>
+  </div>
+
+  <!-- 11 -->
+  <div class="privacy-section">
+    <h2>11. Contact Us</h2>
+    <p>For any privacy-related questions or requests:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:info@sgtrailers.com">info@sgtrailers.com</a></li>
+      <li><strong>Phone:</strong> +1 (760) 000-0000</li>
+      <li><strong>Address:</strong> SG Trailers LLC, Yuma, Arizona, USA</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand footer-mobile">
+      <div class="footer-brand"><img src="img/logo.webp" alt="SG Trailers"></div>
+      <p class="footer-tagline">Built tough in Yuma, AZ. Direct from manufacturer — no dealer markup.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">in</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Trailers</h4>
+      <a href="catalog.html">All Models</a>
+      <a href="configurator.html">Build Your Trailer</a>
+      <a href="financing.html">Financing</a>
+      <a href="parts_accessories.html">Parts & Accessories</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="community.html">Community</a>
+      <a href="dealer_program.html">Dealer Program</a>
+      <a href="dealer_locations.html">Find a Dealer</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="owners_guide.html">Owner's Guide</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 SG Trailers LLC. All rights reserved. Manufactured in Yuma, Arizona.</p>
+    <p class="footer-copy"><a href="privacy.html" style="color:var(--gray-md);text-decoration:none;">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+  // Theme
+  (function(){
+    const t=localStorage.getItem('sg-theme');
+    if(t==='light'){document.body.classList.add('light');document.getElementById('themeToggle').textContent='☀️';document.getElementById('themeToggleMobile').textContent='☀️';}
+  })();
+  function toggleTheme(){
+    const l=document.body.classList.toggle('light');
+    localStorage.setItem('sg-theme',l?'light':'dark');
+    const ic=l?'☀️':'🌙';
+    document.getElementById('themeToggle').textContent=ic;
+    document.getElementById('themeToggleMobile').textContent=ic;
+  }
+
+  // Cursor
+  const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.7;ry+=(my-ry)*.7;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+  // Nav scroll
+  const floatingLogo=document.getElementById('floatingLogo');
+  window.addEventListener('scroll',()=>{
+    const s=window.scrollY>60;
+    floatingLogo.classList.toggle('hidden',s);
+    document.body.classList.toggle('scrolled',s);
+  });
+  (function(){if(window.scrollY>60){document.body.classList.add('scrolled');const fl=document.querySelector('.nav-floating-logo');if(fl)fl.classList.add('hidden');}})();
+
+  // Mobile menu
+  function openMenu(){document.getElementById('mobileMenu').classList.add('open');}
+  function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');}
+</script>
+</body>
+</html>

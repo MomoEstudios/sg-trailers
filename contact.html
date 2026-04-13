@@ -401,6 +401,13 @@
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
     .form-submit{width:100%;background:var(--gold);color:var(--black);border:none;padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;cursor:none;transition:background .3s;margin-top:8px;}
     .form-submit:hover{background:#FFD000;}
+    .form-submit:disabled{background:var(--gray-dk);cursor:not-allowed;opacity:.6;}
+    .form-consent{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+    .form-consent-item{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--gray-md);line-height:1.6;}
+    .form-consent-item input[type="checkbox"]{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
+    .form-consent-item a{color:var(--gold);text-decoration:none;}
+    .form-consent-item a:hover{text-decoration:underline;}
+    .form-consent-item.required-consent{color:rgba(255,255,255,.75);}
 
     /* FAQ */
     .faq-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(28px,3vw,40px);text-transform:uppercase;margin-bottom:8px;}
@@ -726,7 +733,17 @@
           <label class="form-label">Message</label>
           <textarea class="form-textarea" placeholder="Tell us what you're looking for — model, size, intended use, timeline..."></textarea>
         </div>
-        <button class="form-submit">Send Message →</button>
+        <div class="form-consent">
+          <label class="form-consent-item required-consent">
+            <input type="checkbox" id="consent-privacy" onchange="checkConsent()" required>
+            <span>I have read and agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>. I consent to SG Trailers collecting and using my information to respond to my inquiry. <span style="color:var(--red);">*</span></span>
+          </label>
+          <label class="form-consent-item">
+            <input type="checkbox" id="consent-marketing">
+            <span>I'd like to receive updates about new trailer models, promotions, and industry news from SG Trailers. (Optional)</span>
+          </label>
+        </div>
+        <button class="form-submit" id="contactSubmitBtn" disabled onclick="submitContactForm()">Send Message →</button>
       </div>
 
     </div>
@@ -869,6 +886,18 @@
         const _sc=window.scrollY>60;floatingLogo.classList.toggle('hidden',_sc);document.body.classList.toggle('scrolled',_sc);
       }
     }, { passive: true });
+
+    // Form consent
+    function checkConsent(){
+      const ok=document.getElementById('consent-privacy').checked;
+      document.getElementById('contactSubmitBtn').disabled=!ok;
+    }
+    function submitContactForm(){
+      // Placeholder — conectar a Formspree cuando el cliente pase acceso al dominio
+      const marketing=document.getElementById('consent-marketing').checked;
+      console.log('Marketing opt-in:',marketing);
+      alert('Message sent! We\'ll get back to you within 24 hours.');
+    }
 
     // Theme Toggle
     function setThemeIcons(isLight){
