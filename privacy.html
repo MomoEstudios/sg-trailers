@@ -34,12 +34,8 @@
     backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
     border-bottom:1px solid rgba(232,184,0,.12);
   }
-  .top-bar-logo{
-    font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;
-    letter-spacing:.18em;color:var(--white);text-transform:uppercase;
-    text-decoration:none;display:flex;align-items:center;gap:8px;
-  }
-  .top-bar-logo span{color:var(--gold);}
+  .top-bar-logo{text-decoration:none;display:flex;align-items:center;}
+  .top-bar-logo img{height:48px;width:auto;}
   .top-bar-back{
     display:flex;align-items:center;gap:6px;
     font-family:'Barlow Condensed',sans-serif;font-size:12px;
@@ -190,7 +186,7 @@
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <a href="index.html" class="top-bar-logo">SG <span>Trailers</span></a>
+  <a href="index.html" class="top-bar-logo"><img src="img/logo.webp" alt="SG Trailers"></a>
   <div class="top-bar-right">
     <a href="javascript:history.back()" class="top-bar-back">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
