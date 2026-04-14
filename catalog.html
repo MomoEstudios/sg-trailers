@@ -4,9 +4,8 @@
   <!-- Diseñado y desarrollado por Alan Murillo Cinematógrafo / MomoEstudios — 2026 -->
   <meta charset="UTF-8"/>
   <!-- Security Headers -->
-  <meta http-equiv="X-Frame-Options" content="DENY"/>
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com;"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
@@ -984,7 +983,7 @@
         <div>
           <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val">Yuma, Arizona, USA</div></div></div>
           <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val"><a href="tel:+17600000000">US: (760) 000-0000</a><br><a href="tel:+526860000000">MX: +52 (686) 000-0000</a></div></div></div>
-          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection#b5c6d4d9d0c6f5c6d2c1c7d4dcd9d0c7c69bd6dad8"><span class="__cf_email__" data-cfemail="a0d3c1ccc5d3e0d3c7d4d2c1c9ccc5d2d38ec3cfcd">[email&#160;protected]</span></a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:sales@sgtrailers.com">sales@sgtrailers.com</a></div></div></div>
           <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">WhatsApp</div><div class="contact-val"><a href="#">Chat with us directly</a></div></div></div>
         </div>
       </div>
@@ -1044,7 +1043,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});

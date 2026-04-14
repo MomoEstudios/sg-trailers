@@ -4,9 +4,8 @@
   <!-- Diseñado y desarrollado por Alan Murillo Cinematógrafo / MomoEstudios — 2026 -->
   <meta charset="UTF-8"/>
   <!-- Security Headers -->
-  <meta http-equiv="X-Frame-Options" content="DENY"/>
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com;"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
@@ -779,6 +778,11 @@
     /* ── Content Protection ── */
     img{-webkit-user-drag:none;}
     .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
+    /* ── Image error placeholder ── */
+    img.img-error{opacity:1!important;background:var(--black-c);position:relative;}
+    img.img-error::after{content:'';display:block;}
+    .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%;min-height:160px;background:var(--black-c);border:1px solid rgba(255,255,255,.07);border-radius:inherit;color:var(--gray-md);font-family:'Barlow',sans-serif;font-size:13px;}
+    .img-placeholder svg{opacity:.35;width:36px;height:36px;}
   </style>
 </head>
 <body>
@@ -849,22 +853,22 @@
       </div>
       <div class="mega-grid">
         <a href="catalog.html?model=anubis" class="mega-card">
-          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis"/></div>
+          <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Anubis</div>
           <div class="mega-card-tier">Entry Level</div>
         </a>
         <a href="catalog.html?model=apolo" class="mega-card">
-          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo"/></div>
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Apolo</div>
           <div class="mega-card-tier">Mid Range</div>
         </a>
         <a href="catalog.html?model=armagedon" class="mega-card">
-          <div class="mega-card-img"><img src="img/armagedon-1.webp" alt="Armagedon"/></div>
+          <div class="mega-card-img"><img src="img/armagedon-1.webp" alt="Armagedon" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Armagedon</div>
           <div class="mega-card-tier">Upper Mid</div>
         </a>
         <a href="catalog.html?model=apocalypse" class="mega-card">
-          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse"/></div>
+          <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Apocalypse</div>
           <div class="mega-card-tier">Top of Line</div>
         </a>
@@ -927,10 +931,10 @@
   <section class="hero">
     <div class="hero-slides">
       <div class="hero-slide active">
-        <img src="img/hero-1.webp" alt="SG Trailers"/>
+        <img src="img/hero-1.webp" alt="SG Trailers" onerror="imgErr(this)"/>
       </div>
       <div class="hero-slide">
-        <img src="img/hero-2.webp" alt="SG Trailers"/>
+        <img src="img/hero-2.webp" alt="SG Trailers" onerror="imgErr(this)"/>
       </div>
     </div>
 
@@ -960,22 +964,22 @@
     </div>
     <div class="models-bar-grid">
       <a href="catalog.html?model=anubis" class="model-tab active reveal" id="tab-anubis">
-        <img src="img/anubis-1.webp" alt="Anubis" class="model-tab-img"/>
+        <img src="img/anubis-1.webp" alt="Anubis" class="model-tab-img" onerror="imgErr(this)"/>
         <div class="model-tab-name">Anubis</div>
         <div class="model-tab-tier">Entry Level</div>
       </a>
       <a href="catalog.html?model=apolo" class="model-tab reveal" id="tab-apolo">
-        <img src="img/apolo-1.webp" alt="apolo" class="model-tab-img"/>
+        <img src="img/apolo-1.webp" alt="apolo" class="model-tab-img" onerror="imgErr(this)"/>
         <div class="model-tab-name">Apolo</div>
         <div class="model-tab-tier">Mid Range</div>
       </a>
       <a href="catalog.html?model=armagedon" class="model-tab reveal" id="tab-armagedon">
-        <img src="img/armagedon-1.webp" alt="Armagedon" class="model-tab-img"/>
+        <img src="img/armagedon-1.webp" alt="Armagedon" class="model-tab-img" onerror="imgErr(this)"/>
         <div class="model-tab-name">Armagedon</div>
         <div class="model-tab-tier">Upper Mid</div>
       </a>
       <a href="catalog.html?model=apocalypse" class="model-tab reveal" id="tab-apocalypse">
-        <img src="img/apocalypse-1.webp" alt="Apocalypse" class="model-tab-img"/>
+        <img src="img/apocalypse-1.webp" alt="Apocalypse" class="model-tab-img" onerror="imgErr(this)"/>
         <div class="model-tab-name">Apocalypse</div>
         <div class="model-tab-tier">Top of Line</div>
       </a>
@@ -1071,6 +1075,12 @@
   </footer>
 
   <script>
+    // Image error placeholder
+    function imgErr(el){
+      const w=el.offsetWidth||el.parentElement?.offsetWidth||'100%';
+      const h=el.offsetHeight||el.parentElement?.offsetHeight||160;
+      el.outerHTML=`<div class="img-placeholder" style="width:${w}px;height:${h}px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Image unavailable</span></div>`;
+    }
     // Cursor
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
