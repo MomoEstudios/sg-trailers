@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SG Trailers — About Us</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"/>
+  <title>About SG Trailers | American-Made in Yuma, Arizona</title>
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="SG Trailers is a direct-to-consumer car hauler manufacturer based in Yuma, AZ. Learn about our story, manufacturing process, and commitment to American-made quality."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="SG Trailers"/>
+  <meta property="og:title" content="About SG Trailers | American-Made in Yuma, Arizona"/>
+  <meta property="og:description" content="SG Trailers is a direct-to-consumer car hauler manufacturer based in Yuma, AZ. Learn about our story, manufacturing process, and American-made quality."/>
+  <meta property="og:image" content="https://sgtrailers.com/img/hero-1.webp"/>
+  <meta property="og:url" content="https://sgtrailers.com/about.html"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="About SG Trailers | American-Made in Yuma, Arizona"/>
+  <meta name="twitter:description" content="SG Trailers is a direct-to-consumer car hauler manufacturer based in Yuma, AZ. American-made quality, factory direct."/>
+  <meta name="twitter:image" content="https://sgtrailers.com/img/hero-1.webp"/>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -500,6 +516,9 @@
       .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
       .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
     }
+    /* ── Content Protection ── */
+    img{-webkit-user-drag:none;}
+    .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
   </style>
 </head>
 <body>
@@ -892,7 +911,7 @@
     <div class="footer-divider"></div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
-      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+      <div class="footer-made"><a href="privacy.html" style="color:inherit;text-decoration:none;margin-right:20px;">Privacy Policy</a>Proudly made in the USA 🇺🇸</div>
     </div>
   </footer>
 
@@ -975,6 +994,11 @@
       if(e.isIntersecting)e.target.classList.add('visible');
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+  <script>
+  /* Content Protection */
+  document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+  document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
   </script>
 </body>
 </html>

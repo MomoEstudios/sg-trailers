@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SG Trailers — 2026 Trailer Catalog | Yuma, AZ</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"/>
+  <title>Trailer Models & Specs | SG Trailers | Yuma, AZ</title>
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Compare all SG Trailers models: Apolo ($6,999), Anubis ($9,499), Nemesis ($12,999), Apocalypse ($17,999). Full specs, GVWR, available options, and photos."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="SG Trailers"/>
+  <meta property="og:title" content="Trailer Models & Specs | SG Trailers"/>
+  <meta property="og:description" content="Compare all SG Trailers models: Apolo ($6,999), Anubis ($9,499), Nemesis ($12,999), Apocalypse ($17,999). Full specs, GVWR, and options."/>
+  <meta property="og:image" content="https://sgtrailers.com/img/apolo-1.webp"/>
+  <meta property="og:url" content="https://sgtrailers.com/catalog.html"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Trailer Models & Specs | SG Trailers"/>
+  <meta name="twitter:description" content="Compare all SG Trailers models: Apolo ($6,999), Anubis ($9,499), Nemesis ($12,999), Apocalypse ($17,999). Full specs and options."/>
+  <meta name="twitter:image" content="https://sgtrailers.com/img/apolo-1.webp"/>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -645,6 +661,9 @@
     #lb-video-wrap.active{display:flex;}
     #lb-video{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.7);outline:none;}
     .lb-img-wrap.hidden{display:none;}
+    /* ── Content Protection ── */
+    img{-webkit-user-drag:none;}
+    .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
   </style>
 </head>
 <body>
@@ -1008,7 +1027,7 @@
     <div class="footer-divider"></div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
-      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+      <div class="footer-made"><a href="privacy.html" style="color:inherit;text-decoration:none;margin-right:20px;">Privacy Policy</a>Proudly made in the USA 🇺🇸</div>
     </div>
   </footer>
 
@@ -1397,6 +1416,11 @@
       if(e.key==='+'||e.key==='=') lbZoom(1,null);
       if(e.key==='-') lbZoom(-1,null);
     });
+  </script>
+  <script>
+  /* Content Protection */
+  document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+  document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
   </script>
 </body>
 </html>

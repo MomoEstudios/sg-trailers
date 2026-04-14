@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Internal / legal pages — no indexar
+Disallow: /privacy.html
+Disallow: /configurator_review.html
+
+# Sitemap
+Sitemap: https://sgtrailers.com/sitemap.xml

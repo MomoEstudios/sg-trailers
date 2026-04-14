@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — SG Trailers</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<title>Privacy Policy | SG Trailers</title>
+<!-- SEO -->
+<meta name="description" content="SG Trailers privacy policy. How we collect, use, and protect your information. CCPA compliance for California residents and all US customers."/>
+<meta name="robots" content="noindex, follow"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -177,6 +183,8 @@
     .rights-grid{grid-template-columns:1fr;}
     .doc-footer{flex-direction:column;align-items:flex-start;gap:8px;}
   }
+  /* ── Content Protection ── */
+  img{-webkit-user-drag:none;}
 </style>
 </head>
 <body>
@@ -415,6 +423,9 @@
   let mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
   (function loop(){rx+=(mx-rx)*.7;ry+=(my-ry)*.7;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  /* Content Protection */
+  document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+  document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
 </script>
 </body>
 </html>

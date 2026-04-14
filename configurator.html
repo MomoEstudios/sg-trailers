@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SG Trailers — Configure Your Trailer</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"/>
+  <title>Build Your Custom Trailer | SG Trailers Configurator</title>
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Configure your perfect SG Trailer in minutes. Choose model, size, axles, floor, hitch, electrical, and storage options. See your price in real time and request a custom quote."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="SG Trailers"/>
+  <meta property="og:title" content="Build Your Custom Trailer | SG Trailers Configurator"/>
+  <meta property="og:description" content="Configure your perfect SG Trailer in minutes. Choose your model, size, and options. See your price in real time and request a custom quote."/>
+  <meta property="og:image" content="https://sgtrailers.com/img/apolo-1.webp"/>
+  <meta property="og:url" content="https://sgtrailers.com/configurator.html"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Build Your Custom Trailer | SG Trailers Configurator"/>
+  <meta name="twitter:description" content="Configure your perfect SG Trailer: model, size, axles, floor, hitch, electrical, and storage. Real-time pricing."/>
+  <meta name="twitter:image" content="https://sgtrailers.com/img/apolo-1.webp"/>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -684,6 +700,9 @@
       .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
       .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
     }
+    /* ── Content Protection ── */
+    img{-webkit-user-drag:none;}
+    .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
   </style>
 </head>
 <body>
@@ -1569,11 +1588,12 @@
   <div class="footer-top">
     <div>
       <div class="footer-brand"><img src="img/logo.webp" alt="SG Trailers"/></div>
-      <div class="footer-tagline">American-made car haulers. Built in Yuma, AZ since 2019.</div>
+      <div class="footer-tagline">Precision-built trailers manufactured in Yuma, Arizona. Quality without compromise, direct from the factory.</div>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="YouTube">yt</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+        <a href="#" aria-label="TikTok">TK</a>
       </div>
     </div>
     <div class="footer-col">
@@ -1607,7 +1627,7 @@
   <div class="footer-divider"></div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
-    <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+    <div class="footer-made"><a href="privacy.html" style="color:inherit;text-decoration:none;margin-right:20px;">Privacy Policy</a>Proudly made in the USA 🇺🇸</div>
   </div>
 </footer>
 
@@ -1859,8 +1879,9 @@
   function submitOrder(e){
     e.preventDefault();
     // Placeholder — connect to Formspree or backend
-    alert('Quote request submitted! We\'ll contact you within 24 hours.');
-    closeOrderModal();
+    const btn=e.target.querySelector('.modal-submit');
+    if(btn){btn.textContent='Request sent ✓';btn.disabled=true;btn.style.background='#2D6A4F';}
+    setTimeout(()=>closeOrderModal(),1400);
   }
 
   /* ── REVEAL ── */
@@ -2079,6 +2100,11 @@ window.addEventListener('resize', resize);
 })();
 
 } // end if(canvas)
+</script>
+<script>
+/* Content Protection */
+document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
 </script>
 </body>
 </html>

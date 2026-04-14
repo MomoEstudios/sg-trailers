@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SG Trailers — Find a Dealer</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"/>
+  <title>Find an SG Trailers Dealer Near You | US & Mexico</title>
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Find authorized SG Trailers dealers across the United States and Mexico. View local inventory and contact a dealer near you."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="SG Trailers"/>
+  <meta property="og:title" content="Find an SG Trailers Dealer Near You | US & Mexico"/>
+  <meta property="og:description" content="Find authorized SG Trailers dealers across the United States and Mexico. View local inventory and contact a dealer near you."/>
+  <meta property="og:image" content="https://sgtrailers.com/img/hero-1.webp"/>
+  <meta property="og:url" content="https://sgtrailers.com/dealer_locations.html"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Find an SG Trailers Dealer Near You | US & Mexico"/>
+  <meta name="twitter:description" content="Find authorized SG Trailers dealers across the United States and Mexico. View local inventory and contact a dealer near you."/>
+  <meta name="twitter:image" content="https://sgtrailers.com/img/hero-1.webp"/>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root{--gold:#E8B800;--red:#B52200;--gray-dk:#4A4744;--gray-md:#737870;--black:#141312;--black-s:#1C1B19;--black-c:#232120;--black-d:#0D0C0B;--white:#FFFFFF;}
@@ -455,6 +471,9 @@
       .footer-top>div:first-child .footer-social{grid-area:soc;justify-content:center;}
       .footer-top>div:first-child .footer-social a{width:46px;height:46px;}
     }
+    /* ── Content Protection ── */
+    img{-webkit-user-drag:none;}
+    .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
   </style>
 </head>
 <body>
@@ -727,7 +746,7 @@
   <div class="cta-section reveal">
     <div class="cta-title">Want to Become a <em>Dealer?</em></div>
     <p class="cta-desc">We're actively expanding our authorized network. Apply today and bring SG Trailers to your market.</p>
-    <a href="dealers.html" class="cta-btn">Apply for Dealership →</a>
+    <a href="dealer_program.html" class="cta-btn">Apply for Dealership →</a>
   </div>
 
   <!-- FOOTER -->
@@ -769,7 +788,7 @@
     <div class="footer-divider"></div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 SG Trailers LLC — Yuma, AZ. All rights reserved.</div>
-      <div class="footer-made">Proudly made in the USA 🇺🇸</div>
+      <div class="footer-made"><a href="privacy.html" style="color:inherit;text-decoration:none;margin-right:20px;">Privacy Policy</a>Proudly made in the USA 🇺🇸</div>
     </div>
   </footer>
 
@@ -849,6 +868,11 @@
 
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+  <script>
+  /* Content Protection */
+  document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
+  document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
   </script>
 </body>
 </html>
