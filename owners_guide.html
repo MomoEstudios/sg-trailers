@@ -880,10 +880,10 @@
       <p>Everything you need to operate, maintain, and get the most out of your SG Trailer. From pre-trip checklists to long-term maintenance schedules.</p>
       <div class="hero-model-filter">
         <button class="model-pill active">All Models</button>
-        <button class="model-pill">Apolo</button>
-        <button class="model-pill">Anubis</button>
-        <button class="model-pill">Armagedon</button>
-        <button class="model-pill">Apocalypse</button>
+        <a href="catalog.html?model=apolo" class="model-pill">Apolo</a>
+        <a href="catalog.html?model=anubis" class="model-pill">Anubis</a>
+        <a href="catalog.html?model=armagedon" class="model-pill">Armagedon</a>
+        <a href="catalog.html?model=apocalypse" class="model-pill">Apocalypse</a>
       </div>
     </div>
   </section>
@@ -1346,7 +1346,7 @@
           <li><a href="contact.html">Get a Quote</a></li>
           <li><a href="dealer_program.html">Dealer Inquiry</a></li>
           <li><a href="contact.html">Technical Support</a></li>
-          <li><a href="#">Warranty Claim</a></li>
+          <li><a href="contact.html">Warranty Claim</a></li>
         </ul>
       </div>
     </div>
@@ -1435,12 +1435,10 @@
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    // Model filter pills (UI only — placeholder)
-    document.querySelectorAll('.model-pill').forEach(pill=>{
-      pill.addEventListener('click',()=>{
-        document.querySelectorAll('.model-pill').forEach(p=>p.classList.remove('active'));
-        pill.classList.add('active');
-      });
+    // "All Models" pill — stays active, model links navigate to catalog
+    document.querySelector('.model-pill.active')?.addEventListener('click',()=>{
+      document.querySelectorAll('.model-pill').forEach(p=>p.classList.remove('active'));
+      document.querySelector('.model-pill').classList.add('active');
     });
 
     // ── GUIDE SIDE NAV ──
