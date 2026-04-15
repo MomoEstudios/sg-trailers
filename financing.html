@@ -32,6 +32,8 @@
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -43,8 +45,8 @@
     body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
 
     /* ── Cursor ── */
-    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
-    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+    #cur  { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;left:0;top:0;pointer-events:none;z-index:9999;will-change:transform; }
+    #ring { width:32px;height:32px;border:1px solid rgba(232,184,0,.5);border-radius:50%;position:fixed;left:0;top:0;pointer-events:none;z-index:9998;will-change:transform; }
 
     /* ── NAV ── */
     nav {
@@ -215,7 +217,7 @@
     .footer-links a:hover { color:var(--white); }
     .footer-divider { height:1px;background:rgba(255,255,255,.06);margin-bottom:28px; }
     .footer-bottom { display:flex;justify-content:space-between;align-items:center; }
-    .footer-copy,.footer-made { font-size:11px;color:var(--gray-dk);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em; }
+    .footer-copy,.footer-made { font-size:11px;color:var(--gray-md);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em; }
     @media(max-width:1024px){ .footer-top { grid-template-columns:1fr 1fr;gap:40px; } }
     @media(max-width:768px){ footer { padding:40px 24px 24px; } .footer-top { grid-template-columns:1fr;gap:28px; } .footer-bottom { flex-direction:column;gap:8px;text-align:center; } }
 
@@ -573,8 +575,8 @@
   <script>
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
     let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
-    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop); })();
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.transform=`translate(calc(${mx}px - 50%),calc(${my}px - 50%))`; });
+    (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;requestAnimationFrame(loop); })();
 
     function toggleAccordion(btn){
       const sub=btn.nextElementSibling,group=btn.parentElement,isOpen=btn.classList.contains('open');
