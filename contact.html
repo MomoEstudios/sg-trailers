@@ -491,8 +491,10 @@
       .contact-grid{grid-template-columns:1fr;}
       .form-row{grid-template-columns:1fr;}
       .faq-grid{grid-template-columns:1fr;}
-      footer{padding:40px 24px 24px;}
-      .footer-top{grid-template-columns:1fr;gap:28px;}
+      footer{padding:40px 32px 24px;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:28px 20px;}
+      .footer-top>div:first-child,.footer-top>div:last-child{grid-column:1/-1;}
+      .footer-top>div:nth-child(2),.footer-top>div:nth-child(3),.footer-top>div:last-child{padding-left:20px;}
       .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
     }
     /* ── SCROLLED: logo en isla (reemplaza floating logo) ── */

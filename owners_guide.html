@@ -695,7 +695,9 @@
       .downloads-grid { grid-template-columns:1fr; }
       .cta-section { padding:60px 24px; }
       .cta-actions { flex-direction:column; }
-      .footer-top { grid-template-columns:1fr; }
+      .footer-top { grid-template-columns:1fr 1fr;gap:28px 20px; }
+      .footer-top>div:first-child,.footer-top>div:last-child{grid-column:1/-1;}
+      .footer-top>div:nth-child(2),.footer-top>div:nth-child(3),.footer-top>div:last-child{padding-left:20px;}
       .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
       .guide-quicknav-grid { grid-template-columns:1fr 1fr; }
       .guide-quicknav-item { padding:18px 14px;gap:10px;border-right:none;border-bottom:1px solid rgba(255,255,255,.06); }

@@ -752,7 +752,9 @@
       .social-bar { grid-template-columns:1fr 1fr; }
       .cta-section { padding:60px 24px; }
       .cta-actions { flex-direction:column; }
-      .footer-top { grid-template-columns:1fr; }
+      .footer-top { grid-template-columns:1fr 1fr;gap:28px 20px; }
+      .footer-top>div:first-child,.footer-top>div:last-child{grid-column:1/-1;}
+      .footer-top>div:nth-child(2),.footer-top>div:nth-child(3),.footer-top>div:last-child{padding-left:20px;}
       .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
     }
     /* ── SCROLLED: logo en isla (reemplaza floating logo) ── */
