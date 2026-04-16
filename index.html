@@ -935,10 +935,16 @@
   <section class="hero">
     <div class="hero-slides">
       <div class="hero-slide active">
-        <img src="img/hero-1.webp" alt="SG Trailers" fetchpriority="high" onerror="imgErr(this)"/>
+        <picture>
+          <source media="(max-width:768px)" srcset="img/hero-1-mobile.webp"/>
+          <img src="img/hero-1.webp" alt="SG Trailers" fetchpriority="high" onerror="imgErr(this)"/>
+        </picture>
       </div>
       <div class="hero-slide">
-        <img src="img/hero-2.webp" alt="SG Trailers" onerror="imgErr(this)"/>
+        <picture>
+          <source media="(max-width:768px)" srcset="img/hero-2-mobile.webp"/>
+          <img src="img/hero-2.webp" alt="SG Trailers" onerror="imgErr(this)"/>
+        </picture>
       </div>
     </div>
 
