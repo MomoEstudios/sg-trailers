@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Airtable para SG Trailers — Presentación</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f0e0d; color:#e8e6e3; line-height:1.6; }
+
+  .cover {
+    background:linear-gradient(135deg,#1a1917 0%,#0d0c0b 100%);
+    border-bottom:1px solid #2a2826;
+    padding:64px 40px 48px;
+    text-align:center;
+  }
+  .cover-badge { display:inline-block; background:#E8B800; color:#0d0c0b; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:4px 14px; border-radius:100px; margin-bottom:24px; }
+  .cover h1 { font-size:36px; font-weight:700; margin-bottom:8px; }
+  .cover h1 span { color:#E8B800; }
+  .cover p { color:#8A8884; font-size:15px; max-width:580px; margin:0 auto; }
+
+  .container { max-width:960px; margin:0 auto; padding:0 24px 80px; }
+
+  .section { margin-top:56px; }
+  .section-header { display:flex; align-items:center; gap:16px; margin-bottom:28px; padding-bottom:16px; border-bottom:1px solid #2a2826; }
+  .section-num { width:40px; height:40px; background:#E8B800; color:#0d0c0b; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex-shrink:0; }
+  .section h2 { font-size:22px; font-weight:700; }
+  .section-sub { font-size:13px; color:#8A8884; margin-top:2px; }
+
+  /* COMPARACIÓN */
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px; }
+  .compare-card { border-radius:12px; padding:24px; }
+  .compare-card.old { background:#1a1212; border:1px solid #3a1a1a; }
+  .compare-card.new { background:#0d2010; border:1px solid #1a5a30; }
+  .compare-title { font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:16px; }
+  .compare-card.old .compare-title { color:#f87171; }
+  .compare-card.new .compare-title { color:#4ade80; }
+  .compare-list { list-style:none; }
+  .compare-list li { font-size:14px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:flex-start; gap:8px; }
+  .compare-list li:last-child { border-bottom:none; }
+  .compare-list li::before { flex-shrink:0; margin-top:2px; }
+  .compare-card.old .compare-list li::before { content:'✗'; color:#f87171; }
+  .compare-card.new .compare-list li::before { content:'✓'; color:#4ade80; }
+
+  /* TABLAS MOCKUP */
+  .table-section { margin-bottom:40px; }
+  .table-label { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .table-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .table-name { font-size:16px; font-weight:600; }
+  .table-desc { font-size:13px; color:#8A8884; margin-top:1px; }
+
+  .mock-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:10px; overflow:hidden; }
+  .mock-table th { padding:9px 14px; text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8A8884; border-bottom:1px solid #2a2826; background:#161514; }
+  .mock-table td { padding:9px 14px; border-bottom:1px solid #1e1d1b; color:#c8c6c3; vertical-align:middle; }
+  .mock-table tr:last-child td { border-bottom:none; }
+  .mock-table tr:hover td { background:#1a1917; }
+
+  .badge { display:inline-block; padding:2px 9px; border-radius:100px; font-size:11px; font-weight:600; }
+  .badge-green { background:#0d2a1a; color:#4ade80; }
+  .badge-yellow { background:#2a2000; color:#E8B800; }
+  .badge-red { background:#2a0d0d; color:#f87171; }
+  .badge-blue { background:#0d1a2a; color:#60a5fa; }
+  .badge-gray { background:#1e1d1b; color:#8A8884; }
+
+  /* VISTAS */
+  .views-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+  .view-card { background:#1c1b19; border:1px solid #2a2826; border-radius:12px; padding:20px; }
+  .view-icon { font-size:24px; margin-bottom:10px; }
+  .view-name { font-size:14px; font-weight:600; margin-bottom:4px; }
+  .view-desc { font-size:13px; color:#8A8884; }
+
+  /* REPORTES */
+  .report-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+  .report-card { background:#1c1b19; border:1px solid #2a2826; border-radius:12px; padding:20px; }
+  .report-num { font-size:28px; font-weight:700; color:#E8B800; }
+  .report-label { font-size:13px; color:#8A8884; margin-top:2px; }
+  .report-sub { font-size:12px; color:#4a4744; margin-top:6px; }
+
+  .note { background:#1a1612; border:1px solid #3a2a0a; border-left:3px solid #E8B800; border-radius:8px; padding:14px 18px; font-size:13px; color:#c8b080; margin:20px 0; }
+  .note strong { color:#E8B800; }
+
+  .steps-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+  .step-card { background:#1c1b19; border:1px solid #2a2826; border-radius:12px; padding:20px; text-align:center; }
+  .step-arrow { display:flex; align-items:center; justify-content:center; color:#4a4744; font-size:20px; padding-top:32px; }
+  .step-num-big { width:48px; height:48px; background:#E8B800; color:#0d0c0b; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; margin:0 auto 12px; }
+  .step-card h3 { font-size:14px; font-weight:600; margin-bottom:6px; }
+  .step-card p { font-size:13px; color:#8A8884; }
+
+  @media(max-width:640px) {
+    .compare-grid { grid-template-columns:1fr; }
+    .cover { padding:40px 20px 32px; }
+    .cover h1 { font-size:26px; }
+  }
+
+  footer { text-align:center; padding:32px 24px; font-size:12px; color:#4a4744; border-top:1px solid #1e1d1b; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-badge">SG Trailers — Gestión de Datos</div>
+  <h1>Por qué necesitan <span>Airtable</span></h1>
+  <p>Cómo pasar del Excel limitado a un sistema real de inventario, dealers y refacciones — que el equipo puede manejar sin conocimientos técnicos.</p>
+  <p style="margin-top:12px;font-size:13px;color:#4a4744;">Preparado para reunión de equipo — Abril 2026</p>
+</div>
+
+<div class="container">
+
+  <!-- SECCIÓN 1: COMPARACIÓN -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <h2>Excel actual vs Airtable</h2>
+        <div class="section-sub">Por qué el Excel que tienen ya no es suficiente</div>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card old">
+        <div class="compare-title">Excel actual — Limitaciones</div>
+        <ul class="compare-list">
+          <li>Solo pueden escribir y ver datos en vivo</li>
+          <li>No pueden generar reportes</li>
+          <li>No pueden imprimir ni exportar en formato útil</li>
+          <li>No hay historial de cambios (¿quién cambió qué?)</li>
+          <li>No se conecta al sitio web</li>
+          <li>No envía notificaciones automáticas</li>
+          <li>Sin control de acceso (todos ven todo)</li>
+          <li>Sin vistas por departamento</li>
+          <li>Difícil de mantener cuando crece el negocio</li>
+        </ul>
+      </div>
+      <div class="compare-card new">
+        <div class="compare-title">Airtable — Lo que ganan</div>
+        <ul class="compare-list">
+          <li>Agregan, editan y eliminan datos fácilmente</li>
+          <li>Reportes automáticos por dealer, modelo, fecha</li>
+          <li>Exportar a PDF, CSV, Excel en un clic</li>
+          <li>Historial completo de cambios con fecha y usuario</li>
+          <li>Se conecta al sitio web — stock se actualiza solo</li>
+          <li>Notificaciones por correo cuando stock baja</li>
+          <li>Control de acceso por rol (admin, ventas, etc.)</li>
+          <li>Vistas personalizadas por departamento</li>
+          <li>Escala con el negocio sin costo adicional inicial</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: TABLAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <h2>Las 4 tablas que necesitan</h2>
+        <div class="section-sub">Así se vería su base de datos en Airtable — el equipo la maneja como Excel</div>
+      </div>
+    </div>
+
+    <!-- TABLA 1: DEALERS -->
+    <div class="table-section">
+      <div class="table-label">
+        <div class="table-icon" style="background:#1a2a3a;">🏢</div>
+        <div>
+          <div class="table-name">Dealers</div>
+          <div class="table-desc">Directorio de distribuidores activos en USA y México</div>
+        </div>
+      </div>
+      <table class="mock-table">
+        <thead>
+          <tr>
+            <th>Nombre del Dealer</th>
+            <th>Ciudad</th>
+            <th>Estado/País</th>
+            <th>Contacto</th>
+            <th>Teléfono</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Desert Trailers Co.</strong></td>
+            <td>Yuma</td>
+            <td>AZ, USA</td>
+            <td>Mike Johnson</td>
+            <td>(928) 555-0100</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>Southwest Haulers</strong></td>
+            <td>Phoenix</td>
+            <td>AZ, USA</td>
+            <td>Sarah Reyes</td>
+            <td>(602) 555-0200</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>Sonora Trailers</strong></td>
+            <td>Hermosillo</td>
+            <td>Sonora, MX</td>
+            <td>Carlos Félix</td>
+            <td>(662) 555-0300</td>
+            <td><span class="badge badge-yellow">Negociando</span></td>
+          </tr>
+          <tr>
+            <td><strong>Baja Auto Parts</strong></td>
+            <td>Mexicali</td>
+            <td>BC, MX</td>
+            <td>Roberto Díaz</td>
+            <td>(686) 555-0400</td>
+            <td><span class="badge badge-gray">Inactivo</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TABLA 2: INVENTARIO -->
+    <div class="table-section">
+      <div class="table-label">
+        <div class="table-icon" style="background:#1a2a1a;">📦</div>
+        <div>
+          <div class="table-name">Inventario de Trailers</div>
+          <div class="table-desc">Stock disponible por dealer y modelo — lo que se muestra en el sitio web</div>
+        </div>
+      </div>
+      <table class="mock-table">
+        <thead>
+          <tr>
+            <th>Dealer</th>
+            <th>Modelo</th>
+            <th>Tamaño</th>
+            <th>Stock</th>
+            <th>Precio Dealer</th>
+            <th>Última actualización</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Desert Trailers Co.</td>
+            <td><strong>Apolo</strong></td>
+            <td>18 ft</td>
+            <td><span class="badge badge-green">3 unidades</span></td>
+            <td>$6,999</td>
+            <td>Apr 14, 2026</td>
+          </tr>
+          <tr>
+            <td>Desert Trailers Co.</td>
+            <td><strong>Anubis</strong></td>
+            <td>20 ft</td>
+            <td><span class="badge badge-yellow">1 unidad</span></td>
+            <td>$9,499</td>
+            <td>Apr 14, 2026</td>
+          </tr>
+          <tr>
+            <td>Southwest Haulers</td>
+            <td><strong>Armagedon</strong></td>
+            <td>22 ft</td>
+            <td><span class="badge badge-green">2 unidades</span></td>
+            <td>$12,999</td>
+            <td>Apr 13, 2026</td>
+          </tr>
+          <tr>
+            <td>Sonora Trailers</td>
+            <td><strong>Apolo</strong></td>
+            <td>18 ft</td>
+            <td><span class="badge badge-red">0 unidades</span></td>
+            <td>$7,200</td>
+            <td>Apr 10, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:12px;">
+        <strong>Conexión al sitio web:</strong> Cuando el equipo actualiza el stock aquí, el sitio web (catalog.html → "Check Dealer Stock") lo refleja automáticamente. Sin tocar código.
+      </div>
+    </div>
+
+    <!-- TABLA 3: REFACCIONES -->
+    <div class="table-section">
+      <div class="table-label">
+        <div class="table-icon" style="background:#2a1a0a;">🔧</div>
+        <div>
+          <div class="table-name">Refacciones y Partes</div>
+          <div class="table-desc">Catálogo completo de piezas con stock, precios y proveedor</div>
+        </div>
+      </div>
+      <table class="mock-table">
+        <thead>
+          <tr>
+            <th>Nombre de la Parte</th>
+            <th>Categoría</th>
+            <th>SKU</th>
+            <th>Stock</th>
+            <th>Precio Público</th>
+            <th>Proveedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Rampa hidráulica 8 ft</strong></td>
+            <td><span class="badge badge-blue">Rampas</span></td>
+            <td>RMP-HID-08</td>
+            <td><span class="badge badge-green">12 pzas</span></td>
+            <td>$450</td>
+            <td>Hydraulic Pro</td>
+          </tr>
+          <tr>
+            <td><strong>Piso aluminio diamante 20 ft</strong></td>
+            <td><span class="badge badge-blue">Pisos</span></td>
+            <td>PSO-ALU-20</td>
+            <td><span class="badge badge-yellow">3 pzas</span></td>
+            <td>$680</td>
+            <td>AluMax Supply</td>
+          </tr>
+          <tr>
+            <td><strong>Kit eléctrico 7 pines</strong></td>
+            <td><span class="badge badge-blue">Eléctrico</span></td>
+            <td>ELC-KIT-07</td>
+            <td><span class="badge badge-green">25 pzas</span></td>
+            <td>$85</td>
+            <td>Trailer Parts USA</td>
+          </tr>
+          <tr>
+            <td><strong>Eje 7,000 lbs sencillo</strong></td>
+            <td><span class="badge badge-blue">Ejes</span></td>
+            <td>EJE-700-S1</td>
+            <td><span class="badge badge-red">0 pzas</span></td>
+            <td>$320</td>
+            <td>Dexter Axle</td>
+          </tr>
+          <tr>
+            <td><strong>Engancha safety chain 5/16"</strong></td>
+            <td><span class="badge badge-blue">Herraje</span></td>
+            <td>HRR-CHN-516</td>
+            <td><span class="badge badge-green">50 pzas</span></td>
+            <td>$22</td>
+            <td>National Hardware</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TABLA 4: LEADS -->
+    <div class="table-section">
+      <div class="table-label">
+        <div class="table-icon" style="background:#2a1a2a;">📋</div>
+        <div>
+          <div class="table-name">Solicitudes / Leads</div>
+          <div class="table-desc">Formularios del sitio web que llegan directo a esta tabla</div>
+        </div>
+      </div>
+      <table class="mock-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Interés</th>
+            <th>Modelo</th>
+            <th>Origen</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Apr 15, 2026</td>
+            <td><strong>John Torres</strong></td>
+            <td>Compra directa</td>
+            <td>Apocalypse 24 ft</td>
+            <td>Configurador</td>
+            <td><span class="badge badge-yellow">Nuevo</span></td>
+          </tr>
+          <tr>
+            <td>Apr 14, 2026</td>
+            <td><strong>Maria Valdez</strong></td>
+            <td>Programa dealer</td>
+            <td>—</td>
+            <td>Formulario contacto</td>
+            <td><span class="badge badge-blue">En seguimiento</span></td>
+          </tr>
+          <tr>
+            <td>Apr 13, 2026</td>
+            <td><strong>Robert Kim</strong></td>
+            <td>Financiamiento</td>
+            <td>Anubis 20 ft</td>
+            <td>Sitio web</td>
+            <td><span class="badge badge-green">Cerrado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: VISTAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <h2>Vistas disponibles para el equipo</h2>
+        <div class="section-sub">Los mismos datos, vistos de formas distintas según quién los necesita</div>
+      </div>
+    </div>
+
+    <div class="views-grid">
+      <div class="view-card">
+        <div class="view-icon">📊</div>
+        <div class="view-name">Vista Tabla</div>
+        <div class="view-desc">Como Excel. Filas y columnas. Para edición rápida del día a día.</div>
+      </div>
+      <div class="view-card">
+        <div class="view-icon">🗂️</div>
+        <div class="view-name">Vista Kanban</div>
+        <div class="view-desc">Tarjetas por estado. Ideal para seguimiento de leads y ventas.</div>
+      </div>
+      <div class="view-card">
+        <div class="view-icon">📅</div>
+        <div class="view-name">Vista Calendario</div>
+        <div class="view-desc">Entregas, mantenimientos y fechas importantes en calendario.</div>
+      </div>
+      <div class="view-card">
+        <div class="view-icon">🖼️</div>
+        <div class="view-name">Vista Galería</div>
+        <div class="view-desc">Refacciones con foto. Útil para catálogo visual del equipo de ventas.</div>
+      </div>
+      <div class="view-card">
+        <div class="view-icon">📈</div>
+        <div class="view-name">Reportes / Gráficas</div>
+        <div class="view-desc">Stock por dealer, ventas por modelo, leads por mes. Se generan solos.</div>
+      </div>
+      <div class="view-card">
+        <div class="view-icon">📤</div>
+        <div class="view-name">Exportar</div>
+        <div class="view-desc">Descargar cualquier tabla como CSV o PDF en un clic.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: REPORTES EJEMPLO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <h2>Ejemplo de reportes que pueden generar</h2>
+        <div class="section-sub">Automáticos — sin trabajo extra del equipo</div>
+      </div>
+    </div>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="report-num">6</div>
+        <div class="report-label">Unidades en stock total</div>
+        <div class="report-sub">Actualizado en tiempo real</div>
+      </div>
+      <div class="report-card">
+        <div class="report-num">2</div>
+        <div class="report-label">Dealers con stock bajo (≤1)</div>
+        <div class="report-sub">Alerta automática por correo</div>
+      </div>
+      <div class="report-card">
+        <div class="report-num">$47K</div>
+        <div class="report-label">Valor total del inventario</div>
+        <div class="report-sub">Suma automática por precio</div>
+      </div>
+      <div class="report-card">
+        <div class="report-num">3</div>
+        <div class="report-label">Leads nuevos esta semana</div>
+        <div class="report-sub">Desde formularios del sitio</div>
+      </div>
+      <div class="report-card">
+        <div class="report-num">4</div>
+        <div class="report-label">Refacciones agotadas</div>
+        <div class="report-sub">Requieren reorden</div>
+      </div>
+      <div class="report-card">
+        <div class="report-num">Apolo</div>
+        <div class="report-label">Modelo más solicitado</div>
+        <div class="report-sub">Por volumen de leads</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: CÓMO EMPEZAR -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <h2>Cómo empezar</h2>
+        <div class="section-sub">4 pasos — el equipo puede tener esto funcionando en 1 día</div>
+      </div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num-big">1</div>
+        <h3>Crear cuenta gratis</h3>
+        <p>Ir a airtable.com — registrarse con el correo de SG Trailers. Plan Free es suficiente para empezar.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num-big">2</div>
+        <h3>Migrar el Excel</h3>
+        <p>Airtable permite importar directamente desde Excel/CSV. Los datos actuales de refacciones se importan en minutos.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num-big">3</div>
+        <h3>Crear las 4 tablas</h3>
+        <p>Dealers, Inventario, Refacciones y Leads. El desarrollador configura los campos y las relaciones entre tablas.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num-big">4</div>
+        <h3>Conectar al sitio</h3>
+        <p>El desarrollador conecta la API de Airtable al sitio. A partir de ahí el equipo actualiza datos y el sitio se actualiza solo.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:24px;">
+      <strong>Costo:</strong> Plan gratuito de Airtable es suficiente para empezar (hasta 1,000 registros por tabla). Si el catálogo de refacciones crece mucho, el plan Team cuesta $20/mes. La conexión con el sitio web es trabajo del desarrollador — se hace una sola vez.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: LO QUE NECESITA EL EQUIPO PREPARAR -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <h2>Lo que el equipo debe traer / preparar</h2>
+        <div class="section-sub">Para que la migración sea rápida y sin errores</div>
+      </div>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <thead>
+        <tr>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A8884;border-bottom:1px solid #2a2826;background:#161514;">Tabla</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A8884;border-bottom:1px solid #2a2826;background:#161514;">Qué necesitan tener listo</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A8884;border-bottom:1px solid #2a2826;background:#161514;">Formato</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#e8e6e3;font-weight:600;">Dealers</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#a09e9b;">Lista de todos los dealers actuales y potenciales con nombre, ciudad, contacto, teléfono</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;"><span class="badge badge-gray">Excel / Word / papel</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#e8e6e3;font-weight:600;">Inventario</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#a09e9b;">Stock actual por dealer: qué modelos tiene cada uno y cuántas unidades</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;"><span class="badge badge-gray">Excel / conteo físico</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#e8e6e3;font-weight:600;">Refacciones</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;color:#a09e9b;">El Excel actual que ya tienen — se importa directo. Idealmente con: nombre de la pieza, categoría, precio y stock</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #1e1d1b;"><span class="badge badge-green">Ya lo tienen en Excel</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;color:#e8e6e3;font-weight:600;">Precios</td>
+          <td style="padding:10px 14px;color:#a09e9b;">Price sheet definitivo de los 4 modelos con todas las opciones del configurador (tamaños, pisos, ejes, etc.)</td>
+          <td style="padding:10px 14px;"><span class="badge badge-yellow">Pendiente — ver configurator_review</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  Presentación preparada para reunión interna — SG Trailers, Abril 2026<br>
+  Desarrollo web: Alan Murillo / Momo Estudios — alan.murillo.salazar@gmail.com
+</footer>
+
+</body>
+</html>
