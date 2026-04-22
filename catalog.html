@@ -184,10 +184,13 @@
     .model-card:hover .card-name,.model-card.active .card-name{color:var(--gold);}
     .card-tagline{font-size:14px;color:var(--gray-md);margin-bottom:20px;font-weight:400;line-height:1.6;max-width:480px;}
     .card-specs-bar{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.06);padding-top:16px;}
-    .card-spec{padding-right:24px;margin-right:24px;border-right:1px solid rgba(255,255,255,.06);}
+    .card-spec{display:flex;flex-direction:column;gap:5px;padding-right:24px;margin-right:24px;border-right:1px solid rgba(255,255,255,.08);}
     .card-spec:last-child{border-right:none;}
-    .card-spec-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
-    .card-spec-val{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;color:var(--white);}
+    .card-spec-icon{width:22px;height:22px;color:var(--gold);flex-shrink:0;}
+    .card-spec-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;}
+    .card-spec-val{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;color:var(--white);}
+    body.light .card-spec-val{color:var(--black);}
+    body.light .card-spec-icon{color:#A67C00;}
     .card-cta-col{padding:32px 40px 32px 0;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:16px;flex-shrink:0;}
     .card-msrp-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.35em;color:var(--gray-dk);text-transform:uppercase;text-align:right;margin-bottom:2px;}
     .card-msrp{font-family:'Oswald',sans-serif;font-weight:700;font-size:32px;color:var(--gold);text-align:right;}
@@ -681,6 +684,28 @@
     /* ── Content Protection ── */
     img{-webkit-user-drag:none;}
     .hero-title,.hero-desc,.sec-title,.sec-eyebrow,.sec-sub,.page-title,.page-sub{user-select:none;-webkit-user-select:none;}
+  /* ── SIZE GROUP DIVIDER ── */
+  .size-group-divider{width:100%;display:flex;align-items:center;gap:8px;margin:10px 0 6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+  .size-group-divider::before,.size-group-divider::after{content:'';flex:1;height:1px;background:rgba(232,184,0,.2);}
+  .spec-row{transition:opacity .25s;}
+  /* ── PRE-ORDER ── */
+  .card-tier-preorder{background:rgba(232,184,0,.15);color:var(--gold);border-color:rgba(232,184,0,.25);}
+  .preorder-img{position:relative;overflow:hidden;}
+  .preorder-img img{filter:brightness(.7);}
+  .preorder-img-badge{position:absolute;bottom:12px;left:12px;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 12px;border-radius:100px;}
+  .exp-preorder-tag{display:inline-block;background:rgba(232,184,0,.15);color:var(--gold);border:1px solid rgba(232,184,0,.3);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .exp-preorder-panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 24px;}
+  .exp-preorder-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;color:var(--white);margin-bottom:8px;}
+  .exp-preorder-desc{font-size:14px;color:var(--gray-md);line-height:1.6;margin-bottom:22px;}
+  .preorder-form{display:flex;flex-direction:column;gap:12px;}
+  .preorder-form input,.preorder-form select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:12px 14px;color:var(--white);font-family:'Barlow',sans-serif;font-size:14px;outline:none;width:100%;box-sizing:border-box;}
+  .preorder-form input::placeholder{color:var(--gray-md);}
+  .preorder-form select{color:var(--gray-md);cursor:pointer;}
+  .preorder-form select option{background:#1C1B19;color:var(--white);}
+  .preorder-form input:focus,.preorder-form select:focus{border-color:rgba(232,184,0,.4);}
+  .preorder-form .btn-primary{width:100%;margin-top:4px;}
+  body.light .preorder-form input,body.light .preorder-form select{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.15);color:#141312;}
+  body.light .preorder-form input::placeholder{color:#888;}
   </style>
 </head>
 <body>
@@ -852,19 +877,19 @@
 
       <div class="model-card reveal" id="card-anubis" onclick="toggleModel('anubis')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/anubis-1.webp" alt="Anubis" width="900" height="600" loading="lazy"/><div class="card-tier">Entry Level</div></div>
+          <div class="card-img"><img src="img/anubis-1.webp" alt="Anubis" width="900" height="600" loading="lazy"/><div class="card-tier card-tier-preorder">Pre-Order</div></div>
           <div class="card-info">
             <div class="card-name">Anubis</div>
-            <div class="card-tagline">The gateway to the SG family. Uncompromised quality at an accessible price point.</div>
+            <div class="card-tagline">Mid Range · Coming 2026. Higher payload, premium finishes — production in progress.</div>
             <div class="card-specs-bar">
-              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">10,000 lbs</div></div>
-              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">18–24 ft</div></div>
-              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem HD</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8a4 4 0 0 1 8 0"/><rect x="3" y="8" width="16" height="12" rx="2"/><line x1="11" y1="13" x2="11" y2="17"/><line x1="9" y1="15" x2="13" y2="15"/></svg><div class="card-spec-label">GVWR</div><div class="card-spec-val">10,000 lbs</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="20" height="12" rx="2"/><line x1="5" y1="7" x2="5" y2="10"/><line x1="9" y1="6" x2="9" y2="10"/><line x1="13" y1="7" x2="13" y2="10"/><line x1="17" y1="6" x2="17" y2="10"/></svg><div class="card-spec-label">Length</div><div class="card-spec-val">18–24 ft</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="3.5"/><path d="M11 1v3.5M11 17.5V21M1 11h3.5M17.5 11H21M3.93 3.93l2.47 2.47M15.6 15.6l2.47 2.47M3.93 18.07l2.47-2.47M15.6 6.4l2.47-2.47"/></svg><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem HD</div></div>
             </div>
           </div>
           <div class="card-cta-col">
-            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$12,800 <span class="card-msrp-currency">USD</span></div></div>
-            <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
+            <div><div class="card-msrp-label">Est. MSRP</div><div class="card-msrp">$12,800 <span class="card-msrp-currency">USD</span></div></div>
+            <div class="card-cta-btn">Be First to Know <div class="card-arrow">›</div></div>
           </div>
         </div>
       </div>
@@ -872,18 +897,18 @@
 
       <div class="model-card reveal" id="card-apolo" onclick="toggleModel('apolo')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/apolo-1.webp" alt="Apolo" width="900" height="600" loading="lazy"/><div class="card-tier">Mid Range</div></div>
+          <div class="card-img"><img src="img/apolo-1.webp" alt="Apolo" width="900" height="600" loading="lazy"/><div class="card-tier">Entry Level</div></div>
           <div class="card-info">
             <div class="card-name">Apolo</div>
-            <div class="card-tagline">The perfect balance. Higher payload and superior finishes for the demanding user.</div>
+            <div class="card-tagline">The gateway to the SG family. Premium American-built car hauler in 7K and 14K configurations — 16 to 30 feet.</div>
             <div class="card-specs-bar">
-              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">7,000 lbs</div></div>
-              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">16–22 ft</div></div>
-              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8a4 4 0 0 1 8 0"/><rect x="3" y="8" width="16" height="12" rx="2"/><line x1="11" y1="13" x2="11" y2="17"/><line x1="9" y1="15" x2="13" y2="15"/></svg><div class="card-spec-label">GVWR</div><div class="card-spec-val">7K–14K</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="20" height="12" rx="2"/><line x1="5" y1="7" x2="5" y2="10"/><line x1="9" y1="6" x2="9" y2="10"/><line x1="13" y1="7" x2="13" y2="10"/><line x1="17" y1="6" x2="17" y2="10"/></svg><div class="card-spec-label">Length</div><div class="card-spec-val">16–30 ft</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="3.5"/><path d="M11 1v3.5M11 17.5V21M1 11h3.5M17.5 11H21M3.93 3.93l2.47 2.47M15.6 15.6l2.47 2.47M3.93 18.07l2.47-2.47M15.6 6.4l2.47-2.47"/></svg><div class="card-spec-label">Axles</div><div class="card-spec-val">Tandem Leaf Spring</div></div>
             </div>
           </div>
           <div class="card-cta-col">
-            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$8,500 <span class="card-msrp-currency">USD</span></div></div>
+            <div><div class="card-msrp-label">MSRP From</div><div class="card-msrp">$6,324 <span class="card-msrp-currency">USD</span></div></div>
             <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
           </div>
         </div>
@@ -892,19 +917,19 @@
 
       <div class="model-card reveal" id="card-armagedon" onclick="toggleModel('armagedon')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/armagedon-1.webp" alt="Armagedon" width="900" height="600" loading="lazy"/><div class="card-tier">Upper Mid</div></div>
+          <div class="card-img"><img src="img/armagedon-1.webp" alt="Armagedon" width="900" height="600" loading="lazy"/><div class="card-tier card-tier-preorder">Pre-Order</div></div>
           <div class="card-info">
             <div class="card-name">Armagedon</div>
-            <div class="card-tagline">For the demanding professional. Premium-grade materials and extended structural capacity.</div>
+            <div class="card-tagline">Upper Mid · Coming 2026. Built for fleet operators and heavy-duty professional haulers.</div>
             <div class="card-specs-bar">
-              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">14,000 lbs</div></div>
-              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">20–28 ft</div></div>
-              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Dual 7K HD</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8a4 4 0 0 1 8 0"/><rect x="3" y="8" width="16" height="12" rx="2"/><line x1="11" y1="13" x2="11" y2="17"/><line x1="9" y1="15" x2="13" y2="15"/></svg><div class="card-spec-label">GVWR</div><div class="card-spec-val">14,000 lbs</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="20" height="12" rx="2"/><line x1="5" y1="7" x2="5" y2="10"/><line x1="9" y1="6" x2="9" y2="10"/><line x1="13" y1="7" x2="13" y2="10"/><line x1="17" y1="6" x2="17" y2="10"/></svg><div class="card-spec-label">Length</div><div class="card-spec-val">20–28 ft</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="3.5"/><path d="M11 1v3.5M11 17.5V21M1 11h3.5M17.5 11H21M3.93 3.93l2.47 2.47M15.6 15.6l2.47 2.47M3.93 18.07l2.47-2.47M15.6 6.4l2.47-2.47"/></svg><div class="card-spec-label">Axles</div><div class="card-spec-val">Dual 7K HD</div></div>
             </div>
           </div>
           <div class="card-cta-col">
-            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$18,500 <span class="card-msrp-currency">USD</span></div></div>
-            <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
+            <div><div class="card-msrp-label">Est. MSRP</div><div class="card-msrp">$18,500 <span class="card-msrp-currency">USD</span></div></div>
+            <div class="card-cta-btn">Be First to Know <div class="card-arrow">›</div></div>
           </div>
         </div>
       </div>
@@ -912,19 +937,19 @@
 
       <div class="model-card reveal" id="card-apocalypse" onclick="toggleModel('apocalypse')">
         <div class="card-inner">
-          <div class="card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse" width="900" height="600" loading="lazy"/><div class="card-tier" style="background:rgba(232,184,0,.15);color:var(--gold);border-color:rgba(232,184,0,.25);">Top of Line</div></div>
+          <div class="card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse" width="900" height="600" loading="lazy"/><div class="card-tier card-tier-preorder">Pre-Order</div></div>
           <div class="card-info">
             <div class="card-name">Apocalypse</div>
-            <div class="card-tagline">No compromises. The ultimate expression of SG engineering for those who accept nothing less.</div>
+            <div class="card-tagline">Top of Line · Coming 2026. The ultimate SG — triple axle, maximum capacity, no compromises.</div>
             <div class="card-specs-bar">
-              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">21,000 lbs</div></div>
-              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">24–36 ft</div></div>
-              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">Triple 7K</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8a4 4 0 0 1 8 0"/><rect x="3" y="8" width="16" height="12" rx="2"/><line x1="11" y1="13" x2="11" y2="17"/><line x1="9" y1="15" x2="13" y2="15"/></svg><div class="card-spec-label">GVWR</div><div class="card-spec-val">21,000 lbs</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="20" height="12" rx="2"/><line x1="5" y1="7" x2="5" y2="10"/><line x1="9" y1="6" x2="9" y2="10"/><line x1="13" y1="7" x2="13" y2="10"/><line x1="17" y1="6" x2="17" y2="10"/></svg><div class="card-spec-label">Length</div><div class="card-spec-val">24–36 ft</div></div>
+              <div class="card-spec"><svg class="card-spec-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="3.5"/><path d="M11 1v3.5M11 17.5V21M1 11h3.5M17.5 11H21M3.93 3.93l2.47 2.47M15.6 15.6l2.47 2.47M3.93 18.07l2.47-2.47M15.6 6.4l2.47-2.47"/></svg><div class="card-spec-label">Axles</div><div class="card-spec-val">Triple 7K</div></div>
             </div>
           </div>
           <div class="card-cta-col">
-            <div><div class="card-msrp-label">MSRP Price</div><div class="card-msrp">$28,000 <span class="card-msrp-currency">USD</span></div></div>
-            <div class="card-cta-btn">View Models <div class="card-arrow">›</div></div>
+            <div><div class="card-msrp-label">Est. MSRP</div><div class="card-msrp">$28,000 <span class="card-msrp-currency">USD</span></div></div>
+            <div class="card-cta-btn">Be First to Know <div class="card-arrow">›</div></div>
           </div>
         </div>
       </div>
@@ -986,9 +1011,9 @@
         <h2 class="sec-title">Let's <em>Talk</em></h2>
         <p class="sec-desc">Whether you're a first-time buyer or looking to build a dealer relationship, we'd love to hear from you.</p>
         <div>
-          <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val">Yuma, Arizona, USA</div></div></div>
-          <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val"><a href="tel:+17600000000">US: (760) 000-0000</a><br><a href="tel:+526860000000">MX: +52 (686) 000-0000</a></div></div></div>
-          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:sales@sgtrailers.com">sales@sgtrailers.com</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val">7333 E 37th Pl<br>Yuma, AZ 85365</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val"><a href="tel:+19282760988">(928) 276-0988</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:sales@sg-trailers.com">sales@sg-trailers.com</a></div></div></div>
           <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">WhatsApp</div><div class="contact-val"><a href="#">Chat with us directly</a></div></div></div>
         </div>
       </div>
@@ -998,7 +1023,7 @@
           <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Smith"/></div>
         </div>
         <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="john@example.com"/></div>
-        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="+1 (760) 000-0000"/></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="(928) 276-0988"/></div>
         <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us what you're looking for — model, size, intended use..."></textarea></div>
         <button class="form-submit">Send Message →</button>
       </div>
@@ -1012,7 +1037,7 @@
         <img src="img/logo.webp" alt="SG Trailers" style="height:80px;width:auto;" width="216" height="144" loading="lazy"/>
       </div>
         <div class="footer-tagline">Precision-built trailers. Direct from the factory — no middlemen, no markups.</div>
-        <div class="footer-social"><a href="#">FB</a><a href="#">IG</a><a href="#">YT</a><a href="#">TK</a></div>
+        <div class="footer-social"><a href="#">FB</a><a href="https://instagram.com/sgmotorsportsmx" target="_blank" rel="noopener">IG</a><a href="#">YT</a><a href="#">TK</a></div>
       </div>
       <div>
         <div class="footer-col-title">Trailers</div>
@@ -1055,13 +1080,13 @@
     (function loop(){rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;requestAnimationFrame(loop);})();
 
     const models={
-      apolo:{nameHtml:'Apolo',tier:'Mid Range · Car Hauler',video:'img/apolo_v-1.mp4',photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},{ft:22,price:12500}],specs:[['Payload Capacity','7,000 lbs'],['Trailer Weight','1,850 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x6"'],['Axles','2 x 3,500 lbs'],['Warranty','1 yr structure']],acc:[{icon:'💡',name:'LED Light Kit',price:450},{icon:'🔋',name:'Sealed 12V Battery',price:280},{icon:'☀️',name:'100W Solar Panel',price:620},{icon:'🔒',name:'Tool Box',price:190}]},
-      anubis:{nameHtml:'Anubis',tier:'Entry Level · Car Hauler',video:'img/anubis_v-1.mp4',photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'💡',name:'Premium LED Kit',price:550},{icon:'🔋',name:'12V 55Ah Battery',price:380},{icon:'☀️',name:'200W Solar Panel',price:820},{icon:'🔒',name:'XL Tool Box',price:290}]},
-      armagedon:{nameHtml:'Armagedon',tier:'Upper Mid · Car Hauler',video:'img/armagedon_v-1.mp4',photos:['img/armagedon-1.webp','img/armagedon-2.png','img/armagedon-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'💡',name:'Pro RGB LED Kit',price:750},{icon:'🔋',name:'LiFePO4 100Ah Battery',price:580},{icon:'☀️',name:'400W Solar System',price:1200},{icon:'🔒',name:'E-Track System Pro',price:420}]},
-      apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',video:'img/apocalypse_v-1.mp4',photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'💡',name:'Ultimate RGB LED Kit',price:1100},{icon:'🔋',name:'200Ah Battery Bank',price:980},{icon:'☀️',name:'800W Solar System',price:2200},{icon:'🔒',name:'Ultimate E-Track Kit',price:850}]}
+      apolo:{nameHtml:'Apolo',tier:'Entry Level · 7K–14K Car Hauler',videos:['img/apolo_v-1.mp4','img/apolo_v-2.mp4'],photos:['img/apolo-2.webp','img/apolo-3.webp','img/apolo-4.webp','img/apolo-5.webp'],sizes:[{ft:16,price:6324,group:'7K'},{ft:18,price:7071,group:'7K'},{ft:20,price:7819,group:'7K'},{ft:22,price:8566,group:'7K'},{ft:24,price:9314,group:'14K'},{ft:26,price:10061,group:'14K'},{ft:28,price:10809,group:'14K'},{ft:30,price:11556,group:'14K'}],specs:[['Axles','2 × 3,500 lbs Leaf Spring','7K'],['Axles','2 × 7,000 lbs Leaf Spring','14K'],['Tires','205/75R15-10ply','7K'],['Tires','235-80R16-14ply','14K'],['Brake System','Electric Drum · 1 axle','7K'],['Brake System','Electric Drum · 2 axles','14K'],['Width','102"','all'],['Between Fenders','82"','all'],['Hitch Coupler','2-5/16" · 21,000 lbs','all'],['Safety Chains','3/8" Grade 70','all'],['Finish','Gloss Enamel','all'],['ToolBox','Included','all'],['LED Kit SG','Included','all'],['Break-Away','Black Joint Box','all']],acc:[{icon:'🔧',name:'Pop Up Winch',price:750},{icon:'⚙️',name:'Winch 13.5K (w/ electrical)',price:950},{icon:'💡',name:'Deck Light',price:350},{icon:'🔵',name:'Rock Light',price:450},{icon:'🛑',name:'Extra Electric Drum Brake',price:150}]},
+      anubis:{nameHtml:'Anubis',tier:'Entry Level · Car Hauler',videos:['img/anubis_v-1.mp4'],photos:['img/anubis-2.webp','img/anubis-3.webp','img/anubis-4.webp','img/anubis-5.webp'],sizes:[{ft:18,price:12800},{ft:20,price:14500},{ft:22,price:16200},{ft:24,price:18000}],specs:[['Payload Capacity','10,000 lbs'],['Trailer Weight','2,400 lbs'],['Interior Width','82"'],['Floor Type','Treated Wood 2x8"'],['Axles','2 x 5,200 lbs'],['Warranty','2 yr structure']],acc:[{icon:'🔧',name:'Pop Up Winch',price:750},{icon:'⚙️',name:'Winch 13.5K (w/ electrical)',price:950},{icon:'💡',name:'Deck Light',price:350},{icon:'🔵',name:'Rock Light',price:450},{icon:'🛑',name:'Extra Electric Drum Brake',price:150}]},
+      armagedon:{nameHtml:'Armagedon',tier:'Upper Mid · Car Hauler',videos:['img/armagedon_v-1.mp4'],photos:['img/armagedon-1.webp','img/armagedon-2.png','img/armagedon-3.png'],sizes:[{ft:20,price:18500},{ft:22,price:21000},{ft:24,price:23800},{ft:28,price:27500}],specs:[['Payload Capacity','14,000 lbs'],['Trailer Weight','3,100 lbs'],['Interior Width','102"'],['Floor Type','Diamond Aluminum Plate'],['Axles','2 x 7,000 lbs HD'],['Warranty','3 yr structure']],acc:[{icon:'🔧',name:'Pop Up Winch',price:750},{icon:'⚙️',name:'Winch 13.5K (w/ electrical)',price:950},{icon:'💡',name:'Deck Light',price:350},{icon:'🔵',name:'Rock Light',price:450},{icon:'🛑',name:'Extra Electric Drum Brake',price:150}]},
+      apocalypse:{nameHtml:'Apocalypse',tier:'Top of Line · Car Hauler',videos:['img/apocalypse_v-1.mp4'],photos:['img/apocalypse-1.webp','img/apocalypse-2.png','img/apocalypse-3.png'],sizes:[{ft:24,price:28000},{ft:28,price:33500},{ft:32,price:38000},{ft:36,price:44500}],specs:[['Payload Capacity','21,000 lbs'],['Trailer Weight','4,800 lbs'],['Interior Width','102"'],['Floor Type','HD Diamond Aluminum'],['Axles','3 x 7,000 lbs Triple Axle'],['Warranty','5 yr full structure']],acc:[{icon:'🔧',name:'Pop Up Winch',price:750},{icon:'⚙️',name:'Winch 13.5K (w/ electrical)',price:950},{icon:'💡',name:'Deck Light',price:350},{icon:'🔵',name:'Rock Light',price:450},{icon:'🛑',name:'Extra Electric Drum Brake',price:150}]}
     };
 
-    const state={active:null,prices:{apolo:8500,anubis:12800,armagedon:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,armagedon:0,apocalypse:0}};
+    const state={active:null,prices:{apolo:6324,anubis:12800,armagedon:18500,apocalypse:28000},accTotals:{apolo:0,anubis:0,armagedon:0,apocalypse:0}};
     const fmt=n=>'$'+n.toLocaleString('en-US');
 
     /* ── DEALER INVENTORY (update manually until Airtable is live) ── */
@@ -1087,13 +1112,24 @@
       }
     }
 
+    function updateSpecs(key,group){
+      document.querySelectorAll('#expand-inner-'+key+' .spec-row').forEach(row=>{
+        const rg=row.dataset.group;
+        row.style.opacity=(rg==='all'||rg===group)?'1':'0.18';
+      });
+    }
+
     function buildHTML(key){
       const m=models[key];
-      const sizes=m.sizes.map((s,i)=>`<button class="size-btn${i===0?' active':''}" onclick="selectSize(event,'${key}',${s.price})">${s.ft} ft</button>`).join('');
-      const specs=m.specs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+      const sizes=m.sizes.map((s,i)=>{
+        const prev=i>0?m.sizes[i-1]:null;
+        const divider=(s.group&&prev&&prev.group!==s.group)?`<div class="size-group-divider"><span>${s.group} Series</span></div>`:'';
+        return `${divider}<button class="size-btn${i===0?' active':''}" data-group="${s.group||''}" onclick="selectSize(event,'${key}',${s.price},'${s.group||''}')">${s.ft} ft</button>`;
+      }).join('');
+      const specs=m.specs.map(([k,v,g='all'])=>`<tr class="spec-row" data-group="${g}"><td>${k}</td><td>${v}</td></tr>`).join('');
       const accs=m.acc.map(a=>`<div class="acc-item" onclick="toggleAcc(event,this,'${key}',${a.price})"><div class="acc-left"><div class="acc-icon">${a.icon}</div><div class="acc-name">${a.name}</div></div><div class="acc-right"><div class="acc-price">+${fmt(a.price)}</div><div class="acc-check">✓</div></div></div>`).join('');
       const thumbs=m.photos.map((p,i)=>`<div class="exp-thumb${i===0?' active':''}" onclick="switchPhoto(event,'${key}','${p}',this,false)"><img src="${p}" alt="${key}"/></div>`).join('');
-      const videoThumb=m.video?`<div class="exp-thumb exp-thumb-video" onclick="switchPhoto(event,'${key}','${m.video}',this,true)"><video src="${m.video}" preload="metadata" muted playsinline></video><div class="exp-thumb-play">▶</div></div>`:'';
+      const videoThumb=(m.videos||[]).map(v=>`<div class="exp-thumb exp-thumb-video" onclick="switchPhoto(event,'${key}','${v}',this,true)"><video src="${v}" preload="metadata" muted playsinline></video><div class="exp-thumb-play">▶</div></div>`).join('');
       return `
         <div>
           <div class="exp-img-main" id="exp-main-${key}" onclick="openLightbox('${key}',currentPhotoIndex['${key}']||0,event)"><img src="${m.photos[0]}" alt="${key}"/></div>
@@ -1128,6 +1164,58 @@
         </div>`;
     }
 
+    const preorderModels=new Set(['anubis','armagedon','apocalypse']);
+
+    function buildPreorderHTML(key){
+      const m=models[key];
+      const specs=m.specs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+      return `
+        <div>
+          <div class="exp-img-main preorder-img" id="exp-main-${key}">
+            <img src="${m.photos[0]}" alt="${key}"/>
+            <div class="preorder-img-badge">Coming 2026</div>
+          </div>
+        </div>
+        <div>
+          <div class="exp-preorder-tag">Pre-Order</div>
+          <div class="exp-model-name">${m.nameHtml}</div>
+          <div class="exp-sub">${m.tier}</div>
+          <div class="exp-price-box">
+            <div class="exp-price-label">Est. MSRP From</div>
+            <div class="exp-price-val">${fmt(state.prices[key])}</div>
+            <div class="exp-price-note">Estimated MSRP · Subject to change · Production in progress</div>
+          </div>
+          <div class="exp-section-title" style="margin-top:24px;">Estimated Specifications</div>
+          <table class="specs-table">${specs}</table>
+        </div>
+        <div>
+          <div class="exp-preorder-panel">
+            <div class="exp-preorder-title">Be the first to know</div>
+            <div class="exp-preorder-desc">This model is currently in production at our Yuma, AZ facility. Leave your info and we'll notify you the moment it's ready to order.</div>
+            <form class="preorder-form" onsubmit="submitPreorder(event,'${key}')">
+              <input type="text" name="name" placeholder="Your name" required/>
+              <input type="email" name="email" placeholder="Email address" required/>
+              <select name="usecase">
+                <option value="" disabled selected>How would you use this trailer?</option>
+                <option value="personal">Personal / Hobby</option>
+                <option value="commercial">Commercial / Business</option>
+                <option value="dealer">Dealer / Reseller</option>
+                <option value="fleet">Fleet Operator</option>
+              </select>
+              <button type="submit" class="btn-primary" id="preorder-btn-${key}">Notify Me When Available</button>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    function submitPreorder(e,key){
+      e.preventDefault();
+      const btn=document.getElementById('preorder-btn-'+key);
+      btn.textContent="✓ You're on the list!";
+      btn.disabled=true;
+      btn.style.cssText='background:rgba(255,255,255,.08);color:var(--gray-md);cursor:default;';
+    }
+
     function toggleModel(key){
       const rowEl=document.getElementById('expand-row-'+key);
       const innerEl=document.getElementById('expand-inner-'+key);
@@ -1140,10 +1228,10 @@
         state.prices[state.active]=models[state.active].sizes[0].price;
       }
       if(isOpen){cardEl.classList.remove('active');rowEl.classList.remove('open');state.active=null;}
-      else{innerEl.innerHTML=buildHTML(key);cardEl.classList.add('active');rowEl.classList.add('open');state.active=key;setTimeout(()=>rowEl.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
+      else{innerEl.innerHTML=preorderModels.has(key)?buildPreorderHTML(key):buildHTML(key);cardEl.classList.add('active');rowEl.classList.add('open');state.active=key;const fs=models[key].sizes[0];if(fs&&fs.group)setTimeout(()=>updateSpecs(key,fs.group),50);setTimeout(()=>rowEl.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
     }
 
-    function selectSize(e,key,price){e.stopPropagation();state.prices[key]=price;document.querySelectorAll('#expand-inner-'+key+' .size-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');updateTotal(key);}
+    function selectSize(e,key,price,group){e.stopPropagation();state.prices[key]=price;document.querySelectorAll('#expand-inner-'+key+' .size-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');updateTotal(key);if(group)updateSpecs(key,group);}
     function toggleAcc(e,el,key,price){e.stopPropagation();el.classList.toggle('selected');state.accTotals[key]+=el.classList.contains('selected')?price:-price;updateTotal(key);}
     function updateTotal(key){const t=state.prices[key]+state.accTotals[key];const pe=document.getElementById('eprice-'+key),te=document.getElementById('etotal-'+key);if(pe)pe.textContent=fmt(state.prices[key]);if(te)te.textContent=fmt(t);}
     function switchPhoto(e,key,src,thumb,isVideo){
@@ -1439,5 +1527,10 @@
   document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
   document.querySelectorAll('img').forEach(i=>i.setAttribute('draggable','false'));
   </script>
+  <!-- WhatsApp Floating Button -->
+  <style>.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:9990;transition:transform .3s,box-shadow .3s;}.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55);}.wa-float svg{width:30px;height:30px;}</style>
+  <a href="https://wa.me/19282760988" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
 </body>
 </html>
