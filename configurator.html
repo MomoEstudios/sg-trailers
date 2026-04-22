@@ -1394,35 +1394,65 @@
           </div>
 
           <div class="cfg-options" id="cat-design">
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Matte Black')">
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Black')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
                 <div class="cfg-color-dot" style="background:#1A1A1A;"></div>
                 <div>
-                  <div class="cfg-option-name">Matte Black</div>
-                  <div class="cfg-option-desc">Sleek and durable — standard finish</div>
-                </div>
-              </div>
-              <div class="cfg-option-price included">Included</div>
-            </div>
-            <div class="cfg-option" onclick="selectOption(this,'design',0,'Nardo Gray')">
-              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
-                <div class="cfg-color-dot" style="background:#848484;"></div>
-                <div>
-                  <div class="cfg-option-name">Nardo Gray</div>
-                  <div class="cfg-option-desc">Premium pearl gray tone</div>
+                  <div class="cfg-option-name">Black</div>
+                  <div class="cfg-option-desc">Gloss enamel finish — bold and aggressive</div>
                 </div>
               </div>
               <div class="cfg-option-price included">Included</div>
             </div>
             <div class="cfg-option" onclick="selectOption(this,'design',0,'White')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
-                <div class="cfg-color-dot" style="background:#E0DDD9;border:1px solid rgba(255,255,255,.2);"></div>
+                <div class="cfg-color-dot" style="background:#E8E5E1;border:1px solid rgba(255,255,255,.2);"></div>
                 <div>
                   <div class="cfg-option-name">White</div>
-                  <div class="cfg-option-desc">Classic and clean</div>
+                  <div class="cfg-option-desc">Classic and clean — gloss enamel</div>
                 </div>
               </div>
-              <div class="cfg-option-price">Call for Pricing</div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Grey')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#7A7A7A;"></div>
+                <div>
+                  <div class="cfg-option-name">Grey</div>
+                  <div class="cfg-option-desc">Standard gray — versatile and professional</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Nardo Grey')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#ADADAD;"></div>
+                <div>
+                  <div class="cfg-option-name">Nardo Grey</div>
+                  <div class="cfg-option-desc">Premium matte gray tone — subtle and refined</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Blue')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#3B6EA5;"></div>
+                <div>
+                  <div class="cfg-option-name">Blue</div>
+                  <div class="cfg-option-desc">Bold gloss blue — stands out on any road</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
+            </div>
+            <div class="cfg-option" onclick="selectOption(this,'design',0,'Red')">
+              <div class="cfg-option-left"><div class="cfg-option-radio"></div>
+                <div class="cfg-color-dot" style="background:#A82000;"></div>
+                <div>
+                  <div class="cfg-option-name">Red</div>
+                  <div class="cfg-option-desc">High-visibility gloss red — commanding presence</div>
+                </div>
+              </div>
+              <div class="cfg-option-price included">Included</div>
             </div>
             <div class="cfg-option" onclick="selectOption(this,'design',0,'Custom Color')">
               <div class="cfg-option-left"><div class="cfg-option-radio"></div>
@@ -1573,7 +1603,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">Phone</label>
-        <input class="form-input" type="tel" placeholder="(555) 000-0000"/>
+        <input class="form-input" type="tel" placeholder="(928) 276-0988"/>
       </div>
       <div class="form-group">
         <label class="form-label">State / Location</label>
@@ -1944,9 +1974,12 @@
 
   /* ── TRAILER PREVIEW 3D ── */
   const trailerColorMap={
-    'Matte Black':  '#1C1C1C',
-    'Nardo Gray':   '#9B9B9B',
-    'White':        '#DEDAD6',
+    'Black':        '#1A1A1A',
+    'White':        '#E8E5E1',
+    'Grey':         '#7A7A7A',
+    'Nardo Grey':   '#ADADAD',
+    'Blue':         '#3B6EA5',
+    'Red':          '#A82000',
     'Custom Color': '#4A4744'
   };
   function updateTrailerColor(name){
