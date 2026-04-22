@@ -265,6 +265,8 @@
     #tab-apolo::after { background:#5BB8F5; }
     #tab-apolo.active .model-tab-name,
     #tab-apolo:hover .model-tab-name { color:#5BB8F5; }
+    #tab-apolo.active,#tab-apolo:hover { background:rgba(91,184,245,.05); }
+    #tab-apolo .model-tab-tier { color:var(--white); }
     .model-tab-img {
       width:100%;height:150px;object-fit:contain;
       filter:brightness(.75) saturate(.8);
@@ -790,6 +792,15 @@
     img.img-error::after{content:'';display:block;}
     .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%;min-height:160px;background:var(--black-c);border:1px solid rgba(255,255,255,.07);border-radius:inherit;color:var(--gray-md);font-family:'Barlow',sans-serif;font-size:13px;}
     .img-placeholder svg{opacity:.35;width:36px;height:36px;}
+    /* ── COMING SOON ── */
+    .mega-card{position:relative;}
+    .mega-card-cs-badge,.model-tab-cs-badge{position:absolute;top:10px;left:10px;background:rgba(232,184,0,.92);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;z-index:2;}
+    .mega-card.coming-soon .mega-card-img img{filter:brightness(.5);}
+    .mega-card.coming-soon:hover .mega-card-img img{filter:brightness(.62);transform:none;}
+    .mega-card.coming-soon .mega-card-tier{color:var(--gold);}
+    .model-tab.coming-soon .model-tab-img{filter:brightness(.45) saturate(.2);}
+    .model-tab.coming-soon:hover .model-tab-img,.model-tab.coming-soon.active .model-tab-img{filter:brightness(.55) saturate(.2);transform:none;}
+    .model-tab.coming-soon .model-tab-tier{color:var(--gold);}
   </style>
 </head>
 <body>
@@ -859,25 +870,28 @@
         <button class="mega-close" onclick="closeMega()">✕ Close</button>
       </div>
       <div class="mega-grid">
-        <a href="catalog.html?model=anubis" class="mega-card">
+        <a href="catalog.html?model=anubis" class="mega-card coming-soon">
+          <div class="mega-card-cs-badge">Coming 2026</div>
           <div class="mega-card-img"><img src="img/anubis-1.webp" alt="Anubis" width="900" height="600" loading="lazy" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Anubis</div>
-          <div class="mega-card-tier">Entry Level</div>
+          <div class="mega-card-tier">Pre-Order</div>
         </a>
         <a href="catalog.html?model=apolo" class="mega-card">
           <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Apolo" width="900" height="600" loading="lazy" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Apolo</div>
-          <div class="mega-card-tier">Mid Range</div>
+          <div class="mega-card-tier">Entry Level</div>
         </a>
-        <a href="catalog.html?model=armagedon" class="mega-card">
+        <a href="catalog.html?model=armagedon" class="mega-card coming-soon">
+          <div class="mega-card-cs-badge">Coming 2026</div>
           <div class="mega-card-img"><img src="img/armagedon-1.webp" alt="Armagedon" width="900" height="600" loading="lazy" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Armagedon</div>
-          <div class="mega-card-tier">Upper Mid</div>
+          <div class="mega-card-tier">Pre-Order</div>
         </a>
-        <a href="catalog.html?model=apocalypse" class="mega-card">
+        <a href="catalog.html?model=apocalypse" class="mega-card coming-soon">
+          <div class="mega-card-cs-badge">Coming 2026</div>
           <div class="mega-card-img"><img src="img/apocalypse-1.webp" alt="Apocalypse" width="900" height="600" loading="lazy" onerror="imgErr(this)"/></div>
           <div class="mega-card-name">Apocalypse</div>
-          <div class="mega-card-tier">Top of Line</div>
+          <div class="mega-card-tier">Pre-Order</div>
         </a>
       </div>
       <div class="mega-footer">
@@ -976,25 +990,32 @@
       <div class="models-bar-title">Trailer Models</div>
     </div>
     <div class="models-bar-grid">
-      <a href="catalog.html?model=anubis" class="model-tab active reveal" id="tab-anubis">
+      <a href="catalog.html?model=anubis" class="model-tab active reveal coming-soon" id="tab-anubis">
+        <div class="model-tab-cs-badge">Coming 2026</div>
         <img src="img/anubis-1.webp" alt="Anubis" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Anubis</div>
-        <div class="model-tab-tier">Entry Level</div>
+        <div class="model-tab-tier">Mid Range</div>
+        <div class="model-tab-msrp">Reserve Yours →</div>
       </a>
       <a href="catalog.html?model=apolo" class="model-tab reveal" id="tab-apolo">
         <img src="img/apolo-1.webp" alt="Apolo" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Apolo</div>
-        <div class="model-tab-tier">Mid Range</div>
+        <div class="model-tab-tier">Entry Level</div>
+        <div class="model-tab-msrp">MSRP From $6,324</div>
       </a>
-      <a href="catalog.html?model=armagedon" class="model-tab reveal" id="tab-armagedon">
+      <a href="catalog.html?model=armagedon" class="model-tab reveal coming-soon" id="tab-armagedon">
+        <div class="model-tab-cs-badge">Coming 2026</div>
         <img src="img/armagedon-1.webp" alt="Armagedon" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Armagedon</div>
         <div class="model-tab-tier">Upper Mid</div>
+        <div class="model-tab-msrp">Reserve Yours →</div>
       </a>
-      <a href="catalog.html?model=apocalypse" class="model-tab reveal" id="tab-apocalypse">
+      <a href="catalog.html?model=apocalypse" class="model-tab reveal coming-soon" id="tab-apocalypse">
+        <div class="model-tab-cs-badge">Coming 2026</div>
         <img src="img/apocalypse-1.webp" alt="Apocalypse" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Apocalypse</div>
         <div class="model-tab-tier">Top of Line</div>
+        <div class="model-tab-msrp">Reserve Yours →</div>
       </a>
     </div>
   </div>
