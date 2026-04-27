@@ -1000,6 +1000,11 @@
         </div>
         <div class="cfg-section-body">
 
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:14px 18px;background:rgba(232,184,0,.06);border:1px solid rgba(232,184,0,.18);margin-bottom:24px;">
+          <span style="font-size:15px;flex-shrink:0;margin-top:1px;">ℹ️</span>
+          <p style="font-family:'Barlow',sans-serif;font-size:13px;color:var(--gray-md);line-height:1.6;margin:0;">Options showing <strong style="color:var(--white);">Included</strong> are part of the base price. Options showing <strong style="color:var(--white);">Call for Pricing</strong> are available upgrades — select them freely and our team will confirm pricing in your personalized quote.</p>
+        </div>
+
         <!-- Category 1: Hitch -->
         <div class="cfg-category active" id="cfgcat-hitch">
           <div class="cfg-cat-header">
@@ -1554,14 +1559,14 @@
       </div>
 
       <div class="cfg-total-row">
-        <div class="cfg-total-label">Est. Total</div>
+        <div class="cfg-total-label">Est. Base Price</div>
         <div class="cfg-total-price" id="cfgTotalPrice">$—</div>
       </div>
 
       <button class="cfg-order-btn" id="cfgOrderBtn" onclick="openOrderModal()" disabled>
         Request Quote →
       </button>
-      <div class="cfg-order-note">No payment required. We'll review your configuration and contact you within 24 hours.</div>
+      <div class="cfg-order-note">Estimated base price only. Options marked "Call for Pricing" will be confirmed in your personalized quote. No payment required at this stage.</div>
     </div>
 
   </div><!-- /cfg-body -->
@@ -1632,7 +1637,7 @@
         <textarea class="form-textarea" placeholder="Any specific requirements or questions..."></textarea>
       </div>
       <button type="submit" class="modal-submit">Send Quote Request →</button>
-      <div class="modal-disclaimer">By submitting you agree to be contacted by SG Trailers LLC regarding your request. No payment is required at this stage.</div>
+      <div class="modal-disclaimer">Price shown is an estimate based on your base configuration. Options marked "Call for Pricing" will be confirmed in your quote. By submitting you agree to be contacted by SG Trailers LLC. No payment required.</div>
     </form>
   </div>
 </div>
@@ -1930,12 +1935,51 @@
   function modalClickOutside(e){
     if(e.target===document.getElementById('orderModal')) closeOrderModal();
   }
+  function generateOrderCode(){
+    const now=new Date();
+    const y=now.getFullYear();
+    const m=String(now.getMonth()+1).padStart(2,'0');
+    const d=String(now.getDate()).padStart(2,'0');
+    const rand=String(Math.floor(Math.random()*900)+100);
+    return `SG-${y}${m}${d}-${rand}`;
+  }
+
   function submitOrder(e){
     e.preventDefault();
-    // Placeholder — connect to Formspree or backend
     const btn=e.target.querySelector('.modal-submit');
-    if(btn){btn.textContent='Request sent ✓';btn.disabled=true;btn.style.background='#2D6A4F';}
-    setTimeout(()=>closeOrderModal(),1400);
+    if(btn){btn.textContent='Sending...';btn.disabled=true;}
+
+    const code=generateOrderCode();
+
+    /* Inject hidden order_code field into form */
+    let codeInput=e.target.querySelector('input[name="order_code"]');
+    if(!codeInput){
+      codeInput=document.createElement('input');
+      codeInput.type='hidden';codeInput.name='order_code';
+      e.target.appendChild(codeInput);
+    }
+    codeInput.value=code;
+
+    /* Show success screen with order code */
+    setTimeout(()=>{
+      const box=document.querySelector('.modal-box');
+      box.innerHTML=`
+        <div style="text-align:center;padding:20px 0;">
+          <div style="font-size:52px;margin-bottom:16px;">✅</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Quote Request Sent</div>
+          <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">We Got It!</div>
+          <p style="font-size:14px;color:var(--gray-md);line-height:1.7;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto;">We'll review your configuration and contact you within 24 hours. Save your order code to track your build.</p>
+          <div style="background:var(--black-s);border:1px solid rgba(232,184,0,.3);padding:20px;margin-bottom:20px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray-md);margin-bottom:8px;">Your Order Code</div>
+            <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:32px;letter-spacing:.1em;color:var(--gold);">${code}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">This code was also sent to your email.</div>
+          </div>
+          <a href="track.html?code=${code}" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:13px 28px;border-radius:100px;text-decoration:none;">Track My Order →</a>
+          <div style="margin-top:16px;">
+            <button onclick="closeOrderModal()" style="background:none;border:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-md);cursor:none;">Close</button>
+          </div>
+        </div>`;
+    }, 800);
   }
 
   /* ── REVEAL ── */

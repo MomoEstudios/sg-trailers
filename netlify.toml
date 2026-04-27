@@ -1,0 +1,13 @@
+# Netlify configuration for SG Trailers
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Redirect www → non-www (opcional, activar cuando tengas dominio)
+# [[redirects]]
+#   from = "https://www.sgtrailers.com/*"
+#   to   = "https://sgtrailers.com/:splat"
+#   status = 301
+#   force  = true
