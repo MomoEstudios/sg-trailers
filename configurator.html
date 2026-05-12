@@ -241,7 +241,7 @@
     .mega-menu-header span:first-child{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
     .mega-close{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gray-md);text-transform:uppercase;cursor:none;transition:color .3s;background:transparent;border:none;}
     .mega-close:hover{color:var(--gold);}
-    .mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .mega-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
     .mega-card{display:flex;flex-direction:column;background:var(--black-c);border:1px solid rgba(255,255,255,.05);text-decoration:none;overflow:hidden;transition:border-color .3s,background .3s;}
     .mega-card:hover{border-color:var(--gold);background:#272523;}
     .mega-card-img{width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--black-s);}
@@ -382,7 +382,7 @@
 
     /* ── MODEL CARDS (Step 1) ── */
     .model-pick-grid{
-      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
     }
     @media(max-width:900px){.model-pick-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:480px){.model-pick-grid{grid-template-columns:1fr 1fr;gap:8px;}}
@@ -418,6 +418,14 @@
     .model-pick-card.coming-soon:hover{border-color:rgba(255,255,255,.07);background:var(--black-c);transform:none;}
     .model-pick-cs-badge{position:absolute;top:10px;left:10px;background:rgba(232,184,0,.9);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;}
     .model-pick-tier-preorder{color:var(--gold) !important;}
+    /* Atlas locked */
+    .model-pick-card.locked{cursor:default;pointer-events:none;}
+    .model-pick-card.locked:hover{border-color:rgba(255,255,255,.07);background:var(--black-c);transform:none;}
+    .model-pick-card.locked .model-pick-img{position:relative;}
+    .model-pick-card.locked .model-pick-img img{filter:brightness(0);}
+    .model-pick-card.locked .model-pick-img::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:24px;filter:drop-shadow(0 0 12px rgba(232,184,0,.8));z-index:2;}
+    .model-pick-card.locked .model-pick-name{color:rgba(255,255,255,.22);}
+    .model-pick-card.locked .model-pick-price{color:rgba(255,255,255,.15);}
 
     /* ── SIZE BUTTONS (Step 2) ── */
     .size-pick-grid{display:flex;flex-wrap:wrap;gap:10px;}
@@ -967,6 +975,15 @@
               <div class="model-pick-tier model-pick-tier-preorder">Pre-Order</div>
               <div class="model-pick-name">Apocalypse</div>
               <div class="model-pick-price">Est. MSRP <span>$28,000</span></div>
+            </div>
+          </div>
+          <div class="model-pick-card locked" id="mcard-atlas">
+            <div class="model-pick-cs-badge" style="background:rgba(20,19,18,.9);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);">Classified</div>
+            <div class="model-pick-img"><img src="img/apolo-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
+            <div class="model-pick-info">
+              <div class="model-pick-tier" style="color:rgba(255,255,255,.2);">Coming Soon</div>
+              <div class="model-pick-name">Atlas</div>
+              <div class="model-pick-price" style="color:rgba(255,255,255,.15);">Price TBD</div>
             </div>
           </div>
         </div>
@@ -1602,28 +1619,28 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">First Name</label>
-          <input class="form-input" type="text" placeholder="John" required/>
+          <input class="form-input" type="text" name="first_name" placeholder="John" required/>
         </div>
         <div class="form-group">
           <label class="form-label">Last Name</label>
-          <input class="form-input" type="text" placeholder="Smith" required/>
+          <input class="form-input" type="text" name="last_name" placeholder="Smith" required/>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input class="form-input" type="email" placeholder="john@example.com" required/>
+        <input class="form-input" type="email" name="email" placeholder="john@example.com" required/>
       </div>
       <div class="form-group">
         <label class="form-label">Phone</label>
-        <input class="form-input" type="tel" placeholder="(928) 276-0988"/>
+        <input class="form-input" type="tel" name="phone" placeholder="(928) 276-0988"/>
       </div>
       <div class="form-group">
         <label class="form-label">State / Location</label>
-        <input class="form-input" type="text" placeholder="Arizona"/>
+        <input class="form-input" type="text" name="location" placeholder="Arizona"/>
       </div>
       <div class="form-group">
         <label class="form-label">How did you hear about us?</label>
-        <select class="form-select">
+        <select class="form-select" name="source">
           <option value="">Select...</option>
           <option>Google Search</option>
           <option>Social Media</option>
@@ -1634,7 +1651,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">Additional Notes (optional)</label>
-        <textarea class="form-textarea" placeholder="Any specific requirements or questions..."></textarea>
+        <textarea class="form-textarea" name="notes" placeholder="Any specific requirements or questions..."></textarea>
       </div>
       <button type="submit" class="modal-submit">Send Quote Request →</button>
       <div class="modal-disclaimer">Price shown is an estimate based on your base configuration. Options marked "Call for Pricing" will be confirmed in your quote. By submitting you agree to be contacted by SG Trailers LLC. No payment required.</div>
@@ -1949,19 +1966,27 @@
     const btn=e.target.querySelector('.modal-submit');
     if(btn){btn.textContent='Sending...';btn.disabled=true;}
 
-    const code=generateOrderCode();
+    /* Collect form fields */
+    const fd=new FormData(e.target);
+    const payload={
+      first_name: fd.get('first_name')||'',
+      last_name:  fd.get('last_name')||'',
+      email:      fd.get('email')||'',
+      phone:      fd.get('phone')||'',
+      location:   fd.get('location')||'',
+      source:     fd.get('source')||'',
+      notes:      fd.get('notes')||'',
+      /* Configuration from JS state */
+      model:      cfg.modelName||'',
+      size:       cfg.sizeFt||'',
+      axles:      cfg.optionNames.axles||'—',
+      floor:      cfg.optionNames.floor||'—',
+      hitch:      cfg.optionNames.hitch||'—',
+      electrical: cfg.optionNames.electrical||'—',
+      storage:    cfg.optionNames.extras||'—',
+    };
 
-    /* Inject hidden order_code field into form */
-    let codeInput=e.target.querySelector('input[name="order_code"]');
-    if(!codeInput){
-      codeInput=document.createElement('input');
-      codeInput.type='hidden';codeInput.name='order_code';
-      e.target.appendChild(codeInput);
-    }
-    codeInput.value=code;
-
-    /* Show success screen with order code */
-    setTimeout(()=>{
+    function showSuccess(code){
       const box=document.querySelector('.modal-box');
       box.innerHTML=`
         <div style="text-align:center;padding:20px 0;">
@@ -1972,14 +1997,37 @@
           <div style="background:var(--black-s);border:1px solid rgba(232,184,0,.3);padding:20px;margin-bottom:20px;">
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray-md);margin-bottom:8px;">Your Order Code</div>
             <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:32px;letter-spacing:.1em;color:var(--gold);">${code}</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">This code was also sent to your email.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">Use this code to track your build status.</div>
           </div>
           <a href="track.html?code=${code}" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:13px 28px;border-radius:100px;text-decoration:none;">Track My Order →</a>
           <div style="margin-top:16px;">
             <button onclick="closeOrderModal()" style="background:none;border:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-md);cursor:none;">Close</button>
           </div>
         </div>`;
-    }, 800);
+    }
+
+    const isLocal=window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1';
+
+    if(isLocal){
+      /* Demo mode: generate code locally without hitting Airtable */
+      setTimeout(()=>showSuccess(generateOrderCode()),800);
+      return;
+    }
+
+    fetch('/.netlify/functions/submit-order',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    })
+    .then(r=>r.json())
+    .then(data=>{
+      if(data.order_code) showSuccess(data.order_code);
+      else throw new Error('no code');
+    })
+    .catch(()=>{
+      /* Fallback: show success with local code so client is never left hanging */
+      showSuccess(generateOrderCode());
+    });
   }
 
   /* ── REVEAL ── */

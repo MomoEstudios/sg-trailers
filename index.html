@@ -562,7 +562,7 @@
     }
     .mega-close:hover { color:var(--gold); }
     .mega-grid {
-      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
     }
     .mega-card {
       display:flex;flex-direction:column;
@@ -798,6 +798,14 @@
     .mega-card.coming-soon .mega-card-img img{filter:brightness(.5);}
     .mega-card.coming-soon:hover .mega-card-img img{filter:brightness(.62);transform:none;}
     .mega-card.coming-soon .mega-card-tier{color:var(--gold);}
+    /* Atlas — locked/classified */
+    .mega-card.locked{pointer-events:none;cursor:default;}
+    .mega-card.locked .mega-card-img{position:relative;}
+    .mega-card.locked .mega-card-img img{filter:brightness(0);}
+    .mega-card.locked .mega-card-img::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:26px;filter:drop-shadow(0 0 14px rgba(232,184,0,.8));z-index:2;}
+    .mega-card.locked:hover .mega-card-img img{filter:brightness(0);transform:none;}
+    .mega-card.locked .mega-card-name{color:rgba(255,255,255,.22);}
+    .mega-card.locked .mega-card-tier{color:rgba(255,255,255,.15);}
     .model-tab.coming-soon .model-tab-img{filter:brightness(.45) saturate(.2);}
     .model-tab.coming-soon:hover .model-tab-img,.model-tab.coming-soon.active .model-tab-img{filter:brightness(.55) saturate(.2);transform:none;}
     .model-tab.coming-soon .model-tab-tier{color:var(--gold);}
@@ -893,6 +901,12 @@
           <div class="mega-card-name">Apocalypse</div>
           <div class="mega-card-tier">Pre-Order</div>
         </a>
+        <div class="mega-card locked">
+          <div class="mega-card-cs-badge" style="background:rgba(20,19,18,.85);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);">Classified</div>
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
+          <div class="mega-card-name">Atlas</div>
+          <div class="mega-card-tier">Coming Soon</div>
+        </div>
       </div>
       <div class="mega-footer">
         <a href="configurator.html" class="mega-config-btn" onclick="closeMega()">

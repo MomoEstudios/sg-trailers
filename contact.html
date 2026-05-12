@@ -735,51 +735,55 @@
 
       <!-- RIGHT: Form -->
       <div class="reveal">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" placeholder="John"/>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><input name="bot-field"/></p>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" name="first_name" class="form-input" placeholder="John"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" name="last_name" class="form-input" placeholder="Smith"/>
+            </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" placeholder="Smith"/>
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-input" placeholder="john@example.com"/>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="john@example.com"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Phone Number</label>
-          <input type="tel" class="form-input" placeholder="(928) 276-0988"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">I'm Interested In</label>
-          <select class="form-select form-input">
-            <option value="">Select...</option>
-            <option>Anubis — Entry Level</option>
-            <option>Apolo — Mid Range</option>
-            <option>Armagedon — Upper Mid</option>
-            <option>Apocalypse — Top of Line</option>
-            <option>Dealer Program</option>
-            <option>General Inquiry</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea class="form-textarea" placeholder="Tell us what you're looking for — model, size, intended use, timeline..."></textarea>
-        </div>
-        <div class="form-consent">
-          <label class="form-consent-item required-consent">
-            <input type="checkbox" id="consent-privacy" onchange="checkConsent()" required>
-            <span>I have read and agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>. I consent to SG Trailers collecting and using my information to respond to my inquiry. <span style="color:var(--red);">*</span></span>
-          </label>
-          <label class="form-consent-item">
-            <input type="checkbox" id="consent-marketing">
-            <span>I'd like to receive updates about new trailer models, promotions, and industry news from SG Trailers. (Optional)</span>
-          </label>
-        </div>
-        <button class="form-submit" id="contactSubmitBtn" disabled onclick="submitContactForm()">Send Message →</button>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" name="phone" class="form-input" placeholder="(928) 276-0988"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">I'm Interested In</label>
+            <select name="interest" class="form-select form-input">
+              <option value="">Select...</option>
+              <option>Anubis — Entry Level</option>
+              <option>Apolo — Mid Range</option>
+              <option>Armagedon — Upper Mid</option>
+              <option>Apocalypse — Top of Line</option>
+              <option>Dealer Program</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-textarea" placeholder="Tell us what you're looking for — model, size, intended use, timeline..."></textarea>
+          </div>
+          <div class="form-consent">
+            <label class="form-consent-item required-consent">
+              <input type="checkbox" name="consent_privacy" id="consent-privacy" onchange="checkConsent()" required>
+              <span>I have read and agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>. I consent to SG Trailers collecting and using my information to respond to my inquiry. <span style="color:var(--red);">*</span></span>
+            </label>
+            <label class="form-consent-item">
+              <input type="checkbox" name="consent_marketing" id="consent-marketing">
+              <span>I'd like to receive updates about new trailer models, promotions, and industry news from SG Trailers. (Optional)</span>
+            </label>
+          </div>
+          <button type="button" class="form-submit" id="contactSubmitBtn" disabled onclick="submitContactForm()">Send Message →</button>
+        </form>
       </div>
 
     </div>
@@ -929,12 +933,20 @@
       document.getElementById('contactSubmitBtn').disabled=!ok;
     }
     function submitContactForm(){
-      // Placeholder — conectar a Formspree cuando el cliente pase acceso al dominio
-      const marketing=document.getElementById('consent-marketing').checked;
       const btn=document.getElementById('contactSubmitBtn');
-      btn.textContent='Message sent ✓';
+      const form=btn.closest('form');
+      const data=new FormData(form);
+      btn.textContent='Sending...';
       btn.disabled=true;
-      btn.style.background='#2D6A4F';
+      fetch('/',{method:'POST',body:data})
+        .then(()=>{
+          btn.textContent='Message sent ✓';
+          btn.style.background='#2D6A4F';
+        })
+        .catch(()=>{
+          btn.textContent='Send Message →';
+          btn.disabled=false;
+        });
     }
 
     // Theme Toggle

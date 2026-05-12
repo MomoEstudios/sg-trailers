@@ -792,75 +792,79 @@
       <p class="sec-desc" style="margin:0 auto;">Complete the form below and we'll get back to you within 48 hours to discuss your application.</p>
     </div>
     <div style="max-width:720px;margin:0 auto;" class="reveal">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-input" placeholder="John"/>
+      <form name="dealer-application" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="dealer-application">
+        <p style="display:none"><input name="bot-field"/></p>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" name="first_name" class="form-input" placeholder="John"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="last_name" class="form-input" placeholder="Smith"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Business Name</label>
+            <input type="text" name="business_name" class="form-input" placeholder="Smith Equipment LLC"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Years in Business</label>
+            <select name="years_in_business" class="form-select form-input">
+              <option value="">Select...</option>
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>3–5 years</option>
+              <option>5–10 years</option>
+              <option>10+ years</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-input" placeholder="john@smithequipment.com"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" name="phone" class="form-input" placeholder="(928) 276-0988"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City / State</label>
+            <input type="text" name="city_state" class="form-input" placeholder="Phoenix, AZ"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Estimated Units / Year</label>
+            <select name="estimated_units" class="form-select form-input">
+              <option value="">Select...</option>
+              <option>5–10 units</option>
+              <option>10–25 units</option>
+              <option>25–50 units</option>
+              <option>50+ units</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-input" placeholder="Smith"/>
+          <label class="form-label">Tell Us About Your Business</label>
+          <textarea name="about_business" class="form-textarea" placeholder="Describe your current business, customer base, and why you're interested in the SG Trailers dealer program..."></textarea>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Business Name</label>
-          <input type="text" class="form-input" placeholder="Smith Equipment LLC"/>
+        <div class="form-consent">
+          <label class="form-consent-item required-consent">
+            <input type="checkbox" name="consent_privacy" id="dealer-consent-privacy" onchange="checkDealerConsent()" required>
+            <span>I have read and agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>. I consent to SG Trailers collecting and using my information to process my dealer application. <span style="color:var(--red);">*</span></span>
+          </label>
+          <label class="form-consent-item">
+            <input type="checkbox" name="consent_marketing" id="dealer-consent-marketing">
+            <span>I'd like to receive updates about new trailer models, dealer promotions, and program news from SG Trailers. (Optional)</span>
+          </label>
         </div>
-        <div class="form-group">
-          <label class="form-label">Years in Business</label>
-          <select class="form-select form-input">
-            <option value="">Select...</option>
-            <option>Less than 1 year</option>
-            <option>1–3 years</option>
-            <option>3–5 years</option>
-            <option>5–10 years</option>
-            <option>10+ years</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="john@smithequipment.com"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Phone Number</label>
-          <input type="tel" class="form-input" placeholder="(928) 276-0988"/>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">City / State</label>
-          <input type="text" class="form-input" placeholder="Phoenix, AZ"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Estimated Units / Year</label>
-          <select class="form-select form-input">
-            <option value="">Select...</option>
-            <option>5–10 units</option>
-            <option>10–25 units</option>
-            <option>25–50 units</option>
-            <option>50+ units</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tell Us About Your Business</label>
-        <textarea class="form-textarea" placeholder="Describe your current business, customer base, and why you're interested in the SG Trailers dealer program..."></textarea>
-      </div>
-      <div class="form-consent">
-        <label class="form-consent-item required-consent">
-          <input type="checkbox" id="dealer-consent-privacy" onchange="checkDealerConsent()" required>
-          <span>I have read and agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>. I consent to SG Trailers collecting and using my information to process my dealer application. <span style="color:var(--red);">*</span></span>
-        </label>
-        <label class="form-consent-item">
-          <input type="checkbox" id="dealer-consent-marketing">
-          <span>I'd like to receive updates about new trailer models, dealer promotions, and program news from SG Trailers. (Optional)</span>
-        </label>
-      </div>
-      <button class="form-submit" id="dealerSubmitBtn" disabled onclick="submitDealerForm()">Submit Dealer Application →</button>
-      <p class="form-note">We review every application personally. You'll hear from us within 48 business hours.</p>
+        <button type="button" class="form-submit" id="dealerSubmitBtn" disabled onclick="submitDealerForm()">Submit Dealer Application →</button>
+        <p class="form-note">We review every application personally. You'll hear from us within 48 business hours.</p>
+      </form>
     </div>
   </section>
 
@@ -972,9 +976,19 @@
     }
     function submitDealerForm(){
       const btn=document.getElementById('dealerSubmitBtn');
-      btn.textContent='Application sent ✓';
+      const form=btn.closest('form');
+      const data=new FormData(form);
+      btn.textContent='Sending...';
       btn.disabled=true;
-      btn.style.background='#2D6A4F';
+      fetch('/',{method:'POST',body:data})
+        .then(()=>{
+          btn.textContent='Application sent ✓';
+          btn.style.background='#2D6A4F';
+        })
+        .catch(()=>{
+          btn.textContent='Submit Dealer Application →';
+          btn.disabled=false;
+        });
     }
 
     // Theme Toggle

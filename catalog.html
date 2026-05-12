@@ -504,7 +504,7 @@
     }
     .mega-close:hover { color:var(--gold);border-color:var(--gold); }
     .mega-grid {
-      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
     }
     .mega-card {
       display:flex;flex-direction:column;
@@ -693,6 +693,23 @@
   .preorder-img{position:relative;overflow:hidden;}
   .preorder-img img{filter:brightness(.7);}
   .preorder-img-badge{position:absolute;bottom:12px;left:12px;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 12px;border-radius:100px;}
+  /* ── ATLAS LOCKED ── */
+  .mega-card.locked{pointer-events:none;cursor:default;}
+  .mega-card.locked .mega-card-img{position:relative;}
+  .mega-card.locked .mega-card-img img{filter:brightness(0);}
+  .mega-card.locked .mega-card-img::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:26px;filter:drop-shadow(0 0 14px rgba(232,184,0,.8));z-index:2;}
+  .mega-card.locked:hover .mega-card-img img{filter:brightness(0);transform:none;}
+  .mega-card.locked .mega-card-name{color:rgba(255,255,255,.22);}
+  .mega-card.locked .mega-card-tier{color:rgba(255,255,255,.15);}
+  .model-card.locked{cursor:default;pointer-events:none;}
+  .model-card.locked::before{display:none;}
+  .model-card.locked:hover{background:var(--black-c);}
+  .model-card.locked .card-img{position:relative;}
+  .model-card.locked .card-img img{filter:brightness(0);}
+  .model-card.locked .card-img::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;filter:drop-shadow(0 0 16px rgba(232,184,0,.8));z-index:2;}
+  .model-card.locked .card-name{color:rgba(255,255,255,.25);}
+  .model-card.locked .card-tagline,.model-card.locked .card-specs-bar,.model-card.locked .card-msrp-label,.model-card.locked .card-msrp{opacity:.18;}
+  .model-card.locked .card-cta-btn{opacity:.18;}
   .exp-preorder-tag{display:inline-block;background:rgba(232,184,0,.15);color:var(--gold);border:1px solid rgba(232,184,0,.3);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
   .exp-preorder-panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 24px;}
   .exp-preorder-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;color:var(--white);margin-bottom:8px;}
@@ -809,6 +826,12 @@
           <div class="mega-card-name">Apocalypse</div>
           <div class="mega-card-tier">Top of Line</div>
         </a>
+        <div class="mega-card locked">
+          <div class="mega-card-cs-badge" style="background:rgba(20,19,18,.85);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);">Classified</div>
+          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
+          <div class="mega-card-name">Atlas</div>
+          <div class="mega-card-tier">Coming Soon</div>
+        </div>
       </div>
       <div class="mega-footer">
         <a href="configurator.html" class="mega-config-btn" onclick="closeMega()">
@@ -954,6 +977,26 @@
         </div>
       </div>
       <div class="expand-row" id="expand-row-apocalypse"><div class="expand-inner" id="expand-inner-apocalypse"></div></div>
+
+      <!-- ATLAS — Locked/Coming Soon -->
+      <div class="model-card locked reveal">
+        <div class="card-inner">
+          <div class="card-img"><img src="img/apolo-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/><div class="card-tier" style="background:rgba(20,19,18,.9);color:rgba(255,255,255,.3);border-color:rgba(255,255,255,.08);">Classified</div></div>
+          <div class="card-info">
+            <div class="card-name">Atlas</div>
+            <div class="card-tagline">Something new is coming. This model is not yet revealed — stay tuned for the announcement.</div>
+            <div class="card-specs-bar">
+              <div class="card-spec"><div class="card-spec-label">GVWR</div><div class="card-spec-val">???</div></div>
+              <div class="card-spec"><div class="card-spec-label">Length</div><div class="card-spec-val">???</div></div>
+              <div class="card-spec"><div class="card-spec-label">Axles</div><div class="card-spec-val">???</div></div>
+            </div>
+          </div>
+          <div class="card-cta-col">
+            <div><div class="card-msrp-label">Price</div><div class="card-msrp">TBD</div></div>
+            <div class="card-cta-btn">Stay Tuned <div class="card-arrow">🔒</div></div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

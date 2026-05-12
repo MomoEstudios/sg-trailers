@@ -78,4 +78,18 @@
     <priority>0.5</priority>
   </url>
 
+  <!-- Dealer Inventory (por dealer, URL base indexable) -->
+  <url>
+    <loc>https://sgtrailers.com/dealer_inventory.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Order Tracking -->
+  <url>
+    <loc>https://sgtrailers.com/track.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>
