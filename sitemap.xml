@@ -3,91 +3,91 @@
 
   <!-- Home -->
   <url>
-    <loc>https://sgtrailers.com/</loc>
+    <loc>https://sg-trailers.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Catalog -->
   <url>
-    <loc>https://sgtrailers.com/catalog.html</loc>
+    <loc>https://sg-trailers.com/catalog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Configurator -->
   <url>
-    <loc>https://sgtrailers.com/configurator.html</loc>
+    <loc>https://sg-trailers.com/configurator.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Financing -->
   <url>
-    <loc>https://sgtrailers.com/financing.html</loc>
+    <loc>https://sg-trailers.com/financing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Dealer Program -->
   <url>
-    <loc>https://sgtrailers.com/dealer_program.html</loc>
+    <loc>https://sg-trailers.com/dealer_program.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Dealer Locations -->
   <url>
-    <loc>https://sgtrailers.com/dealer_locations.html</loc>
+    <loc>https://sg-trailers.com/dealer_locations.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- About -->
   <url>
-    <loc>https://sgtrailers.com/about.html</loc>
+    <loc>https://sg-trailers.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Community -->
   <url>
-    <loc>https://sgtrailers.com/community.html</loc>
+    <loc>https://sg-trailers.com/community.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <!-- Owner's Guide -->
   <url>
-    <loc>https://sgtrailers.com/owners_guide.html</loc>
+    <loc>https://sg-trailers.com/owners_guide.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <!-- Parts & Accessories -->
   <url>
-    <loc>https://sgtrailers.com/parts_accessories.html</loc>
+    <loc>https://sg-trailers.com/parts_accessories.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Contact -->
   <url>
-    <loc>https://sgtrailers.com/contact.html</loc>
+    <loc>https://sg-trailers.com/contact.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Dealer Inventory (por dealer, URL base indexable) -->
   <url>
-    <loc>https://sgtrailers.com/dealer_inventory.html</loc>
+    <loc>https://sg-trailers.com/dealer_inventory.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Order Tracking -->
   <url>
-    <loc>https://sgtrailers.com/track.html</loc>
+    <loc>https://sg-trailers.com/track.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
