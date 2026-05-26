@@ -801,9 +801,9 @@
     /* Atlas — locked/classified */
     .mega-card.locked{pointer-events:none;cursor:default;}
     .mega-card.locked .mega-card-img{position:relative;}
-    .mega-card.locked .mega-card-img img{filter:brightness(0);}
+    .mega-card.locked .mega-card-img img{filter:brightness(0.5);}
     .mega-card.locked .mega-card-img::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:26px;filter:drop-shadow(0 0 14px rgba(232,184,0,.8));z-index:2;}
-    .mega-card.locked:hover .mega-card-img img{filter:brightness(0);transform:none;}
+    .mega-card.locked:hover .mega-card-img img{filter:brightness(0.5);transform:none;}
     .mega-card.locked .mega-card-name{color:rgba(255,255,255,.22);}
     .mega-card.locked .mega-card-tier{color:rgba(255,255,255,.15);}
     .model-tab.coming-soon .model-tab-img{filter:brightness(.45) saturate(.2);}
@@ -903,7 +903,7 @@
         </a>
         <div class="mega-card locked">
           <div class="mega-card-cs-badge" style="background:rgba(20,19,18,.85);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);">Classified</div>
-          <div class="mega-card-img"><img src="img/apolo-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
+          <div class="mega-card-img"><img src="img/atlas-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
           <div class="mega-card-name">Atlas</div>
           <div class="mega-card-tier">Coming Soon</div>
         </div>
@@ -967,8 +967,14 @@
     <div class="hero-slides">
       <div class="hero-slide active">
         <picture>
+          <source media="(max-width:768px)" srcset="img/hero-0-mobile.webp"/>
+          <img src="img/hero-0.webp" alt="SG Trailers" width="1800" height="1013" fetchpriority="high" onerror="imgErr(this)"/>
+        </picture>
+      </div>
+      <div class="hero-slide">
+        <picture>
           <source media="(max-width:768px)" srcset="img/hero-1-mobile.webp"/>
-          <img src="img/hero-1.webp" alt="SG Trailers" width="1800" height="1013" fetchpriority="high" onerror="imgErr(this)"/>
+          <img src="img/hero-1.webp" alt="SG Trailers" width="1800" height="1013" loading="lazy" onerror="imgErr(this)"/>
         </picture>
       </div>
       <div class="hero-slide">
@@ -989,17 +995,25 @@
           <img src="img/hero-4.webp" alt="SG Trailers" width="1800" height="1013" loading="lazy" onerror="imgErr(this)"/>
         </picture>
       </div>
+      <div class="hero-slide">
+        <picture>
+          <source media="(max-width:768px)" srcset="img/hero-5-mobile.webp"/>
+          <img src="img/hero-5.webp" alt="SG Trailers" width="1800" height="1013" loading="lazy" onerror="imgErr(this)"/>
+        </picture>
+      </div>
+      <div class="hero-slide">
+        <picture>
+          <source media="(max-width:768px)" srcset="img/hero-6-mobile.webp"/>
+          <img src="img/hero-6.webp" alt="SG Trailers" width="1800" height="1013" loading="lazy" onerror="imgErr(this)"/>
+        </picture>
+      </div>
+      <!-- hero-7 (Anubis) — agregar cuando esté listo -->
     </div>
 
     <button class="hero-arrow prev" onclick="moveSlide(-1)">&#8249;</button>
     <button class="hero-arrow next" onclick="moveSlide(1)">&#8250;</button>
 
-    <div class="hero-dots">
-      <div class="hero-dot active" onclick="goSlide(0)"></div>
-      <div class="hero-dot" onclick="goSlide(1)"></div>
-      <div class="hero-dot" onclick="goSlide(2)"></div>
-      <div class="hero-dot" onclick="goSlide(3)"></div>
-    </div>
+    <div class="hero-dots" id="heroDots"></div>
 
     <div class="hero-content">
       <div class="hero-eyebrow">Proudly manufactured in Yuma, Arizona</div>
@@ -1149,11 +1163,18 @@
     document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.transform=`translate(calc(${mx}px - 50%),calc(${my}px - 50%))`; });
     (function loop(){ rx+=(mx-rx)*.700;ry+=(my-ry)*.700;ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;requestAnimationFrame(loop); })();
 
-    // Hero Slider
+    // Hero Slider — dots generados automáticamente
     let cur2=0;
     const slides=document.querySelectorAll('.hero-slide');
-    const dots=document.querySelectorAll('.hero-dot');
+    const dotsWrap=document.getElementById('heroDots');
+    slides.forEach((_,i)=>{
+      const d=document.createElement('div');
+      d.className='hero-dot'+(i===0?' active':'');
+      d.onclick=()=>goSlide(i);
+      dotsWrap.appendChild(d);
+    });
     function goSlide(n){
+      const dots=dotsWrap.querySelectorAll('.hero-dot');
       slides[cur2].classList.remove('active');
       dots[cur2].classList.remove('active');
       cur2=(n+slides.length)%slides.length;

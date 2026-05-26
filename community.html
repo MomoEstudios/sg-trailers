@@ -662,6 +662,80 @@
       letter-spacing:.35em;color:var(--gray-md);text-transform:uppercase;
     }
 
+    /* ── DEALERS EN ACCIÓN ── */
+    .dealer-reel-intro { max-width:700px;margin-bottom:56px; }
+    .dealer-reel-header {
+      display:flex;align-items:center;gap:24px;margin-bottom:20px;flex-wrap:wrap;
+    }
+    .dealer-reel-logo {
+      height:48px;width:auto;object-fit:contain;
+      filter:brightness(0) invert(1);opacity:.85;
+    }
+    .dealer-reel-logo-placeholder {
+      height:48px;display:flex;align-items:center;
+      font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;
+      letter-spacing:.08em;color:var(--gold);text-transform:uppercase;
+    }
+    .dealer-reel-divider {
+      width:1px;height:36px;background:rgba(255,255,255,.15);
+    }
+    .dealer-reel-meta {
+      display:flex;flex-direction:column;gap:4px;
+    }
+    .dealer-reel-name {
+      font-family:'Barlow Condensed',sans-serif;font-size:13px;
+      letter-spacing:.2em;color:rgba(255,255,255,.85);text-transform:uppercase;font-weight:600;
+    }
+    .dealer-reel-handle {
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;
+      letter-spacing:.15em;color:var(--gold);opacity:.75;
+    }
+    .dealer-reel-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+    }
+    .dealer-reel-item {
+      position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--black-c);
+    }
+    .dealer-reel-item video {
+      width:100%;height:100%;object-fit:cover;display:block;
+      transition:transform .5s;
+    }
+    .dealer-reel-item:hover video { transform:scale(1.04); }
+    .dealer-reel-overlay {
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 50%);
+      pointer-events:none;
+    }
+    .dealer-reel-play {
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .3s;
+    }
+    .dealer-reel-item:hover .dealer-reel-play { opacity:1; }
+    .dealer-reel-play-btn {
+      width:52px;height:52px;border-radius:50%;
+      background:rgba(232,184,0,.9);
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;color:var(--black);
+    }
+    .dealer-reel-num {
+      position:absolute;bottom:12px;left:14px;
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.25em;color:rgba(255,255,255,.5);text-transform:uppercase;
+    }
+    .dealer-reel-attr {
+      margin-top:16px;
+      font-family:'Barlow Condensed',sans-serif;font-size:10px;
+      letter-spacing:.25em;color:rgba(255,255,255,.3);text-transform:uppercase;
+    }
+    .dealer-reel-attr a { color:rgba(232,184,0,.5);text-decoration:none; }
+    .dealer-reel-attr a:hover { color:var(--gold); }
+    @media(max-width:768px){
+      .dealer-reel-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:480px){
+      .dealer-reel-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
     /* ── CTA SECTION ── */
     .cta-section {
       background:linear-gradient(135deg,rgba(232,184,0,.08),rgba(181,34,0,.05));
@@ -1182,6 +1256,81 @@
           <div class="media-play-btn">▶</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- DEALERS EN ACCIÓN -->
+  <section class="section section-alt" id="dealer-reel">
+    <div class="dealer-reel-intro reveal">
+      <div class="sec-eyebrow">Dealer Spotlight</div>
+      <div class="dealer-reel-header">
+        <!-- Logo: cambiar por <img> cuando esté listo portillostrailerslogo.webp -->
+        <div class="dealer-reel-logo-placeholder">Portillos</div>
+        <div class="dealer-reel-divider"></div>
+        <div class="dealer-reel-meta">
+          <div class="dealer-reel-name">Portillos Trailer Sales LLC</div>
+          <div class="dealer-reel-handle">@portillostrailerssales</div>
+        </div>
+      </div>
+      <h2 class="sec-title">Dealers en <em>Acción</em></h2>
+      <p class="sec-desc">Mira a nuestros dealers en campo — cómo trabajan, cómo entregan y cómo llevan el estándar SG a sus comunidades.</p>
+    </div>
+
+    <div class="dealer-reel-grid reveal">
+      <!-- Video 1 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-1.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">01</div>
+      </div>
+      <!-- Video 2 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-2.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">02</div>
+      </div>
+      <!-- Video 3 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-3.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">03</div>
+      </div>
+      <!-- Video 4 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-4.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">04</div>
+      </div>
+      <!-- Video 5 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-5.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">05</div>
+      </div>
+      <!-- Video 6 -->
+      <div class="dealer-reel-item">
+        <video src="img/portillos_v-6.mp4" muted playsinline loop preload="none"
+               onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="dealer-reel-overlay"></div>
+        <div class="dealer-reel-play"><div class="dealer-reel-play-btn">▶</div></div>
+        <div class="dealer-reel-num">06</div>
+      </div>
+    </div>
+
+    <div class="dealer-reel-attr reveal">
+      Contenido original: <a href="https://www.instagram.com/portillostrailerssales" target="_blank" rel="noopener">@portillostrailerssales</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.portillostrailers.com" target="_blank" rel="noopener">portillostrailers.com</a>
     </div>
   </section>
 
