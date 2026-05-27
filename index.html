@@ -234,7 +234,7 @@
       font-size:11px;letter-spacing:.4em;color:var(--gray-md);text-transform:uppercase;
     }
     .models-bar-grid {
-      display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
     }
     .model-tab {
       display:flex;flex-direction:column;align-items:center;
@@ -262,11 +262,8 @@
       opacity:1;
       filter:none;
     }
-    #tab-apolo::after { background:#5BB8F5; }
-    #tab-apolo.active .model-tab-name,
-    #tab-apolo:hover .model-tab-name { color:#5BB8F5; }
-    #tab-apolo.active,#tab-apolo:hover { background:rgba(91,184,245,.05); }
-    #tab-apolo .model-tab-tier { color:var(--white); }
+    #tab-apolo::after,#tab-anubis::after,#tab-atlas::after { background:var(--gold); }
+    #tab-apolo:hover .model-tab-name,#tab-anubis:hover .model-tab-name,#tab-atlas:hover .model-tab-name { color:var(--gold); }
     .model-tab-img {
       width:100%;height:150px;object-fit:contain;
       filter:brightness(.75) saturate(.8);
@@ -1031,33 +1028,27 @@
       <div class="models-bar-title">Trailer Models</div>
     </div>
     <div class="models-bar-grid">
-      <a href="catalog.html?model=apolo" class="model-tab active reveal" id="tab-apolo">
+      <a href="catalog.html?model=apolo" class="model-tab reveal" id="tab-apolo">
         <img src="img/apolo-1.webp" alt="Apolo" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Apolo</div>
-        <div class="model-tab-tier">Entry Level</div>
-        <div class="model-tab-msrp">MSRP From $6,324</div>
+        <div class="model-tab-tier">Car Hauler</div>
+        <div class="model-tab-msrp">Contact for Quote →</div>
       </a>
-      <a href="catalog.html?model=anubis" class="model-tab reveal coming-soon" id="tab-anubis">
-        <div class="model-tab-cs-badge">Coming 2026</div>
+      <a href="catalog.html?model=anubis" class="model-tab reveal" id="tab-anubis">
         <img src="img/anubis-1.webp" alt="Anubis" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
         <div class="model-tab-name">Anubis</div>
-        <div class="model-tab-tier">Mid Range</div>
-        <div class="model-tab-msrp">Reserve Yours →</div>
+        <div class="model-tab-tier">Car Hauler</div>
+        <div class="model-tab-msrp">Contact for Quote →</div>
       </a>
-      <a href="catalog.html?model=armagedon" class="model-tab reveal coming-soon" id="tab-armagedon">
-        <div class="model-tab-cs-badge">Coming 2026</div>
-        <img src="img/armagedon-1.webp" alt="Armagedon" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
-        <div class="model-tab-name">Armagedon</div>
-        <div class="model-tab-tier">Upper Mid</div>
-        <div class="model-tab-msrp">Reserve Yours →</div>
+      <a href="catalog.html?model=atlas" class="model-tab reveal" id="tab-atlas">
+        <img src="img/atlas-1.webp" alt="Atlas" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
+        <div class="model-tab-name">Atlas</div>
+        <div class="model-tab-tier">Tilt Trailer</div>
+        <div class="model-tab-msrp">Contact for Quote →</div>
       </a>
-      <a href="catalog.html?model=apocalypse" class="model-tab reveal coming-soon" id="tab-apocalypse">
-        <div class="model-tab-cs-badge">Coming 2026</div>
-        <img src="img/apocalypse-1.webp" alt="Apocalypse" class="model-tab-img" width="900" height="600" loading="lazy" onerror="imgErr(this)"/>
-        <div class="model-tab-name">Apocalypse</div>
-        <div class="model-tab-tier">Top of Line</div>
-        <div class="model-tab-msrp">Reserve Yours →</div>
-      </a>
+    </div>
+    <div style="text-align:center;padding:16px 0 24px;border-top:1px solid rgba(255,255,255,.04);">
+      <a href="catalog.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.35em;color:var(--gray-md);text-transform:uppercase;text-decoration:none;">View All Models →</a>
     </div>
   </div>
 
