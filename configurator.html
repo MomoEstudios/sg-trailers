@@ -814,6 +814,11 @@
         <div class="mega-card-name">Apocalypse</div>
         <div class="mega-card-tier">Top of Line</div>
       </a>
+      <a href="catalog.html?model=atlas" class="mega-card" onclick="closeMega()">
+        <div class="mega-card-img"><img src="img/atlas-1.webp" alt="Atlas" width="900" height="600" loading="lazy"/></div>
+        <div class="mega-card-name">Atlas</div>
+        <div class="mega-card-tier">Tilt</div>
+      </a>
     </div>
     <div class="mega-footer">
       <a href="configurator.html" class="mega-config-btn" onclick="closeMega()">
@@ -948,7 +953,7 @@
             <div class="model-pick-info">
               <div class="model-pick-tier model-pick-tier-preorder">Pre-Order</div>
               <div class="model-pick-name">Anubis</div>
-              <div class="model-pick-price">Est. MSRP <span>$12,800</span></div>
+              <div class="model-pick-price">Contact for Quote</div>
             </div>
           </div>
           <div class="model-pick-card" onclick="selectModel('apolo',6324,'img/apolo-2.webp')" id="mcard-apolo">
@@ -956,7 +961,7 @@
             <div class="model-pick-info">
               <div class="model-pick-tier">Entry Level</div>
               <div class="model-pick-name">Apolo</div>
-              <div class="model-pick-price">MSRP From <span>$6,324</span></div>
+              <div class="model-pick-price">Contact for Quote</div>
             </div>
           </div>
           <div class="model-pick-card coming-soon" id="mcard-armagedon">
@@ -965,7 +970,7 @@
             <div class="model-pick-info">
               <div class="model-pick-tier model-pick-tier-preorder">Pre-Order</div>
               <div class="model-pick-name">Armagedon</div>
-              <div class="model-pick-price">Est. MSRP <span>$18,500</span></div>
+              <div class="model-pick-price">Contact for Quote</div>
             </div>
           </div>
           <div class="model-pick-card coming-soon" id="mcard-apocalypse">
@@ -974,16 +979,15 @@
             <div class="model-pick-info">
               <div class="model-pick-tier model-pick-tier-preorder">Pre-Order</div>
               <div class="model-pick-name">Apocalypse</div>
-              <div class="model-pick-price">Est. MSRP <span>$28,000</span></div>
+              <div class="model-pick-price">Contact for Quote</div>
             </div>
           </div>
-          <div class="model-pick-card locked" id="mcard-atlas">
-            <div class="model-pick-cs-badge" style="background:rgba(20,19,18,.9);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);">Classified</div>
-            <div class="model-pick-img"><img src="img/atlas-1.webp" alt="Atlas" width="900" height="600" loading="lazy" draggable="false"/></div>
+          <div class="model-pick-card" id="mcard-atlas" onclick="selectModel('atlas')">
+            <div class="model-pick-img"><img src="img/atlas-1.webp" alt="Atlas" width="900" height="600" loading="lazy"/></div>
             <div class="model-pick-info">
-              <div class="model-pick-tier" style="color:rgba(255,255,255,.2);">Coming Soon</div>
+              <div class="model-pick-tier">Tilt</div>
               <div class="model-pick-name">Atlas</div>
-              <div class="model-pick-price" style="color:rgba(255,255,255,.15);">Price TBD</div>
+              <div class="model-pick-price">Contact for Quote</div>
             </div>
           </div>
         </div>
@@ -1776,6 +1780,10 @@
     apocalypse:{sizes:[
       {ft:8,price:10000},{ft:10,price:12500},{ft:12,price:15000},{ft:14,price:18000},{ft:16,price:21000},{ft:18,price:24000},{ft:20,price:27000},
       {ft:22,price:33000,jump:true},{ft:24,price:37000},{ft:26,price:41000},{ft:28,price:45000},{ft:30,price:49000},{ft:32,price:54000}
+    ]},
+    atlas:{sizes:[
+      {ft:8,price:4200},{ft:10,price:5100},{ft:12,price:6000},{ft:14,price:7100},{ft:16,price:8500},{ft:18,price:9800},{ft:20,price:11200},
+      {ft:22,price:14800,jump:true},{ft:24,price:16500},{ft:26,price:18200},{ft:28,price:20000},{ft:30,price:22500},{ft:32,price:25000}
     ]}
   };
 
