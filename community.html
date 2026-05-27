@@ -1278,7 +1278,7 @@
     <div class="dealer-reel-grid reveal">
       <!-- Video 1 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-1.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-1.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1287,7 +1287,7 @@
       </div>
       <!-- Video 2 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-2.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-2.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1296,7 +1296,7 @@
       </div>
       <!-- Video 3 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-3.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-3.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1305,7 +1305,7 @@
       </div>
       <!-- Video 4 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-4.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-4.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1314,7 +1314,7 @@
       </div>
       <!-- Video 5 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-5.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-5.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1323,7 +1323,7 @@
       </div>
       <!-- Video 6 -->
       <div class="dealer-reel-item">
-        <video src="img/portillos_v-6.mp4" muted playsinline loop preload="metadata"
+        <video src="img/portillos_v-6.mp4" muted playsinline loop preload="none"
                onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="dealer-reel-overlay"></div>
         <button class="dealer-reel-sound" aria-label="Toggle sound"
@@ -1473,6 +1473,15 @@
       if(e.isIntersecting) e.target.classList.add('visible');
     }),{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // Lazy-load dealer videos — preload="metadata" solo cuando entran al viewport
+    const videoObs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.preload='metadata';
+        videoObs.unobserve(e.target);
+      }
+    }),{rootMargin:'200px'});
+    document.querySelectorAll('.dealer-reel-item video').forEach(v=>videoObs.observe(v));
 
     // Media tabs (UI only — placeholder behavior)
     document.querySelectorAll('.media-tab-btn').forEach(btn=>{
